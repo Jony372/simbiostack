@@ -1,0 +1,67 @@
+@import url(https://fonts.googleapis.com/css?family=Gloria+Hallelujah);
+
+/* * { box-sizing:border-box; } */
+
+/* body{
+  background-color: aqua; */
+
+.text{
+  float:left; 
+  display: flex;
+  flex-direction: column;
+  gap: 0;  
+  width:150px;
+  height:150px; 
+  margin: 5px 10px;
+  align-items: center;
+}
+
+#create{ 
+  float:left; 
+  /* margin:0 20px 20px 0; */
+  width:150px;
+  height:150px; 
+}
+
+textarea{ 
+  padding:20px 20px 30px;
+  /* margin:0 20px 20px 0; */
+  width:150px;
+  height:130px; 
+}
+
+/* button{
+  height: 20px;
+  width: fit-content;
+  margin: 0;
+  background-color: red;
+} */
+
+#create {
+  user-select:none; 
+  border-radius:20px;
+  text-align:center; 
+  /* border:15px;  */
+  cursor:pointer;
+  /* color:rgba(0,0,0,0.1); */
+  font:120px "Helvetica", sans-serif; 
+}
+
+/* #create:hover { border-color:rgba(0,0,0,0.2); color:rgba(0,0,0,0.2); } */
+
+textarea {
+  font: 15px;
+  font-family: "Gloria", cursive; 
+  line-height:1.5;
+  border:0;
+  border-radius:3px;
+  background: linear-gradient(#F9EFAF, #F7E98D);
+  box-shadow:0 4px 6px rgba(0,0,0,0.1);
+  overflow:hidden;
+  transition:box-shadow 0.5s ease;
+  font-smoothing:subpixel-antialiased;
+  max-width:150px;
+  max-height:150px;
+}
+textarea:hover { box-shadow:0 5px 8px rgba(0,0,0,0.15); }
+textarea:focus { box-shadow:0 5px 12px rgba(0,0,0,0.2); outline:none; }
