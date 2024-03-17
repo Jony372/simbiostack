@@ -1,0 +1,53 @@
+<div class="p-1 grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-2 lg:grid-flow-col gap-2 h-full dark:text-white"> 
+  <div class=" lg:row-span-2 w-auto py-1 px-3 border-gray-200 rounded-lg shadow-lg dark:bg-gray-800">
+    <h2 class="text-xl text-center font-bold pt-2 pb-3">Pendientes</h2>
+    <div class="pt-2 overflow-y-auto h-4/5 px-2">
+      @if (pendientes.length > 0) {
+        <ul class="max-w-md divide-y divide-gray-200 dark:divide-gray-700 mx-auto ">
+          @for (pendiente of pendientes; track pendiente.id) {
+            <li class="pb-3 sm:pb-4">
+              <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                <div class="flex-shrink-0">
+                  <p class="text-sm font-medium text-gray-800 truncate dark:text-white">
+                    {{pendiente.idCliente}}
+                  </p>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium text-gray-800 truncate dark:text-white">
+                    {{pendiente.nombre}}
+                  </p>
+                </div>
+                <!-- <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium text-gray-800 truncate dark:text-white">
+                    {{pendiente.prioridad}}
+                  </p>
+                </div> -->
+                <div class="inline-flex items-center text-base font-semibold text-gray-800 dark:text-white">
+                  <p>
+                    {{pendiente.prioridad}}
+                  </p>
+                </div>
+              </div>
+            </li>
+          }
+        </ul>
+      }@else{
+        <div class="h-full flex items-center justify-center flex-col">
+          <p class="pb-1">No hay pendientes...</p>
+          <svg xmlns="http://www.w3.org/2000/svg" width="170" height="100">
+            <image href="../../../../../assets/svg/undraw_relaxing_at_home_re_mror.svg" width="170" height="100" />
+          </svg>
+        </div>
+      }
+    </div>
+  </div>
+  <div class=" font-bold p-1 border-gray-200 rounded-lg shadow-lg dark:bg-gray-800">
+  <h2 class="text-xl text-center font-bold pt-2 pb-3">Inventario bajo</h2>
+  </div>
+  <div class=" font-bold p-1 border-gray-200 rounded-lg shadow-lg dark:bg-gray-800">
+    <h2 class="text-xl text-center font-bold pt-2 pb-3">Equipos en Guadalajara</h2>
+  </div>
+  <div class=" lg:row-span-2 font-bold p-1 border-gray-200 rounded-lg shadow-lg dark:bg-gray-800">
+    <h2 class="text-xl text-center font-bold pt-2 pb-3">Notas por cobrar</h2>
+  </div>
+</div>
