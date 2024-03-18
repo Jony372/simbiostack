@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { PendientesService } from '../../../services/pendientes/pendientes.service';
 import { pendienteInt } from '../../../services/pendientes/pendientesInterface';
+import { ProductosService } from '../../../services/productos/productos.service';
+import { intProducto } from '../../../services/productos/productoInterface';
 
 @Component({
   selector: 'app-inicio',
@@ -11,22 +13,32 @@ import { pendienteInt } from '../../../services/pendientes/pendientesInterface';
 })
 export class InicioComponent {
   pendientes: Array<pendienteInt> = [];
+  productos: Array<intProducto>=[];
 
-  constructor(private pendServ: PendientesService){
-  }
-  ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
+  constructor(private pendServ: PendientesService, private productoServicio: ProductosService) {}
+
+  ngOnInit(){
     this.pendServ.pendientes().subscribe({
       next:(data)=>{
         // console.log(data);
         data.map(pendiente => this.pendientes.push(pendiente))
+        // this.pendientes  = data;
       },
       error: (errorMessage)=> {
         alert("ERROR")
         console.error(errorMessage);
       }
     });
+
+    this.productoServicio.bajoStock().subscribe({
+      next: data => {
+        this.productos = data
+      },
+      error: (errorMessage)=> {
+        alert("ERROR")
+        console.error(errorMessage);
+      }
+    })
     
   }
 

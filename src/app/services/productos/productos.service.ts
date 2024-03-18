@@ -30,4 +30,8 @@ export class ProductosService {
   eliminarProducto(id: number):Observable<string>{
     return this.http.get<string>(`http://localhost:8080/api/productos/delete/${id}`).pipe(catchError(handleError))
   }
+
+  bajoStock():Observable<Array<intProducto>>{
+    return this.http.get<Array<intProducto>>("http://localhost:8080/api/productos/bajoStock").pipe(catchError(handleError))
+  }
 }
