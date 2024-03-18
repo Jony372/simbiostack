@@ -43,14 +43,8 @@ export class AddProductoComponent {
 
     if (this.prod) {
       this.addProducto.patchValue({
-        id: this.prod.id,
-        codigobarra: this.prod.codigobarra,
-        cantidad: this.prod.cantidad,
-        nombre: this.prod.nombre,
-        precio: this.prod.precio,
-        categoria: this.prod.categoria.id,
-        utilidad: this.prod.utilidad,
-        costo:this.prod.costo
+        ...this.prod,
+        categoria: this.prod.categoria.id
       })
     }else{
       this.addProducto.reset();

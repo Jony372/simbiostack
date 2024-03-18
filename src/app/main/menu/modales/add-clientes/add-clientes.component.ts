@@ -20,13 +20,7 @@ export class AddClientesComponent {
     //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     //Add '${implements OnChanges}' to the class.
     if (this.cliente ) {
-      this.addCliente.patchValue({
-        id: this.cliente.id,
-        nombre: this.cliente.nombre,
-        tel: this.cliente.tel,
-        direccion: this.cliente.direccion,
-        observacion: this.cliente.observacion
-      })
+      this.addCliente.patchValue(this.cliente)
     }else{
       this.addCliente.reset();
     }
