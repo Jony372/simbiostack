@@ -68,7 +68,16 @@ export class AddProductoComponent {
   agregar() {
     if (this.addProducto.valid && this.add) {
       // console.log(this.addProducto.value);
-      this.productoServicio.agregarProducto(this.addProducto.value as intRegProducto).subscribe({
+      const productos=this.addProducto.value;
+      this.productoServicio.agregarProducto(
+        productos.precio as number,
+        productos.cantidad as number,
+        productos.codigobarra as string,
+        productos.nombre as string,
+        productos.categoria as number,
+        productos.costo as number,
+        productos.utilidad as number
+        ).subscribe({
         error: err => alert("Error al insertar el producto: "+err),
         complete: () => window.location.reload()
       });
@@ -76,7 +85,17 @@ export class AddProductoComponent {
   }
   editar(producto:intRegProducto){
     if(this.addProducto.valid && !this.add){
-      this.productoServicio.editarProducto(producto).subscribe({
+      const productos=this.addProducto.value;
+      this.productoServicio.editarProducto(
+        productos.id as number,
+        productos.precio as number,
+        productos.cantidad as number,
+        productos.codigobarra as string,
+        productos.nombre as string,
+        productos.categoria as number,
+        productos.costo as number,
+        productos.utilidad as number
+        ).subscribe({
         error: error => alert("Error al editar el producto: "+error),
         complete: ()=>window.location.reload()
       })

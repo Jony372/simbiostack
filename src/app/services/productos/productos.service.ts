@@ -11,12 +11,29 @@ export class ProductosService {
 
   constructor(private http: HttpClient) { }
   
-  agregarProducto(body: intRegProducto): Observable<intProducto>{
-    return this.http.post<intProducto>("http://localhost:8080/api/productos/addProducto", body).pipe(catchError(handleError))
+  agregarProducto(precio: number, cantidad: number, codigoBarra:string, nombre: string, categoria: number, costo: number, utilidad: number): Observable<intProducto>{
+    return this.http.post<intProducto>("http://localhost:8080/api/productos/addProducto", null, {params:{
+      precio: precio,
+      cantidad: cantidad,
+      codigoBarra: codigoBarra,
+      nombre: nombre,
+      categoria: categoria,
+      costo: costo,
+      utilidad: utilidad
+    }}).pipe(catchError(handleError))
   }
 
-  editarProducto(producto:intRegProducto):Observable<string>{
-    return this.http.post<string>("http://localhost:8080/api/productos/editar",producto).pipe(catchError(handleError))
+  editarProducto(id: number, precio: number, cantidad: number, codigoBarra:string, nombre: string, categoria: number, costo: number, utilidad: number):Observable<string>{
+    return this.http.post<string>("http://localhost:8080/api/productos/editar",null, {params:{
+      id: id,
+      precio: precio,
+      cantidad: cantidad,
+      codigoBarra: codigoBarra,
+      nombre: nombre,
+      categoria: categoria,
+      costo: costo,
+      utilidad: utilidad
+    }}).pipe(catchError(handleError))
   }
 
   obtenerProductos():Observable<Array<intProducto>>{

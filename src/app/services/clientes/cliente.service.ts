@@ -11,12 +11,23 @@ export class ClienteService {
 
   constructor(private http: HttpClient) { }
 
-  agregar(cliente:intCliente):Observable<any>{
-    return this.http.post<any>("http://localhost:8080/api/cliente/agregar", cliente).pipe(catchError(handleError));
+  agregar(nombre: string, tel:string, direccion:string, observacion:string):Observable<any>{
+    return this.http.post<any>("http://localhost:8080/api/cliente/agregar", null, {params:{
+      nombre: nombre,
+      tel: tel,
+      direccion: direccion,
+      observacion: observacion
+    }}).pipe(catchError(handleError));
   }
 
-  editar(cliente:intCliente):Observable<any>{
-    return this.http.post<any>("http://localhost:8080/api/cliente/editar", cliente).pipe(catchError(handleError));
+  editar(id: number, nombre: string, tel:string, direccion:string, observacion:string):Observable<any>{
+    return this.http.post<any>("http://localhost:8080/api/cliente/editar", null, {params:{
+      id:id,
+      nombre: nombre,
+      tel: tel,
+      direccion: direccion,
+      observacion: observacion
+    }}).pipe(catchError(handleError));
   }
 
   eliminar(id:number):Observable<any>{

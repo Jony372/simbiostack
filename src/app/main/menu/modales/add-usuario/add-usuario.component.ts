@@ -43,7 +43,7 @@ export class AddUsuarioComponent {
       if (pass) {
         let user = form.value;
         delete user.pass2;
-        this.usuarioServicio.agregar(user as intUsuario).subscribe({
+        this.usuarioServicio.agregar(user.nombre as string, user.tel as string, user.user as string, user.pass as string, user.isAdmin as number).subscribe({
           error: err => console.error("Error al ingresar el usuario: "+ err),
           complete: () =>{
             alert('Se agrego correctamente');
@@ -59,6 +59,28 @@ export class AddUsuarioComponent {
     }
   }
 
-  editar(){}
+  editar(){
+    let form = this.addUsuario;
+    if (form.valid){
+      let pass = form.value.pass === form.value.pass2;
+      if (pass) {
+        let user = form.value;
+        delete user.pass2;
+        this.usuarioServicio.editar(user.id as number, user.nombre as string, user.tel as string, user.user as string, user.pass as string, user.isAdmin as number).subscribe({
+          next: data => console.log(data),
+          error: err => console.error("Error al editar el usuario: "+ err),
+          complete: () =>{
+            alert('Se edito correctamente');
+            location.reload();
+          }
+        })
+        
+      }else{
+        alert('Las contraseñas no coinciden');
+      }
+    }else{
+      alert("Verifique todos los campos")
+    }
+  }
 
 }

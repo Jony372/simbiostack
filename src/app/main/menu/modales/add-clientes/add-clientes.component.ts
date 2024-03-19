@@ -37,7 +37,13 @@ export class AddClientesComponent {
   agregar(){
     if(this.addCliente.valid && this.add){
       console.log(this.addCliente.value)
-      this.clienteServicio.agregar(this.addCliente.value as intCliente).subscribe({
+      const cliente = this.addCliente.value
+      this.clienteServicio.agregar(
+        cliente.nombre as string,
+        cliente.tel as string,
+        cliente.direccion as string,
+        cliente.observacion as string
+      ).subscribe({
         error:err=>alert("Ocurrió un error al intentar guardar el cliente"),
         complete:()=>alert("Se agrego")
       })
@@ -48,7 +54,14 @@ export class AddClientesComponent {
 
   editar(){
     if(this.addCliente.valid && !this.add){
-      this.clienteServicio.editar(this.addCliente.value as intCliente).subscribe({
+      const cliente = this.addCliente.value;
+      this.clienteServicio.editar(
+        cliente.id as number,
+        cliente.nombre as string,
+        cliente.tel as string,
+        cliente.direccion as string,
+        cliente.observacion as string
+      ).subscribe({
         error: err=>console.error("Ocurrió un error al editar el cliente: "+err),
         complete:()=>alert("Se edito el cliente")
       })
