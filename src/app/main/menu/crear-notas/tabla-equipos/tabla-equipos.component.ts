@@ -13,7 +13,8 @@ import { intCliente } from '../../../../services/clientes/clienteInterfaz';
 export class TablaEquiposComponent {
   @Input() cliente!: intCliente;
   equipos!: Array<intEquipo>;
-  addEquipos!: Array<intEquipo>;
+  addEquipos: Array<intEquipo> = [];
+  equipoUsuario: number = 0;
 
   constructor(private equipoServicio: EquiposService){}
 
@@ -27,12 +28,27 @@ export class TablaEquiposComponent {
     this.equipoServicio.mostrar().subscribe({
       next: data => {
         this.equipos = data.filter(equipo=>equipo.cliente.id === this.cliente?.id)
+        this.equipoUsuario = this.equipos[0]?.id
       },
       error: err => console.error("Error al mostrar los equipos: "+err)
     })
   }
 
-  alerta(){
-    alert("sadf")
+  onChangeSelect(id:any){
+    this.equipoUsuario = id.target.value;
   }
+
+  agregarEquipo(){
+    // alert(this.equipoUsuario)
+    const id = this.equipoUsuario
+    console.log(id)
+    if (id){
+      this.addEquipos.push(this.equipos.find(equipo => equipo.id == id) as intEquipo)
+      console.log(this.equipos.find(equipo => equipo.id == id) as intEquipo)
+    }
+  }
+
+  editar(equipo: intEquipo){}
+
+  eliminar(id: number){}
 }

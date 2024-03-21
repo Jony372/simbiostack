@@ -4,11 +4,12 @@ import { intCliente } from '../../../../services/clientes/clienteInterfaz';
 import { intUsuario } from '../../../../services/usuarios/usuraioInterface';
 import { ClienteService } from '../../../../services/clientes/cliente.service';
 import { UsuariosService } from '../../../../services/usuarios/usuarios.service';
+import { AddClientesComponent } from '../../modales/add-clientes/add-clientes.component';
 
 @Component({
   selector: 'app-usuario-cliente',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, AddClientesComponent],
   templateUrl: './usuario-cliente.component.html',
   styleUrl: './usuario-cliente.component.css'
 })
