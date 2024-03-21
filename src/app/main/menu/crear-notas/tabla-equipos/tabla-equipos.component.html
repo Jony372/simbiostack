@@ -1,0 +1,53 @@
+<div class="relative overflow-x-auto">
+  <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <tr>
+        <th scope="col" class="px-6 py-3">
+          Tipo
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Marca
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Color
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Problema
+        </th>
+        <th scope="edit" class="px-6 py-3">
+          Editar
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (equipo of addEquipos; track $index) {
+
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <th class="px-6 py-4">
+            {{equipo.tipo}}
+          </th>
+          <td class="px-6 py-4">
+            {{equipo.marca}}
+          </td>
+          <td class="px-6 py-4">
+            {{equipo.color}}
+          </td>
+          <td class="px-6 py-4">
+            {{equipo.problema}}
+          </td>
+          <td class="px-6 py-4">
+            <button>editar</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<div class="mt-4">
+  <select formControlName="usuario" id="usuario" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+    @for (equipo of equipos; track $index) {
+        <option value='{{equipo.id}}' (click)="alerta()">{{equipo.marca}} {{equipo.modelo}} {{equipo.color}}</option>
+    }
+  </select>
+</div>

@@ -1,0 +1,58 @@
+<div class="w-full col-span-1 grid grid-cols-1 grid-rows-10 md:grid-rows-5 md:grid-cols-2 gap-3 grid-flow-col p-6 bg-cyan-200 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+  <div class="row-span-1">
+    <label for="tipo-equipo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo de equipo</label>
+    <input type="text"  name="tipo-equipo" id="tipo-equipo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Ej: Laptop" >
+  </div>
+  <div class="row-span-1">
+    <label for="marca" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Marca</label>
+    <input type="text"  name="marca" id="marca" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Ej: Asus" >
+  </div>
+  <div class="row-span-1">
+    <label for="modelo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Modelo</label>
+    <input type="text"  name="modelo" id="modelo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Modelo..." >
+  </div>
+  <div class="row-span-1">
+    <label for="color" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Color</label>
+    <input type="text" name="color" id="color" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Ej: Negro" >
+  </div>
+  <div class="row-span-1">
+    <label for="pass" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
+    <input type="text"  name="pass" id="pass" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Contraseña..." >
+  </div>
+  <div class="row-span-2">
+    <label for="problema" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Problema</label>
+    <textarea name="problema" rows="6" id="problema" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Describe el problema del equipo." ></textarea>
+  </div>
+  <!-- Extras -->
+  <div class="grid grid-cols-2 grid-flow-row row-span-2 mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+    <div class="flex items-center mb-4">
+      <input id="cargador" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+      <label for="cargador" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cargador</label>
+    </div>
+
+    <div class="flex items-center mb-4">
+      <input id="funda" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+      <label for="funda" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Funda</label>
+    </div>
+    
+    <div class="flex items-center mb-4">
+      <input id="usb" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+      <label for="usb" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">USB</label>
+    </div>
+    
+    <div class="flex items-center mb-4">
+      <input id="cables" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+      <label for="cables" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cables</label>
+    </div>
+    
+    <div class="col-span-2">
+      <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Extras</label>
+      <textarea name="extra" rows="2" id="extra" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Observaciones extra" ></textarea>
+    </div>
+    
+  </div>
+
+  <div class="row-span-1 flex justify-center p-5">
+    <button type="button" class=" text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Agregar equipo</button>
+  </div>
+</div>

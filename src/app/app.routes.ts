@@ -7,6 +7,7 @@ import { ProductosComponent } from './main/menu/productos/productos.component';
 import { AddProductoComponent } from './main/menu/modales/add-producto/add-producto.component';
 import { ClientesComponent } from './main/menu/clientes/clientes.component';
 import { UsuariosComponent } from './main/menu/usuarios/usuarios.component';
+import { CrearNotasComponent } from './main/menu/crear-notas/crear-notas.component';
 
 export const routes: Routes = [
   {path:"", redirectTo:"login", pathMatch:"full"},
@@ -26,6 +27,9 @@ export const routes: Routes = [
   },{
     path: "usuarios",
     component: UsuariosComponent
+  },{
+    path:"crear-notas",
+    component: CrearNotasComponent
   }]
 }
 ];
