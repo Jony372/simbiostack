@@ -15,3 +15,18 @@ export interface intEquipo{
   cables: boolean,
   extras: string
 }
+
+export interface formEquipo{
+  tipo: string,
+  marca: string,
+  modelo: string,
+  color: string,
+  pass: string,
+  problema: string,
+  cargador: boolean,
+  funda: boolean,
+  usb: boolean,
+  cables: boolean,
+  extras: string,
+  cliente: number
+}

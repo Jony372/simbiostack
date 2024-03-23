@@ -51,7 +51,7 @@ export class UsuarioClienteComponent {
         cliente:val,
         tel: this.cliente?.tel
       })
-      console.log(this.clientes[2], this.cliente)
+      console.log(this.cliente)
       this.enviarCliente.emit(this.cliente);
     }
   }

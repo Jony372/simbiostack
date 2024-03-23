@@ -38,4 +38,8 @@ export class ClienteService {
     return  this.http.get<Array<intCliente>>("http://localhost:8080/api/cliente/mostrar").pipe(catchError(handleError));
   }
 
+  nextId():Observable<number>{
+    return this.http.get<number>("http://localhost:8080/api/cliente/next").pipe(catchError(handleError))
+  }
+
 }

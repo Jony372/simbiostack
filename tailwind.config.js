@@ -7,7 +7,8 @@ module.exports = {
   theme: {
     extend: {
       maxHeight:{
-        '9/10':'90%'
+        '9/10':'90%',
+        '7/10':'70%'
       }
     },
   },

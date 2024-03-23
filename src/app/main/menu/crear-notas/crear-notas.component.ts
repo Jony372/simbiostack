@@ -17,10 +17,18 @@ import { TablaEquiposComponent } from './tabla-equipos/tabla-equipos.component';
 })
 export class CrearNotasComponent {
   cliente!: intCliente;
+  next!: number;
 
   constructor(private clienteServicio:ClienteService, private usuarioServicio: UsuariosService, private formBuilder: FormBuilder){}
 
-  
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    this.clienteServicio.nextId().subscribe({
+      next: data => this.next = data,
+      error: err => console.error("Error al obtener el siguiente cliente: "+err) 
+    })
+  }
 
   nota =  this.formBuilder.group({
     cliente:[""],
