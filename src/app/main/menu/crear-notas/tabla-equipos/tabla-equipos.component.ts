@@ -51,4 +51,6 @@ export class TablaEquiposComponent {
   editar(equipo: intEquipo){}
 
   eliminar(id: number){}
+
+  crearNota(){}
 }

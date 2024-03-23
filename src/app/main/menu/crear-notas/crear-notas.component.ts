@@ -17,6 +17,7 @@ import { TablaEquiposComponent } from './tabla-equipos/tabla-equipos.component';
 })
 export class CrearNotasComponent {
   cliente!: intCliente;
+  idUsuario!: number|undefined|null;
   next!: number;
 
   constructor(private clienteServicio:ClienteService, private usuarioServicio: UsuariosService, private formBuilder: FormBuilder){}
@@ -30,15 +31,12 @@ export class CrearNotasComponent {
     })
   }
 
-  nota =  this.formBuilder.group({
-    cliente:[""],
-    tel:[''],
-    usuario: [1, [Validators.required]]
-  })
-
   elegirCliente(cliente: intCliente){
     this.cliente=cliente;
   }
   
+  elegirUsuario(id: number|null|undefined){
+    this.idUsuario = id;
+  }
 
 }

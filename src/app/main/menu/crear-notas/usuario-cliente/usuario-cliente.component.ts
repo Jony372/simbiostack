@@ -16,6 +16,7 @@ import { AddClientesComponent } from '../../modales/add-clientes/add-clientes.co
 export class UsuarioClienteComponent {
   
   @Output() enviarCliente = new EventEmitter<intCliente>
+  @Output() enviarUsuarioID = new EventEmitter<number|undefined|null>
   clientes!: Array<intCliente>;
   usuarios!: Array<intUsuario>;
   cliente!: intCliente | undefined;
@@ -23,9 +24,9 @@ export class UsuarioClienteComponent {
   constructor(private formBuilder: FormBuilder, private clienteServicio: ClienteService, private usuarioServicio: UsuariosService){}
 
   cliUser = this.formBuilder.group({
-    cliente:[""],
-    tel:[''],
-    usuario: [1, [Validators.required]]
+    cliente:["", [Validators.required]],
+    tel:['', [Validators.required]],
+    usuario: [0, [Validators.required]]
   })
 
   ngOnInit(){
@@ -39,9 +40,10 @@ export class UsuarioClienteComponent {
       next: data => this.usuarios = data,
       error: err => console.error("No se pudo mostrar los usuarios: "+err)
     })
+    this.cliUser.reset()
   }
 
-  alerta(evt:any){
+  selectCliente(evt:any){
     // alert(this.clientes.find(cliente => cliente.id == evt.target.id.toString().substring(1))?.nombre)
     // alert("dsaf")
     let val = evt.target.value;
@@ -53,6 +55,13 @@ export class UsuarioClienteComponent {
       })
       console.log(this.cliente)
       this.enviarCliente.emit(this.cliente);
+    }
+  }
+
+  onChange(){
+    if (this.cliUser.valid) {
+      const form = this.cliUser.value;
+      this.enviarUsuarioID.emit(form.usuario);
     }
   }
 }

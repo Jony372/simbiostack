@@ -4,6 +4,7 @@
   <div class="w-full flex flex-col p-6 bg-cyan-200 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
     <app-usuario-cliente
       (enviarCliente) = "elegirCliente($event)"
+      (enviarUsuarioID)="elegirUsuario($event)"
     ></app-usuario-cliente>
   </div>
 
