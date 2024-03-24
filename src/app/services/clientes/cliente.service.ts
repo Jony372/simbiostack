@@ -11,8 +11,8 @@ export class ClienteService {
 
   constructor(private http: HttpClient) { }
 
-  agregar(nombre: string, tel:string, direccion:string, observacion:string):Observable<any>{
-    return this.http.post<any>("http://localhost:8080/api/cliente/agregar", null, {params:{
+  agregar(nombre: string, tel:string, direccion:string, observacion:string):Observable<intCliente>{
+    return this.http.post<intCliente>("http://localhost:8080/api/cliente/agregar", null, {params:{
       nombre: nombre,
       tel: tel,
       direccion: direccion,

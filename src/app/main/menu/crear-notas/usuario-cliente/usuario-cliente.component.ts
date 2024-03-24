@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { intCliente } from '../../../../services/clientes/clienteInterfaz';
 import { intUsuario } from '../../../../services/usuarios/usuraioInterface';
 import { ClienteService } from '../../../../services/clientes/cliente.service';
@@ -16,18 +16,18 @@ import { AddClientesComponent } from '../../modales/add-clientes/add-clientes.co
 export class UsuarioClienteComponent {
   
   @Output() enviarCliente = new EventEmitter<intCliente>
-  @Output() enviarUsuarioID = new EventEmitter<number|undefined|null>
   clientes!: Array<intCliente>;
   usuarios!: Array<intUsuario>;
   cliente!: intCliente | undefined;
+  @Input() cliUser!: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private clienteServicio: ClienteService, private usuarioServicio: UsuariosService){}
 
-  cliUser = this.formBuilder.group({
-    cliente:["", [Validators.required]],
-    tel:['', [Validators.required]],
-    usuario: [0, [Validators.required]]
-  })
+  // cliUser = this.formBuilder.group({
+  //   cliente:["", [Validators.required]],
+  //   tel:['', [Validators.required]],
+  //   usuario: [0, [Validators.required]]
+  // })
 
   ngOnInit(){
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -58,10 +58,4 @@ export class UsuarioClienteComponent {
     }
   }
 
-  onChange(){
-    if (this.cliUser.valid) {
-      const form = this.cliUser.value;
-      this.enviarUsuarioID.emit(form.usuario);
-    }
-  }
 }

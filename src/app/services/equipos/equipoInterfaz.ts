@@ -1,6 +1,6 @@
 import { intCliente } from "../clientes/clienteInterfaz"
 
-export interface intEquipo{
+interface equipo{
   id: number,
   tipo: string,
   marca: string,
@@ -8,7 +8,6 @@ export interface intEquipo{
   color: string,
   pass: string,
   problema: string,
-  cliente: intCliente,
   cargador: boolean,
   funda: boolean,
   usb: boolean,
@@ -16,17 +15,10 @@ export interface intEquipo{
   extras: string
 }
 
-export interface formEquipo{
-  tipo: string,
-  marca: string,
-  modelo: string,
-  color: string,
-  pass: string,
-  problema: string,
-  cargador: boolean,
-  funda: boolean,
-  usb: boolean,
-  cables: boolean,
-  extras: string,
+export interface intEquipo extends equipo{
+  cliente: intCliente
+}
+
+export interface formEquipo extends equipo{
   cliente: number
 }

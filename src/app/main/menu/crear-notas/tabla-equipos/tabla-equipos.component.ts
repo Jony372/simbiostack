@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
-import { intEquipo } from '../../../../services/equipos/equipoInterfaz';
+import { EventEmitter, Component, Input, Output } from '@angular/core';
+import { formEquipo, intEquipo } from '../../../../services/equipos/equipoInterfaz';
 import { EquiposService } from '../../../../services/equipos/equipos.service';
 import { intCliente } from '../../../../services/clientes/clienteInterfaz';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-tabla-equipos',
@@ -11,9 +12,11 @@ import { intCliente } from '../../../../services/clientes/clienteInterfaz';
   styleUrl: './tabla-equipos.component.css'
 })
 export class TablaEquiposComponent {
+  @Output() crear = new EventEmitter;
   @Input() cliente!: intCliente;
-  equipos!: Array<intEquipo>;
-  addEquipos: Array<intEquipo> = [];
+  @Input() equipos!: Array<intEquipo | formEquipo>;
+  @Input() addEquipos!: Array<intEquipo | formEquipo>;
+  @Input() addEquipo!: FormGroup
   equipoUsuario: number = 0;
 
   constructor(private equipoServicio: EquiposService){}
@@ -43,14 +46,39 @@ export class TablaEquiposComponent {
     const id = this.equipoUsuario
     console.log(id)
     if (id){
-      this.addEquipos.push(this.equipos.find(equipo => equipo.id == id) as intEquipo)
-      console.log(this.equipos.find(equipo => equipo.id == id) as intEquipo)
+      this.addEquipos.push(this.equipos.find(equipo => equipo.id == id) as intEquipo);
+      this.equipos = this.equipos.filter(equipo => equipo.id != id);
+      this.reset()
+      // console.log(this.equipos.find(equipo => equipo.id == id) as intEquipo)
     }
   }
 
-  editar(equipo: intEquipo){}
+  editar(equipo: intEquipo | formEquipo){
+    const indiceEquipo = this.addEquipos.findIndex(eq => eq === equipo);
+    this.addEquipos.splice(indiceEquipo, 1);
 
-  eliminar(id: number){}
+    this.addEquipo.patchValue(equipo)
 
-  crearNota(){}
+    this.reset()
+  }
+
+  eliminar(equipo: intEquipo | formEquipo){
+    // console.log(equipo)
+    const indiceEquipo = this.addEquipos.findIndex(eq => eq === equipo);
+    this.addEquipos.splice(indiceEquipo, 1);
+
+    if(equipo.id){
+      this.equipos.push(equipo);
+    }
+
+    this.reset()
+  }
+
+  reset(){
+    this.equipoUsuario = this.equipos[0]?.id
+  }
+
+  crearNota(){
+    this.crear.emit()
+  }
 }

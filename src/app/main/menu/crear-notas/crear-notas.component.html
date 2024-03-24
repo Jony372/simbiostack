@@ -3,17 +3,27 @@
 
   <div class="w-full flex flex-col p-6 bg-cyan-200 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
     <app-usuario-cliente
+      [cliUser]="cliUser"
       (enviarCliente) = "elegirCliente($event)"
-      (enviarUsuarioID)="elegirUsuario($event)"
     ></app-usuario-cliente>
   </div>
 
   <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-2">
     <!--  Agregar equipo -->
-    <app-agregar-equipo [idCliente]="cliente?.id || next"></app-agregar-equipo>
+    <app-agregar-equipo
+      [idCliente]="cliente?.id"
+      [addEquipo]="addEquipo"
+      [addEquipos]="addEquipos"
+      [equiposNuevos]="equiposNuevos">
+    </app-agregar-equipo>
     <!-- Tabla de equipos -->
     <div class="w-full col-span-1 flex flex-col p-6 bg-cyan-200 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-      <app-tabla-equipos [cliente]="cliente"></app-tabla-equipos>
+      <app-tabla-equipos [cliente]="cliente"
+        [equipos]="equipos"
+        [addEquipos]="addEquipos"
+        [addEquipo]="addEquipo"
+        (crear)="crearNota()">
+      </app-tabla-equipos>
     </div>
     
   </div>
