@@ -47,8 +47,8 @@ export class UsuarioClienteComponent {
     // alert(this.clientes.find(cliente => cliente.id == evt.target.id.toString().substring(1))?.nombre)
     // alert("dsaf")
     let val = evt.target.value;
-    if(val){
-      this.cliente = this.clientes.find(cliente => cliente.nombre == val);
+    this.cliente = this.clientes.find(cliente => cliente.nombre == val);
+    if(this.cliente){
       this.cliUser.patchValue({
         cliente:val,
         tel: this.cliente?.tel

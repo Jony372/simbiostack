@@ -8,6 +8,8 @@ import { TablaEquiposComponent } from './tabla-equipos/tabla-equipos.component';
 import { UsuarioClienteComponent } from './usuario-cliente/usuario-cliente.component';
 import { formEquipo, intEquipo } from '../../../services/equipos/equipoInterfaz';
 import { EquiposService } from '../../../services/equipos/equipos.service';
+import { NotasService } from '../../../services/notas/notas.service';
+import { intNotaEquipo } from '../../../services/notas/interfazNota';
 
 @Component({
   selector: 'app-crear-notas',
@@ -45,7 +47,7 @@ export class CrearNotasComponent {
   })
 
 
-  constructor(private clienteServicio:ClienteService, private usuarioServicio: UsuariosService, private formBuilder: FormBuilder, private equipoServicio: EquiposService){}
+  constructor(private notaServicio: NotasService, private clienteServicio:ClienteService, private usuarioServicio: UsuariosService, private formBuilder: FormBuilder, private equipoServicio: EquiposService){}
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -71,11 +73,16 @@ export class CrearNotasComponent {
   }
 
   crearNota(){
-    this.equiposNuevos = this.addEquipos.filter(equipo => !equipo.cliente) as Array<formEquipo>
-    if(this.cliente){
-      console.log(this.cliente)
+    if(this.cliUser.valid &&  this.addEquipos.length > 0){
+
+      this.equiposNuevos = this.addEquipos.filter(equipo => !equipo.cliente) as Array<formEquipo>
+      if(this.cliente){
+        this.agregarEquipos();
+      }else{
+        this.agregarCliente();
+      }
     }else{
-      this.agregarCliente();
+      alert('Faltan campos por llenar');
     }
     // console.log(this.equiposNuevos)
     // console.log(this.addEquipos)
@@ -115,11 +122,33 @@ export class CrearNotasComponent {
           }
         })
       })
+    }else{
+      this.nota();
     }
   }
 
   nota(){
-    console.log(this.addEquipos)
+    // console.log(this.cliUser.value)
+    let nota: intNotaEquipo;
+    // console.log(this.addEquipos)
+    this.notaServicio.agregar(1, this.cliente.id, this.cliUser.value.usuario, 1).subscribe({
+      next: data => nota = data,
+      error: err =>  console.error('Error al crear la nota: '+err),
+      complete: ()=>{
+        this.addEquipos.forEach((equipo, i) => {
+          this.notaServicio.agregarNotas(nota.id, equipo.id).subscribe({
+            error: err=> console.error("Error al agregar las notas: "+err),
+            complete: ()=>{
+              console.log(i)
+              if(this.addEquipos.length -1 == i){
+                // alert("Acabamos lol")
+                window.location.reload();
+              }
+            }
+          })
+        })
+      }
+    })
   }
 }
 
