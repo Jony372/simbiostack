@@ -31,6 +31,7 @@ export class CrearNotasComponent {
     usuario: [0, [Validators.required]]
   })
   addEquipo:FormGroup = this.formBuilder.group({
+    tipoPendiente: [0, [Validators.required]],
     cliente:[0],
     id:[0],
     tipo:["", [Validators.required]],
@@ -54,6 +55,7 @@ export class CrearNotasComponent {
     //Add 'implements OnInit' to the class.
     this.cliUser.reset()
     this.addEquipo.reset({
+      tipoPendiente: "",
       cargador: false,
       funda: false,
       usb: false,
@@ -131,7 +133,7 @@ export class CrearNotasComponent {
     // console.log(this.cliUser.value)
     let nota: intNotaEquipo;
     // console.log(this.addEquipos)
-    this.notaServicio.agregar(1, this.cliente.id, this.cliUser.value.usuario, 1).subscribe({
+    this.notaServicio.agregar(1, this.cliente.id, this.cliUser.value.usuario).subscribe({
       next: data => nota = data,
       error: err =>  console.error('Error al crear la nota: '+err),
       complete: ()=>{

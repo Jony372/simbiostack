@@ -1,4 +1,5 @@
 import { intCliente } from "../clientes/clienteInterfaz"
+import { intTipo } from "../tipo/interfazTipo"
 
 interface equipo{
   id: number,
@@ -16,9 +17,11 @@ interface equipo{
 }
 
 export interface intEquipo extends equipo{
-  cliente: intCliente
+  cliente: intCliente,
+  tipoPendiente: intTipo
 }
 
 export interface formEquipo extends equipo{
-  cliente: number
+  cliente: number,
+  tipoPendiente: number
 }

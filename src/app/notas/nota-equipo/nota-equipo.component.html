@@ -2,18 +2,30 @@
   @for (i of [0,1]; track $index) {
     <div class="border border-cyan-300 flex flex-col p-4">
       <div class="flex flex-row justify-around w-full">
-        <h2 class="text-lg font-bold text-gray-800">Orden de Entrada</h2>
+        <h2 class="text-lg font-medium text-gray-800">Orden de Entrada</h2>
         <img src="../../../assets/images/logo.png" alt="" class="h-10">
       </div>
-      <div class="grid gap-3 mb-6 grid-cols-9">
+      <div class="grid gap-3 mb-6 grid-cols-9 pt-2">
         <div>
-          <label class="block mb-2 text-xs font-medium text-gray-800 d">Folio</label>
-          <div class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">Folio</div>
-        </div>  
+          <label class="block mb-2 text-xs font-medium text-gray-800">Folio</label>
+          <div class="border border-cyan-300 text-gray-900 text-xs rounded-sm block w-full p-1.5 text-center">Folio</div>
+        </div>
         <div class="col-span-2">
-          <div class="block mb-2 text-xs font-medium text-gray-800">First name</div>
-          <div class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">Cliente</div>
-        </div>  
+          <label class="block mb-2 text-xs font-medium text-gray-800">Nombre</label>
+          <div class="border border-cyan-300 text-gray-900 text-xs rounded-sm block w-full p-1.5 text-center">Nombre</div>
+        </div>
+        <div class="col-span-2">
+          <label class="block mb-2 text-xs font-medium text-gray-800">Teléfono</label>
+          <div class="border border-cyan-300 text-gray-900 text-xs rounded-sm block w-full p-1.5 text-center">Teléfono</div>
+        </div>
+        <div class="col-span-2">
+          <label class="block mb-2 text-xs font-medium text-gray-800">Fecha</label>
+          <div class="border border-cyan-300 text-gray-900 text-xs rounded-sm block w-full p-1.5 text-center">Fecha</div>
+        </div>
+        <div class="col-span-2">
+          <label class="block mb-2 text-xs font-medium text-gray-800">Quien recibe</label>
+          <div class="border border-cyan-300 text-gray-900 text-xs rounded-sm block w-full p-1.5 text-center">Quien recibe</div>
+        </div>
       </div>
     </div>
   }

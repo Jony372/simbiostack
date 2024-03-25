@@ -12,7 +12,6 @@ import { FormGroup } from '@angular/forms';
   styleUrl: './tabla-equipos.component.css'
 })
 export class TablaEquiposComponent {
-  @Output() crear = new EventEmitter;
   @Input() cliente!: intCliente;
   @Input() equipos!: Array<intEquipo | formEquipo>;
   @Input() addEquipos!: Array<intEquipo | formEquipo>;
@@ -76,9 +75,5 @@ export class TablaEquiposComponent {
 
   reset(){
     this.equipoUsuario = this.equipos[0]?.id
-  }
-
-  crearNota(){
-    this.crear.emit()
   }
 }
