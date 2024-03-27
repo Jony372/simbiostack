@@ -26,6 +26,7 @@ export class CrearNotasComponent {
   equiposNuevos: Array<formEquipo> = [];
   addEquipos: Array<intEquipo | formEquipo> = [];
   cliUser: FormGroup = this.formBuilder.group({
+    prioridad:[2],
     cliente:["", [Validators.required]],
     tel:['', [Validators.required]],
     usuario: [0, [Validators.required]]
@@ -53,7 +54,10 @@ export class CrearNotasComponent {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    this.cliUser.reset()
+    this.cliUser.reset({
+      prioridad: 2,
+      usuario: ""
+    })
     this.addEquipo.reset({
       tipoPendiente: "",
       cargador: false,
@@ -84,6 +88,7 @@ export class CrearNotasComponent {
         this.agregarCliente();
       }
     }else{
+      this.cliUser.markAllAsTouched();
       alert('Faltan campos por llenar');
     }
     // console.log(this.equiposNuevos)
@@ -99,6 +104,7 @@ export class CrearNotasComponent {
         complete: ()=> this.agregarEquipos()
       })
     }else{
+      this.cliUser.markAllAsTouched();
       alert("Rellene los datos")
     }
   }
@@ -132,8 +138,9 @@ export class CrearNotasComponent {
   nota(){
     // console.log(this.cliUser.value)
     let nota: intNotaEquipo;
+    let formNota = this.cliUser.value;
     // console.log(this.addEquipos)
-    this.notaServicio.agregar(1, this.cliente.id, this.cliUser.value.usuario).subscribe({
+    this.notaServicio.agregar(formNota.prioridad, this.cliente.id, formNota.usuario).subscribe({
       next: data => nota = data,
       error: err =>  console.error('Error al crear la nota: '+err),
       complete: ()=>{
@@ -144,6 +151,7 @@ export class CrearNotasComponent {
               console.log(i)
               if(this.addEquipos.length -1 == i){
                 // alert("Acabamos lol")
+                window.open(`http://localhost:4200/nota-equipo?folio=${nota.id}`)
                 window.location.reload();
               }
             }

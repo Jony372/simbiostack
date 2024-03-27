@@ -1,31 +1,134 @@
-<div class="bg-white h-full p-4">
+<div class="bg-white h-full p-4 w-full text-xs">
   @for (i of [0,1]; track $index) {
-    <div class="border border-cyan-300 flex flex-col p-4">
+    <div class="border border-cyan-300 flex flex-col p-4 mb-2">
       <div class="flex flex-row justify-around w-full">
         <h2 class="text-lg font-medium text-gray-800">Orden de Entrada</h2>
         <img src="../../../assets/images/logo.png" alt="" class="h-10">
       </div>
       <div class="grid gap-3 mb-6 grid-cols-9 pt-2">
         <div>
-          <label class="block mb-2 text-xs font-medium text-gray-800">Folio</label>
-          <div class="border border-cyan-300 text-gray-900 text-xs rounded-sm block w-full p-1.5 text-center">Folio</div>
+          <label class="block mb-2  font-medium text-gray-800">Folio</label>
+          <div class="border border-cyan-300 text-gray-900  rounded-sm block w-full p-1.5 text-center">{{nota.id}}</div>
         </div>
         <div class="col-span-2">
-          <label class="block mb-2 text-xs font-medium text-gray-800">Nombre</label>
-          <div class="border border-cyan-300 text-gray-900 text-xs rounded-sm block w-full p-1.5 text-center">Nombre</div>
+          <label class="block mb-2  font-medium text-gray-800">Nombre</label>
+          <div class="border border-cyan-300 text-gray-900  rounded-sm block w-full p-1.5 text-center">{{nota.cliente.nombre}}</div>
         </div>
         <div class="col-span-2">
-          <label class="block mb-2 text-xs font-medium text-gray-800">Teléfono</label>
-          <div class="border border-cyan-300 text-gray-900 text-xs rounded-sm block w-full p-1.5 text-center">Teléfono</div>
+          <label class="block mb-2  font-medium text-gray-800">Teléfono</label>
+          <div class="border border-cyan-300 text-gray-900  rounded-sm block w-full p-1.5 text-center">{{nota.cliente.tel}}</div>
         </div>
         <div class="col-span-2">
-          <label class="block mb-2 text-xs font-medium text-gray-800">Fecha</label>
-          <div class="border border-cyan-300 text-gray-900 text-xs rounded-sm block w-full p-1.5 text-center">Fecha</div>
+          <label class="block mb-2  font-medium text-gray-800">Fecha</label>
+          <div class="border border-cyan-300 text-gray-900  rounded-sm block w-full p-1.5 text-center">{{nota.fecha}}</div>
         </div>
         <div class="col-span-2">
-          <label class="block mb-2 text-xs font-medium text-gray-800">Quien recibe</label>
-          <div class="border border-cyan-300 text-gray-900 text-xs rounded-sm block w-full p-1.5 text-center">Quien recibe</div>
+          <label class="block mb-2  font-medium text-gray-800">Quien recibe</label>
+          <div class="border border-cyan-300 text-gray-900  rounded-sm block w-full p-1.5 text-center">{{nota.usuario.nombre}}</div>
         </div>
+      </div>
+      
+      <div class="w-full">
+        <table class="  text-left rtl:text-right text-gray-500 table-auto max-w-full w-full">
+          <thead class=" text-gray-600 uppercase text-center bg-gray-50 border border-cyan-300">
+            <tr>
+              <th scope="col" class="p-2">
+                <small>Tipo</small>
+              </th>
+              <th scope="col" class="p-2">
+                <small>Marca</small>
+              </th>
+              <th scope="col" class="p-2">
+                <small>Modelo</small>
+              </th>
+              <th scope="col" class="p-2">
+                <small>Color</small>
+              </th>
+              <th scope="col" class="p-2">
+                <small>Contraseña</small>
+              </th>
+              <th scope="col" class="p-2">
+                <small>Problema</small>
+              </th>
+              <th scope="col" class="p-2">
+                <small>Extra</small>
+              </th>
+              <th scope="col" class="p-2">
+                <small>Observaciones</small>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="border border-cyan-300 ">
+            <!-- <tr class="bg-white border-b border-cyan-300 ">
+              <td class="p-2"  >
+                <small>Apple MacBook Pro 17"</small>
+              </td>
+              <td class="p-2" >
+                Silver
+              </td>
+              <td class="p-2" >
+                Laptop
+              </td>
+              <td class="p-2" >
+                $2999
+              </td>
+            </tr> -->
+            @for (equipo of equipos; track $index) {
+              <tr class="bg-white border-b border-cyan-300 text-center">
+                <td class="p-2" >
+                  <small>{{equipo.tipo}}</small>
+                </td>
+                <td class="p-2" >
+                  <small>{{equipo.marca}}</small>
+                </td>
+                <td class="p-2" >
+                  <small>{{equipo.modelo!=="null"?equipo.modelo:""}}</small>
+                </td>
+                <td class="p-2" >
+                  <small>{{equipo.color}}</small>
+                </td>
+                <td class="p-2" >
+                  <small>{{equipo.pass!=="null"?equipo.pass:""}}</small>
+                </td>
+                <td class="p-2" >
+                  <small>{{equipo.problema}}</small>
+                </td>
+                <td class="p-2" >
+                  <small>{{extras(equipo)}}</small>
+                </td>
+                <td class="p-2">
+                  <small>{{equipo.extras!=="null"?equipo.extras:""}}</small>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="flex justify-between gap-5 border border-cyan-300 mt-5 p-2 text-gray-600">
+        <div class="leading-3">
+          <small><small>
+            <p>1.-DESPUES DE 60 DIAS, NO NOS HACEMOS RESPONSABLES DEL EQUIPO.</p>
+            <p>2.-LA GARANTIA DEL SISTEMA OPERATIVO ES VALIDA POR 30 DIAS.</p>
+            <p>3.-PARA LA ENTREGA DEL EQUIPO SE REQUIERE LA NOTA DE SERVICIO, SIN EXCEPCION</p>
+            <p>4.-CUALQUIER TIPO DE REVISION DE EQUIPO TIENE UN COSTO DE $ 50.00 Pesos M.N.</p>
+            <p>5.-LA GARANTIA SOLO APLICA A PIEZAS REPARADAS, NO NOS HACEMOS RESPONSABLES EN PIEZAS NO CAMBIADAS O REPARADAS.</p>
+            <p>6.-PARA CUALQUIER REVICION DE EQUIPO SE LLEVA UN APROXIMADO DE 8 A 24 HORAS HABILES PARA DAR UN DIAGNOSTICO PRECISO.</p>
+          </small></small>
+        </div>
+        <div class="text">
+          <div class="text-left leading-3">
+            <small><small>
+              <p>FRANCISCO I. MADERO. #205</p>
+              <p>RFC: GOJF881208916</p>
+              <p> TEL:348-784-48-21</p>
+              <p>WhatsApp TEL:348-148-95-08</p>
+              <p> <a>www.somosimbiosis.com</a></p>
+              <p>GRACIAS POR SU PREFERENCIA</p>
+            </small></small>
+          </div>
+        </div>
+  
       </div>
     </div>
   }

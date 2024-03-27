@@ -37,7 +37,7 @@ export class AgregarEquipoComponent {
     if(form.valid){
       const equipo = form.value
       console.log(equipo)
-      this.addEquipos.push({...equipo} as intEquipo);
+      this.addEquipos.push({...equipo} as formEquipo);
       this.addEquipo.reset({
         tipoPendiente: "",
         cargador: false,
@@ -45,14 +45,8 @@ export class AgregarEquipoComponent {
         usb: false,
         cables: false
       });
-      // this.addEquipo.patchValue({cliente: this.idCliente})
-      // this.equipoServicio.agregar(equipo as formEquipo, this.idCliente).subscribe({
-      //   complete: () => {
-      //     console.log("Se agrego el equipo correctamente")
-      //   },
-      //   error: err => console.error("Error al agregar el equipo: "+err.error)
-      // })
-    }else{  
+    }else{
+      form.markAllAsTouched();
       alert("Revise los datos, por favor "+this.idCliente)
     }
   }

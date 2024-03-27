@@ -5,6 +5,8 @@ import { intUsuario } from '../../../../services/usuarios/usuraioInterface';
 import { ClienteService } from '../../../../services/clientes/cliente.service';
 import { UsuariosService } from '../../../../services/usuarios/usuarios.service';
 import { AddClientesComponent } from '../../modales/add-clientes/add-clientes.component';
+import { intPrioridad } from '../../../../services/prioridad/interfazPrioridad';
+import { PrioridadService } from '../../../../services/prioridad/prioridad.service';
 
 @Component({
   selector: 'app-usuario-cliente',
@@ -20,8 +22,9 @@ export class UsuarioClienteComponent {
   usuarios!: Array<intUsuario>;
   cliente!: intCliente | undefined;
   @Input() cliUser!: FormGroup;
+  prioridades!: Array<intPrioridad>;
 
-  constructor(private formBuilder: FormBuilder, private clienteServicio: ClienteService, private usuarioServicio: UsuariosService){}
+  constructor(private prioridadServicio: PrioridadService, private clienteServicio: ClienteService, private usuarioServicio: UsuariosService){}
 
   // cliUser = this.formBuilder.group({
   //   cliente:["", [Validators.required]],
@@ -40,22 +43,26 @@ export class UsuarioClienteComponent {
       next: data => this.usuarios = data,
       error: err => console.error("No se pudo mostrar los usuarios: "+err)
     })
-    this.cliUser.reset()
+    this.prioridadServicio.mostrar().subscribe({
+      next: data => this.prioridades = data,
+      error: err => console.error("Error al mostrar las prioridades: "+err)
+    })
   }
 
   selectCliente(evt:any){
     // alert(this.clientes.find(cliente => cliente.id == evt.target.id.toString().substring(1))?.nombre)
     // alert("dsaf")
     let val = evt.target.value;
+    console.log(val)
     this.cliente = this.clientes.find(cliente => cliente.nombre == val);
-    if(this.cliente){
+    // if(this.cliente){
       this.cliUser.patchValue({
         cliente:val,
         tel: this.cliente?.tel
       })
       console.log(this.cliente)
       this.enviarCliente.emit(this.cliente);
-    }
+    // }
   }
 
 }

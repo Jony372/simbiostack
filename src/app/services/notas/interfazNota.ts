@@ -1,4 +1,5 @@
 import { intCliente } from "../clientes/clienteInterfaz";
+import { intEquipo } from "../equipos/equipoInterfaz";
 import { intEstado } from "../estado/interfazEstado";
 import { intPrioridad } from "../prioridad/interfazPrioridad";
 import { intUsuario } from "../usuarios/usuraioInterface";
@@ -8,6 +9,10 @@ export interface intNotaEquipo{
   prioridad: intPrioridad,
   cliente: intCliente,
   usuario: intUsuario,
-  date: Date,
+  fecha: Date,
   estado: intEstado
+}
+
+export interface intGetNotaEquipos extends intNotaEquipo{
+  equipos: Array<intEquipo>
 }

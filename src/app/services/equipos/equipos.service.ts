@@ -3,8 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError } from 'rxjs';
 import { formEquipo, intEquipo } from './equipoInterfaz';
 import { handleError } from '../functions';
-import { param } from 'jquery';
-import { Params } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'

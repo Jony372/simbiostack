@@ -43,7 +43,6 @@ export class TablaEquiposComponent {
   agregarEquipo(){
     // alert(this.equipoUsuario)
     const id = this.equipoUsuario
-    console.log(id)
     if (id){
       this.addEquipos.push(this.equipos.find(equipo => equipo.id == id) as intEquipo);
       this.equipos = this.equipos.filter(equipo => equipo.id != id);

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { intNotaEquipo } from './interfazNota';
+import { intGetNotaEquipos, intNotaEquipo } from './interfazNota';
 import { Observable, catchError } from 'rxjs';
 import { handleError } from '../functions';
 import { intEquipo } from '../equipos/equipoInterfaz';
@@ -27,5 +27,9 @@ export class NotasService {
       nota: nota,
       equipo: equipo
     }})
+  }
+
+  getNota(id:number):Observable<intGetNotaEquipos>{
+    return this.http.get<intGetNotaEquipos>(`http://localhost:8080/api/notas/get-nota/${id}`).pipe(catchError(handleError))
   }
 }
