@@ -1,0 +1,64 @@
+<form [formGroup]="addProducto" class="grid grid-cols-10 gap-2">
+  <div class="col-span-6 md:col-span-7">
+    <label for="cliente" class="pl-3 block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cliente</label>
+    <input formControlName="cliente" autocomplete="off" type="text" name="cliente"  id="cliente" list="data-clientes" (input)="selectCliente($event)" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Cliente..." >
+  </div>
+  <div class="col-span-4 md:col-span-3 flex flex-col justify-end">
+    <button type="button" class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-3 text-center flex justify-center items-center me-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+      <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+      Agregar Cliente
+    </button>
+  </div>
+  <div class="col-span-2 lg:col-span-1">
+    <label for="cantidad" class="pl-3 block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cantidad</label>
+    <div class="relative flex items-center ">
+      <button (click)="cant(false)" type="button" id="decrement-button" data-input-counter-decrement="quantity-input" class="w-1/4 bg-gray-100 dark:bg-gray-600 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg h-11 flex justify-center flex-row items-center focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+          <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
+          </svg>
+      </button>
+      <input formControlName="cantidad" type="text" min="0" id="quantity-input" data-input-counter aria-describedby="helper-text-explanation" class="w-2/4 px-1 bg-gray-50 border-x-0 border-gray-300 h-11 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="01" required />
+      <button (click)="cant(true)" type="button" id="increment-button" data-input-counter-increment="quantity-input" class="flex justify-center flex-row items-center w-1/4 bg-gray-100 dark:bg-gray-600 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+          <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+          </svg>
+      </button>
+    </div>
+    
+  </div>
+  <div class="col-span-4 md:col-span-5 lg:col-span-6">
+    <label for="producto" class="pl-3 block mb-2 text-sm font-medium text-gray-900 dark:text-white">Productos</label>
+    <input formControlName="producto" autocomplete="off" type="text" name="cliente"  id="cliente" list="data-productos" (input)="selectProducto($event)" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Producto..." >
+  </div>
+  <div class="col-span-4 md:col-span-3 flex gap-2">
+    <div class="w-full">
+      <label for="precio" class="pl-3 block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio</label>
+      <div class=" relative text-gray-700 dark:text-white">
+        <div class="absolute inset-y-0 start-0 top-0 flex items-center px-2 pointer-events-none">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8" viewBox="0 0 60 60">
+            <path fill="currentColor" fill-rule="evenodd" d="M29 30v10c3.519-.316 5-2.287 5-4.89c0-2.507-1.152-3.99-5-5.11m-3-5v-9c-3.273.415-5 2.33-5 4.43c0 2.1 1.364 3.647 5 4.57m2.84.737l1.072.277C35.784 27.423 39 29.917 39 34.836c0 5.658-4.466 8.868-10.16 9.284V48h-2.523v-3.88c-5.672-.439-10.16-3.741-10.317-9.284h4.622c.402 2.702 2.1 4.688 5.695 5.08V29.849l-.916-.231c-5.672-1.363-8.731-3.996-8.731-8.684c0-5.173 4.02-8.591 9.647-9.03V8h2.523v3.903c5.582.462 9.624 3.926 9.803 9.169h-4.645c-.29-2.91-2.3-4.596-5.158-4.966z"/>
+          </svg>
+        </div>
+        <input formControlName="precio" type="text" id="precio" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Precio"/>
+      </div>
+    </div>
+    <div class="self-end w-min mb-1">
+      <button type="submit" (click)="agregarProducto()" class="text-white  bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center  dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
+          <path fill="currentColor" d="M8.75 3.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</form>
+
+<datalist id="data-clientes">
+  @for (cliente of clientes; track $index) {
+    <option value="{{cliente.nombre}}"></option>
+  }
+</datalist>
+<datalist id="data-productos">
+  @for (producto of productos; track $index) {
+    <option value="{{producto.nombre}}"></option>
+  }
+</datalist>

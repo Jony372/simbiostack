@@ -17,3 +17,15 @@ export interface intProducto extends producto{
 export interface intRegProducto extends producto{
   categoria: number
 }
+
+export class Producto {
+  constructor(
+    public cantidad: number,
+    public nombre: string,
+    public precio: number
+  ){
+    this.cantidad = cantidad;
+    this.nombre = nombre;
+    this.precio = precio;
+  }
+}

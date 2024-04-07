@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { PendientesService } from '../../../services/pendientes/pendientes.service';
-import { pendienteInt } from '../../../services/pendientes/pendientesInterface';
+import { intPendiente } from '../../../services/pendientes/pendientesInterface';
 import { ProductosService } from '../../../services/productos/productos.service';
 import { intProducto } from '../../../services/productos/productoInterface';
 
@@ -12,7 +12,7 @@ import { intProducto } from '../../../services/productos/productoInterface';
   styleUrl: './inicio.component.css'
 })
 export class InicioComponent {
-  pendientes: Array<pendienteInt> = [];
+  pendientes: Array<any> = [];
   productos: Array<intProducto>=[];
 
   constructor(private pendServ: PendientesService, private productoServicio: ProductosService) {}
@@ -21,7 +21,7 @@ export class InicioComponent {
     this.pendServ.pendientes().subscribe({
       next:(data)=>{
         // console.log(data);
-        data.map(pendiente => this.pendientes.push(pendiente))
+        this.pendientes = data
         // this.pendientes  = data;
       },
       error: (errorMessage)=> {

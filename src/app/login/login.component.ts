@@ -1,15 +1,13 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterOutlet } from '@angular/router';
-import { __param } from 'tslib';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoginService } from '../services/login/login.service';
 import { loginInt } from '../services/login/loginInterface';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ FormsModule, RouterOutlet, ReactiveFormsModule, HttpClientModule],
+  imports: [   ReactiveFormsModule],
   // providers:[HttpClient, HttpClientModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
@@ -21,13 +19,14 @@ export class LoginComponent {
     pass:["", [Validators.required]]
   })
 
-  constructor(private http:HttpClient, private formbuilder:FormBuilder, private loginService:LoginService, private router: Router) {
+  constructor(private formbuilder:FormBuilder, private loginService:LoginService, private router: Router) {
   }
   login() {
 
     if (this.loginForm.valid) {
       this.loginService.login(this.loginForm.value as loginInt).subscribe({
         next:(data)=>{
+          //*Guardar los datos de usuario en el local storage
           // console.log(data);
         },
         error: (errorMessage)=> {

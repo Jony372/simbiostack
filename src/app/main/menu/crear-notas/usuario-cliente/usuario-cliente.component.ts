@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { intCliente } from '../../../../services/clientes/clienteInterfaz';
-import { intUsuario } from '../../../../services/usuarios/usuraioInterface';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ClienteService } from '../../../../services/clientes/cliente.service';
-import { UsuariosService } from '../../../../services/usuarios/usuarios.service';
-import { AddClientesComponent } from '../../modales/add-clientes/add-clientes.component';
+import { intCliente } from '../../../../services/clientes/clienteInterfaz';
 import { intPrioridad } from '../../../../services/prioridad/interfazPrioridad';
 import { PrioridadService } from '../../../../services/prioridad/prioridad.service';
+import { UsuariosService } from '../../../../services/usuarios/usuarios.service';
+import { intUsuario } from '../../../../services/usuarios/usuraioInterface';
+import { AddClientesComponent } from '../../modales/add-clientes/add-clientes.component';
 
 @Component({
   selector: 'app-usuario-cliente',

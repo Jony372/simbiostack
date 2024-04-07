@@ -4,17 +4,17 @@
     <div class="pt-2 overflow-y-auto h-4/5 px-2">
       @if (pendientes.length > 0) {
         <ul class="max-w-md divide-y divide-gray-200 dark:divide-gray-700 mx-auto ">
-          @for (pendiente of pendientes; track pendiente.id) {
-            <li class="pb-3 sm:pb-4">
+          @for (pendiente of pendientes; track $index) {
+            <li class="py-1.5 sm:py-2">
               <div class="flex items-center space-x-4 rtl:space-x-reverse">
                 <div class="flex-shrink-0">
                   <p class="text-sm font-medium  truncate ">
-                    {{pendiente.idCliente}}
+                    {{pendiente[0]}}
                   </p>
                 </div>
                 <div class="flex-1 min-w-0">
                   <p class="text-sm font-medium  truncate ">
-                    {{pendiente.nombre}}
+                    {{pendiente[1]}}
                   </p>
                 </div>
                 <!-- <div class="flex-1 min-w-0">
@@ -22,9 +22,9 @@
                     {{pendiente.prioridad}}
                   </p>
                 </div> -->
-                <div class="inline-flex items-center text-base font-semibold  ">
+                <div class="inline-flex rounded-md text-gray-100 dark:text-white items-center text-base font-semibold px-2  {{pendiente[3] == 1?'bg-green-400':pendiente[3] == 2? 'bg-orange-400':'bg-red-600'}}">
                   <p>
-                    {{pendiente.prioridad}}
+                    {{pendiente[2]}}
                   </p>
                 </div>
               </div>
@@ -43,14 +43,14 @@
   </div>
   <div class=" font-bold p-1 border-gray-200 rounded-lg shadow-lg dark:bg-gray-800">
     <h2 class="text-xl text-center font-bold pt-2 pb-3 text-gray-800 dark:text-white">Inventario bajo</h2>
-    <div class="h-4/5 overflow-auto text-sm font-medium">
+    <ul class="h-4/5 overflow-auto text-sm font-medium divide-y divide-gray-200 dark:divide-gray-700 mx-auto">
       @for (producto of productos; track producto.id) {
-        <div class="flex flex-row justify-between my-2 mx-5 overflow-y-scroll border-b-2 border-b-gray-600 dark:border-b-gray-200">
+        <li class="flex flex-row justify-between my-2 mx-5 overflow-y-scroll">
           <p>{{producto.nombre}}</p>
           <p>{{producto.cantidad}}</p>
-        </div>
+        </li>
       }
-    </div>
+    </ul>
   </div>
   <div class=" font-bold p-1 border-gray-200 rounded-lg shadow-lg dark:bg-gray-800">
     <h2 class="text-xl text-center font-bold pt-2 pb-3 text-gray-800 dark:text-white">Equipos en Guadalajara</h2>

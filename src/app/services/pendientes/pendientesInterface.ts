@@ -1,11 +1,16 @@
-export interface pendienteInt {
+import { intCliente } from "../clientes/clienteInterfaz";
+import { intEstado } from "../estado/interfazEstado";
+import { intPrioridad } from "../prioridad/interfazPrioridad";
+import { intUsuario } from "../usuarios/usuraioInterface";
+
+export interface intPendiente {
   id: number; 
   nombre: string;
-  idCliente: number;
-  idUsuario: number;
-  prioridad: "BAJA" | "NORMAL" | "ALTA";
+  idCliente: intCliente;
+  idUsuario: intUsuario;
+  prioridad: intPrioridad;
   descripcion: string;
   fecha: string; // Formato: "YYYY-MM-DD"
   fechaEstimada: string; // Formato: "YYYY-MM-DD"
-  estado: "PENDIENTE" | "CANCELADO" | "TERMINADO";
+  estado: intEstado;
 }

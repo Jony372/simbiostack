@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError } from 'rxjs';
 import { handleError } from '../functions';
-import { pendienteInt } from './pendientesInterface';
+import { intPendiente } from './pendientesInterface';
 
 
 @Injectable({
@@ -12,7 +12,7 @@ export class PendientesService {
 
   constructor(private http: HttpClient ) { }
   
-  pendientes():Observable<Array<pendienteInt>>{
-    return this.http.get<Array<pendienteInt>>("../../../assets/jsons/pendientes.json").pipe(catchError(handleError));
+  pendientes():Observable<Array<Array<any>>>{
+    return this.http.get<Array<Array<any>>>("http://localhost:8080/api/pendientes/vista").pipe(catchError(handleError));
   }
 }
