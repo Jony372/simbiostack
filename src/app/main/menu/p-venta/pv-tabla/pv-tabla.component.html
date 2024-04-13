@@ -25,16 +25,16 @@
         @for (producto of prodVenta; track $index) {
           <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-center text-gray-900 whitespace-nowrap dark:text-white">
             <th scope="row" class="px-6 py-4 font-medium ">
-              {{producto.producto.nombre}}
+              {{producto.productoNombre}}
             </th>
             <td class="px-6 py-4">
-              ${{format(producto.producto.precio)}}
+              ${{format(producto.precio)}}
             </td>
             <td class="px-6 py-4">
               {{producto.cantidad}}
             </td>
             <td class="w-min">
-              ${{format(producto.total)}}
+              ${{format(producto.subTotal)}}
             </td>
             <td class="px-6 py-4">
               <button type="button" (click)="eliminarProducto(producto)" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">

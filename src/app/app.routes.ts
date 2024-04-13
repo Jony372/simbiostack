@@ -10,11 +10,14 @@ import { UsuariosComponent } from './main/menu/usuarios/usuarios.component';
 import { CrearNotasComponent } from './main/menu/crear-notas/crear-notas.component';
 import { NotaEquipoComponent } from './notas/nota-equipo/nota-equipo.component';
 import { PVentaComponent } from './main/menu/p-venta/p-venta.component';
+import { NotaVentaComponent } from './notas/nota-venta/nota-venta.component';
 
 export const routes: Routes = [
   {path:"", redirectTo:"login", pathMatch:"full"},
   {path:"nota-equipo",
   component: NotaEquipoComponent},
+  {path: "nota-venta",
+  component: NotaVentaComponent},
   {path: "login",
   component: LoginComponent},
   {path: "inicio",

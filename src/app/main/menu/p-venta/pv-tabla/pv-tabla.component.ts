@@ -22,6 +22,6 @@ export class PvTablaComponent {
   eliminarProducto(prodVenta: intProductoVenta){
     const index = this.prodVenta.findIndex(pv => pv === prodVenta)
     this.prodVenta.splice(index, 1)
-    this.sumTotal.emit(-prodVenta.total)
+    this.sumTotal.emit(-prodVenta.subTotal)
   }
 }

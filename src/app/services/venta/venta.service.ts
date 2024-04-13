@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import { param } from 'jquery';
 import { Observable, catchError } from 'rxjs';
 import { intProductoVenta, intVenta } from './ventaInterface';
@@ -22,13 +22,14 @@ export class VentaService {
     }}).pipe(catchError(handleError))
   }
 
-  agregarVentaProducto(venta: number, producto: number, cantidad: number, subTotal: number, precio: number):Observable<intProductoVenta>{
+  agregarVentaProducto(venta: number, producto: number | undefined, cantidad: number, subTotal: number, precio: number, nombre: string):Observable<intProductoVenta>{
     return this.http.post<intProductoVenta>('http://localhost:8080/api/ventas/agregar-vp', null, {params:{
       'venta': venta,
-      'producto': producto,
+      'producto': producto?producto:1,
       'cantidad': cantidad,
       'subTotal': subTotal,
-      'precio': precio
+      'precio': precio,
+      'nombreProducto': nombre
     }}).pipe(catchError(handleError))
   }
 
@@ -37,6 +38,10 @@ export class VentaService {
   }
 
   mostrarVenta(id: number):Observable<intVenta>{
-    return this.http.get<intVenta>(`http://localhost:8080/api/ventas/mostrar/${id}`).pipe(catchError(handleError))
+    return this.http.get<intVenta>(`http://localhost:8080/api/ventas/get-venta/${id}`).pipe(catchError(handleError))
+  }
+
+  mostrarVentaProducto(id: number):Observable<Array<intProductoVenta>>{
+    return this.http.get<Array<intProductoVenta>>(`http://localhost:8080/api/ventas/mostrar-vp/${id}`).pipe(catchError(handleError))
   }
 }

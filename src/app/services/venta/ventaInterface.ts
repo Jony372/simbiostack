@@ -7,23 +7,29 @@ import { intUsuario } from "../usuarios/usuraioInterface";
 export interface intProductoVenta{
     id: number | undefined,
     cantidad: number,
-    producto: intProducto,
+    producto: intProducto | undefined,
     venta: intVenta | undefined,
-    total: number
+    subTotal: number,
+    precio: number,
+    productoNombre: string
 }
 
 export class ProductoVenta implements intProductoVenta{
     id: number | undefined;
     cantidad: number;
-    producto: intProducto;
+    producto: intProducto | undefined;
     venta: intVenta | undefined;
-    total: number;
-    constructor(id: number | undefined, cantidad: number, producto: intProducto, venta: intVenta | undefined, total: number){
+    subTotal: number;
+    precio: number;
+    productoNombre: string;
+    constructor(id: number | undefined, cantidad: number, producto: intProducto | undefined, venta: intVenta | undefined, total: number, precio: number, nombre: string){
         this.id = id;
         this.cantidad = cantidad;
         this.producto = producto;
         this.venta = venta;
-        this.total = total;
+        this.subTotal = total;
+        this.precio = precio;
+        this.productoNombre = nombre;
     }
 }
 
