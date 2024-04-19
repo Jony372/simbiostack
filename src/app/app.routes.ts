@@ -11,6 +11,7 @@ import { CrearNotasComponent } from './main/menu/crear-notas/crear-notas.compone
 import { NotaEquipoComponent } from './notas/nota-equipo/nota-equipo.component';
 import { PVentaComponent } from './main/menu/p-venta/p-venta.component';
 import { NotaVentaComponent } from './notas/nota-venta/nota-venta.component';
+import { PendientesComponent } from './main/menu/pendientes/pendientes.component';
 
 export const routes: Routes = [
   {path:"", redirectTo:"login", pathMatch:"full"},
@@ -40,6 +41,9 @@ export const routes: Routes = [
   },{
     path: 'p-venta',
     component: PVentaComponent
+  },{
+    path: 'pendientes',
+    component: PendientesComponent
   }]
 }
 ];

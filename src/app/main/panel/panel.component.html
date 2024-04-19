@@ -8,7 +8,7 @@
 
 <aside id="logo-sidebar" class="fixed top-0 left-0 z-40 w-64 h-full transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
   <div class="h-full px-3 py-4 overflow-y-auto bg-cyan-300 dark:bg-cyan-400">
-    <a href="#" class="flex items-center ps-2.5 mb-5 justify-center">
+    <a href="inicio" class="flex items-center ps-2.5 mb-5 justify-center">
       <img src="../../../assets/images/logo.png" class=" me-3 sm:h-14 " alt="Flowbite Logo" />
     </a>
     <ul class="space-y-2 font-medium">
@@ -24,7 +24,7 @@
         </button>
         <ul id="cyv" class="hidden py-2 space-y-2">
           <li>
-              <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  ">Punto de venta</a>
+              <a href="inicio/p-venta" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  ">Punto de venta</a>
           </li>
           <li>
               <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  ">Punto de diagnostico y entrega</a>
@@ -67,7 +67,7 @@
         </button>
         <ul id="notas" class="hidden py-2 space-y-2">
           <li>
-              <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  ">Generar nota</a>
+              <a href="inicio/crear-notas" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  ">Generar nota</a>
           </li>
           <li>
               <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  ">Notas de equipos</a>
@@ -90,19 +90,22 @@
         </button>
         <ul id="gestion" class="hidden py-2 space-y-2">
           <li>
-              <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  ">Pendientes</a>
+              <a href="inicio/pendientes" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  ">Pendientes</a>
           </li>
           <li>
-              <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  ">Productos</a>
+              <a href="inicio/productos" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  ">Productos</a>
           </li>
           <li>
-              <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  ">Clientes</a>
+              <a href="inicio/clientes" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  ">Clientes</a>
           </li>
           <li>
-              <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  ">Proveedores</a>
+              <a href="" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  ">Proveedores</a>
           </li>
           <li>
-              <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  ">Usuarios</a>
+              <a href="inicio/usuarios" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  ">Usuarios</a>
+          </li>
+          <li>
+              <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100  ">Categorias</a>
           </li>
         </ul>
       </li>
@@ -112,7 +115,7 @@
             <svg class="flex-shrink-0 w-7 h-7 text-gray-500 transition duration-75 group-hover:text-gray-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1188 1000">
               <path fill="currentColor" d="m912 236l276 266l-276 264V589H499V413h413V236zM746 748l106 107q-156 146-338 146q-217 0-365.5-143.5T0 499q0-135 68-250T251.5 67.5T502 1q184 0 349 148L746 255Q632 151 503 151q-149 0-251.5 104T149 509q0 140 105.5 241T502 851q131 0 244-103z"/>
             </svg>
-            <span class="flex-1 ms-3 whitespace-nowrap" (click)="toggleTheme()">Salir</span>
+            <span class="flex-1 ms-3 whitespace-nowrap">Salir</span>
           </div>
       </li>
 

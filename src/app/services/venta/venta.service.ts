@@ -44,4 +44,12 @@ export class VentaService {
   mostrarVentaProducto(id: number):Observable<Array<intProductoVenta>>{
     return this.http.get<Array<intProductoVenta>>(`http://localhost:8080/api/ventas/mostrar-vp/${id}`).pipe(catchError(handleError))
   }
+
+  mostrarVentasPorCobrar():Observable<Array<intVenta>>{
+    return this.http.get<Array<intVenta>>('http://localhost:8080/api/ventas/por-pagar').pipe(catchError(handleError))
+  }
+
+  pagarVenta(id: number):Observable<any>{
+    return this.http.get<any>(`http://localhost:8080/api/ventas/pagar/${id}`, {responseType: "json"}).pipe(catchError(handleError))
+  }
 }

@@ -3,12 +3,12 @@
     <h2 class="text-xl text-center font-bold pt-2 pb-3 text-gray-800 dark:text-white">Pendientes</h2>
     <div class="pt-2 overflow-y-auto h-4/5 px-2">
       @if (pendientes.length > 0) {
-        <ul class="max-w-md divide-y divide-gray-200 dark:divide-gray-700 mx-auto ">
+        <ul class="max-w-md divide-y divide-gray-200 dark:divide-gray-700 mx-auto">
           @for (pendiente of pendientes; track $index) {
-            <li class="py-1.5 sm:py-2">
+            <li (click)="seleccionarPendiente(pendiente[0], pendiente[4])" class="py-1.5 sm:py-2 px-2 rounded hover:bg-gray-300 dark:hover:bg-gray-600 cursor-pointer" >
               <div class="flex items-center space-x-4 rtl:space-x-reverse">
-                <div class="flex-shrink-0">
-                  <p class="text-sm font-medium  truncate ">
+                <div class="flex-shrink-0" >
+                  <p class="text-sm font-medium  truncate">
                     {{pendiente[0]}}
                   </p>
                 </div>
@@ -22,7 +22,7 @@
                     {{pendiente.prioridad}}
                   </p>
                 </div> -->
-                <div class="inline-flex rounded-md text-gray-100 dark:text-white items-center text-base font-semibold px-2  {{pendiente[3] == 1?'bg-green-400':pendiente[3] == 2? 'bg-orange-400':'bg-red-600'}}">
+                <div class="flex w-14 justify-center  text-gray-100 dark:text-white items-center text-base font-semibold px-2  {{pendiente[3] == 1?'bg-green-400':pendiente[3] == 2? 'bg-orange-400':'bg-red-600'}}">
                   <p>
                     {{pendiente[2]}}
                   </p>
@@ -57,5 +57,56 @@
   </div>
   <div class=" lg:row-span-2 font-bold p-1 border-gray-200 rounded-lg shadow-lg dark:bg-gray-800">
     <h2 class="text-xl text-center font-bold pt-2 pb-3 text-gray-800 dark:text-white">Notas por cobrar</h2>
+    <div class="pt-2 overflow-y-auto h-4/5 px-2">
+      <ul class="max-w-md divide-y divide-gray-200 dark:divide-gray-700 mx-auto ">
+        @for (venta of porPagar; track $index) {
+          <li class="py-1.5 sm:py-2" >
+            <div class="flex items-center space-x-4 rtl:space-x-reverse">
+              <div class="flex-shrink-0">
+                <p class="text-sm font-medium  truncate ">
+                  {{venta.id}}
+                </p>
+              </div>
+              <div class="flex-shrink-0">
+                <p class="text-sm font-medium  truncate ">
+                  {{venta.cliente.nombre}}
+                </p>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium  truncate ">
+                  ${{format(venta.total)}}
+                </p>
+              </div>
+              <!-- <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-gray-800 truncate dark:text-white">
+                  {{pendiente.prioridad}}
+                </p>
+              </div> -->
+              <button (click)="pagar(venta)" class="inline-flex rounded-md text-gray-100 dark:text-white items-center text-sm font-semibold px-2  bg-green-400">
+                PAGAR
+              </button>
+            </div>
+          </li>
+        }
+      </ul>
+    </div>
   </div>
 </div>
+
+<!-- <li data-popover-target="popover-pendiente" data-popover-trigger="click" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Hover popover</li> -->
+
+
+<app-venta
+  (pago)="pago($event)"
+  [total]="total"
+  [opcion]="false">
+</app-venta>
+
+<app-pendientes-modal
+  [pendiente]="pendiente"
+/>
+
+<app-nota-modal
+  (save)="actualizar()"
+  [nota]="nota"
+  />

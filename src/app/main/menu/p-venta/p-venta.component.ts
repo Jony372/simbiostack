@@ -26,8 +26,7 @@ export class PVentaComponent {
   cliente!: intCliente;
   prodVenta: Array<intProductoVenta> = [];
   modal!: ModalInterface;
-
-  total!: number;
+  total: number = 0;
 
   formattedTotal(n: number): string {
     return n.toLocaleString('en-US', {

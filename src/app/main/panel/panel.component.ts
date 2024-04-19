@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ThemeServiceService } from '../../services/theme-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-panel',
@@ -10,14 +11,10 @@ import { ThemeServiceService } from '../../services/theme-service.service';
 })
 export class PanelComponent {
   
-  // constructor(private toggle: ThemeServiceService){}
-  toggleTheme(){
-    alert("asdf")
-    if (localStorage['theme'] === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-  }
+  constructor(private router: Router){}
+  
+  navigate = (ruta: string) => this.router.navigateByUrl(`/${ruta}`);
+
+
 
 }

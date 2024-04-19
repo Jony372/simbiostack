@@ -27,8 +27,10 @@
           <div class="flex justify-between">
             <div class="flex justify-between w-full">
               <div class="flex items-center h-5">
-                <input id="pagado" type="checkbox"  (ngModel)="isPagado" (change)="check($event)" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" />
-                <label for="pagado" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Pagado</label>
+                @if (opcion) {
+                  <input id="pagado" type="checkbox"  (ngModel)="isPagado" (change)="check($event)" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" />
+                  <label for="pagado" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Pagado</label>
+                }
               </div>
               <p class="ms-2 text-base font-medium text-gray-900 dark:text-gray-300 self-end">Cambio: ${{format(cambio)}}</p>
             </div>

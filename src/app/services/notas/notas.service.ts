@@ -32,4 +32,12 @@ export class NotasService {
   getNota(id:number):Observable<intGetNotaEquipos>{
     return this.http.get<intGetNotaEquipos>(`http://localhost:8080/api/notas/get-nota/${id}`).pipe(catchError(handleError))
   }
+
+  modificarEstado(id:number, estado:number, prioridad: number):Observable<any>{
+    return this.http.get(`http://localhost:8080/api/notas/modificar-estado`, {params: {
+      id: id,
+      estado: estado,
+      prioridad: prioridad
+    }}).pipe(catchError(handleError))
+  }
 }

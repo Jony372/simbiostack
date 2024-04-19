@@ -13,18 +13,14 @@ import { ModalInterface } from 'flowbite';
 })
 export class VentaComponent {
   @Output() pago: EventEmitter<number> = new EventEmitter<number>();
-  @Input() total!: number;
-  @Input() modal!: ModalInterface;
+  @Input() total: number = 0;
+  @Input() opcion: boolean = true;
   efectivo!: number;
   cambio: number = 0;
   isPagado = false;
   
   ngOnChanges() {
     this.efectivo = this.total;
-  }
-
-  close(){
-    this.modal.hide();
   }
 
   format(n: number): string {
@@ -42,7 +38,7 @@ export class VentaComponent {
   }
   pagar(){
     if(this.efectivo >= this.total){
-      this.pago.emit(this.isPagado?7:6);
+      this.pago.emit(this.isPagado?2:1);
     }else{
       Toast.fire({
         icon: 'error',

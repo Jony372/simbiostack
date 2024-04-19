@@ -15,4 +15,12 @@ export class PendientesService {
   pendientes():Observable<Array<Array<any>>>{
     return this.http.get<Array<Array<any>>>("http://localhost:8080/api/pendientes/vista").pipe(catchError(handleError));
   }
+
+  mostrarPendientes():Observable<Array<intPendiente>>{
+    return this.http.get<Array<intPendiente>>("http://localhost:8080/api/pendientes/mostrar").pipe(catchError(handleError));
+  }
+
+  getPendiente(id: number):Observable<intPendiente>{
+    return this.http.get<intPendiente>(`http://localhost:8080/api/pendientes/get/${id}`).pipe(catchError(handleError));
+  }
 }
