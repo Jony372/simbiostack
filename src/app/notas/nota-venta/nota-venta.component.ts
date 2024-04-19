@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VentaService } from '../../services/venta/venta.service';
 import { intProductoVenta, intVenta } from '../../services/venta/ventaInterface';
-import { intProducto } from '../../services/productos/productoInterface';
+import { format } from '../../../assets/const';
 
 @Component({
   selector: 'app-nota-venta',
@@ -14,6 +14,8 @@ import { intProducto } from '../../services/productos/productoInterface';
 export class NotaVentaComponent {
   productos!: Array<intProductoVenta>
   venta!: intVenta
+
+  format = format;
 
   constructor(private ventaServicio: VentaService, private route: ActivatedRoute){}
 
@@ -39,13 +41,6 @@ export class NotaVentaComponent {
       },
       error: err => console.error('Error al obtener los productos de la nota de venta: '+err)
     })
-  }
-
-  formattedTotal(n: number): string {
-    return n.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    });
   }
 
 }

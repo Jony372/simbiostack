@@ -1,0 +1,38 @@
+
+<div class="grid grid-cols-10 gap-3">
+  <h1 class="text-center mb-3 text-xl font-black dark:text-white col-span-10">PUNTO DE VENTA PARA ENTREGA</h1>
+
+  <div class="col-span-10 flex flex-col gap-3 py-6 px-4 bg-cyan-200 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <app-pv-encabezado
+      [clientes]="clientes"
+      [productos]="productos"
+      [prodVenta]="prodVenta"
+      (addCliente)="addCliente($event)"
+      (sumTotal)="sumTotal($event)"
+      >
+    </app-pv-encabezado>
+  </div>
+
+  <div class="col-span-7 max-h-96 flex flex-col gap-3 py-6 px-4 bg-cyan-200 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div class="max-h-full overflow-y-auto">
+      <app-pv-tabla
+      [prodVenta]="prodVenta"
+      (sumTotal)="sumTotal($event)"></app-pv-tabla>
+    </div>
+  </div>
+
+  <div class="col-span-3 gap-6 flex flex-col h-min py-6 px-4 text-center bg-cyan-200 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <h2 class="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-extrabold dark:text-gray-100">TOTAL:</h2>
+    <p class="text-xl md:text-2xl lg:text-3xl xl:text-4xl dark:text-gray-100">${{format(total)}}</p>
+    <button  type="button" (click)="actionModal()" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base px-5 py-2.5 text-center flex items-center justify-center overflow-x-hidden dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+      <svg class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 21">
+        <path d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z"/>
+      </svg>
+      PAGAR
+    </button>
+  </div>
+</div>
+
+<app-venta
+  (pago)="pago($event)"
+  [total]="total"></app-venta>

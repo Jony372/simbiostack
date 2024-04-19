@@ -23,6 +23,7 @@ export class PvEncabezadoComponent {
   
 
   addProducto = this.formBuilder.group({
+    cliente: ['', [Validators.required]],
     cantidad: [1, [Validators.required, Validators.min(1)]],
     producto: ['', [Validators.required]],
     precio: [0, [Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$'), Validators.required]]
@@ -48,7 +49,6 @@ export class PvEncabezadoComponent {
     const form = this.addProducto;
     this.producto = this.productos.find(prd => prd.nombre.toLowerCase() === val || prd.codigobarra.toLowerCase() === val);
     form.patchValue({precio: this.producto?.precio})
-    // this.producto? form.get('precio')?.disable(): form.get('precio')?.enable();
   }
 
   cant(evt: boolean){
@@ -58,22 +58,14 @@ export class PvEncabezadoComponent {
 
   agregarProducto(){
     if (this.addProducto.valid) {
-      // if (this.producto) {
-        const prod = this.producto
-        const nombre = this.addProducto.value.producto as string;
-        const cantidad  = this.addProducto.value.cantidad as number;
-        const precio = this.addProducto.value.precio as number;
-        const prodVenta = new ProductoVenta(undefined, cantidad, prod as intProducto, undefined, cantidad * precio, precio, nombre)
-        console.log(prodVenta as intProductoVenta)
-        this.prodVenta.push(prodVenta as intProductoVenta)
-        this.sumTotal.emit(prodVenta.subTotal)
-      // }else{
-      //   // const form = this.addProducto.value;
-      //   // const prod = new Producto(form.cantidad as number, form.producto as string, form.precio as number);
-      //   // const pv = new ProductoVenta(undefined, prod.cantidad, prod as intProducto, undefined, prod.cantidad * prod.precio)
-      //   // this.prodVenta.push(pv as intProductoVenta)
-      //   alert("No existe el producto, ¿desea agregarlo?")
-      // }
+      const prod = this.producto
+      const nombre = this.addProducto.value.producto as string;
+      const cantidad  = this.addProducto.value.cantidad as number;
+      const precio = this.addProducto.value.precio as number;
+      const prodVenta = new ProductoVenta(undefined, cantidad, prod as intProducto, undefined, cantidad * precio, precio, nombre)
+      console.log(prodVenta as intProductoVenta)
+      this.prodVenta.push(prodVenta as intProductoVenta)
+      this.sumTotal.emit(prodVenta.subTotal)
       this.addProducto.reset({
         cantidad: 1
       })

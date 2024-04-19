@@ -31,9 +31,9 @@
       <table class="  text-left rtl:text-right text-gray-500 table-auto max-w-full w-full">
         <thead class=" text-gray-600 uppercase text-center bg-gray-50 border border-cyan-300">
           <tr>
-            <th scope="col" class="p-2">
+            <!-- <th scope="col" class="p-2">
               <small>Código</small>
-            </th>
+            </th> -->
             <th scope="col" class="p-2">
               <small>Nombre</small>
             </th>
@@ -65,20 +65,20 @@
           </tr> -->
           @for (producto of productos; track $index) {
             <tr class="bg-white border-b border-cyan-300 text-center">
-              <td class="p-2" >
+              <!-- <td class="p-2" >
                 <small>{{producto.producto?.codigobarra}}</small>
-              </td>
-              <td class="p-2" >
+              </td> -->
+              <td class="p-1.5" >
                 <small>{{producto.productoNombre}}</small>
               </td>
-              <td class="p-2" >
-                <small>{{producto.precio}}</small>
+              <td class="p-1.5" >
+                <small>${{format(producto.precio)}}</small>
               </td>
-              <td class="p-2" >
+              <td class="p-1.5" >
                 <small>{{producto.cantidad}}</small>
               </td>
-              <td class="p-2" >
-                <small>{{producto.subTotal}}</small>
+              <td class="p-1.5" >
+                <small>${{format(producto.subTotal)}}</small>
               </td>
             </tr>
           }
@@ -88,7 +88,7 @@
 
     <div class="flex gap-4 items-center mt-3 -mb-2 justify-end">
       <label class="block text-base font-normal text-gray-800">Total</label>
-      <div class="border w-min border-cyan-300 text-gray-900 font-normal rounded-sm block py-1.5 px-2 text-center text-sm">${{formattedTotal(venta.total)}}</div>
+      <div class="border w-min border-cyan-300 text-gray-900 font-normal rounded-sm block py-1.5 px-2 text-center text-sm">${{format(venta.total)}}</div>
     </div>
 
     <div class="flex justify-between  border border-cyan-300 mt-5 p-2 text-gray-600">
