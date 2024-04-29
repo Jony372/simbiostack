@@ -12,6 +12,10 @@ export class NotasService {
 
   constructor(private http:HttpClient) { }
 
+  obtenerNotas():Observable<Array<intNotaEquipo>>{
+    return this.http.get<Array<intNotaEquipo>>("http://localhost:8080/api/notas/mostrar").pipe(catchError(handleError))
+  }
+
   agregar(prioridad: number, cliente: number, usuario: number):Observable<intNotaEquipo>{
     // console.log(prioridad+" "+cliente+" "+usuario);
     return this.http.post<intNotaEquipo>("http://localhost:8080/api/notas/agregar", null, {params:{

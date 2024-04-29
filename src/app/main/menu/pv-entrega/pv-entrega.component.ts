@@ -1,36 +1,41 @@
 import { Component } from '@angular/core';
-import { PvTablaComponent } from '../p-venta/pv-tabla/pv-tabla.component';
-import { PvEncabezadoComponent } from '../p-venta/pv-encabezado/pv-encabezado.component';
-import { intCliente } from '../../../services/clientes/clienteInterfaz';
-import { intProducto } from '../../../services/productos/productoInterface';
-import { intProductoVenta } from '../../../services/venta/ventaInterface';
 import { Modal, ModalInterface } from 'flowbite';
 import { Toast, format } from '../../../../assets/const';
-import { VentaService } from '../../../services/venta/venta.service';
-import { VentaComponent } from '../modales/venta/venta.component';
 import { ClienteService } from '../../../services/clientes/cliente.service';
+import { intCliente } from '../../../services/clientes/clienteInterfaz';
+import { intProducto } from '../../../services/productos/productoInterface';
 import { ProductosService } from '../../../services/productos/productos.service';
+import { VentaService } from '../../../services/venta/venta.service';
+import { intProductoVenta } from '../../../services/venta/ventaInterface';
+import { VentaComponent } from '../modales/venta/venta.component';
+import { PvTablaComponent } from '../p-venta/pv-tabla/pv-tabla.component';
+import { PveEncabezadoComponent } from './pve-encabezado/pve-encabezado.component';
+import { intNotaEquipo } from '../../../services/notas/interfazNota';
+import { NotasService } from '../../../services/notas/notas.service';
 
 @Component({
   selector: 'app-pv-entrega',
   standalone: true,
-  imports: [PvTablaComponent, PvEncabezadoComponent, VentaComponent],
+  imports: [PvTablaComponent, PveEncabezadoComponent, VentaComponent],
   templateUrl: './pv-entrega.component.html',
   styleUrl: './pv-entrega.component.css'
 })
 export class PvEntregaComponent {
   clientes!: Array<intCliente>;
   productos!: Array<intProducto>;
-  prodVenta!: Array<intProductoVenta>;
+  notas!: Array<intNotaEquipo>;
+  prodVenta: Array<intProductoVenta> = [];
   cliente!: intCliente;
   total: number = 0;
   modal!: ModalInterface;
+  nota!: intNotaEquipo;
 
   format = format;
 
-  constructor(private ventaServicio: VentaService, private clienteServicio: ClienteService, private productoServicio: ProductosService){}
+  constructor(private notaServicio: NotasService ,private ventaServicio: VentaService, private clienteServicio: ClienteService, private productoServicio: ProductosService){}
 
   ngOnInit(){
+
     const modalHtml = document.getElementById('venta-modal');
     this.modal = new Modal(modalHtml);
     
@@ -42,10 +47,18 @@ export class PvEntregaComponent {
       next: data => this.productos = data,
       error: err => console.error("Error al mostrar los productos: "+err)
     })
+    this.notaServicio.obtenerNotas().subscribe({
+      next: data => this.notas = data,
+      error: err => console.error("Error al mostrar las notas: "+err)
+    })
   }
 
   addCliente(cliente: intCliente){
     this.cliente = cliente;
+  }
+
+  addNota(nota: intNotaEquipo){
+    this.nota = nota;
   }
 
   sumTotal(cant: number){
@@ -60,6 +73,7 @@ export class PvEntregaComponent {
         icon: 'error',
         title: 'Faltan datos por llenar'
       })
+      console.log(this.cliente)
     }
   }
 

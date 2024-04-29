@@ -3,22 +3,24 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { intCliente } from '../../../../services/clientes/clienteInterfaz';
 import { intProducto } from '../../../../services/productos/productoInterface';
 import { ProductoVenta, intProductoVenta } from '../../../../services/venta/ventaInterface';
+import { intProveedor } from '../../../../services/proveedor/interfazProveedor';
+import { CompraProducto, intProductoCompra } from '../../../../services/compra/compraInterface';
 
 @Component({
-  selector: 'app-pv-encabezado',
+  selector: 'app-pc-encabezado',
   standalone: true,
   imports: [ReactiveFormsModule],
-  templateUrl: './pv-encabezado.component.html',
-  styleUrl: './pv-encabezado.component.css'
+  templateUrl: './pc-encabezado.component.html',
+  styleUrl: './pc-encabezado.component.css'
 })
-export class PvEncabezadoComponent {
-  @Input() clientes!: Array<intCliente>;
+export class PcEncabezadoComponent {
+  @Input() proveedores!: Array<intProveedor>;
   @Input() productos!: Array<intProducto>;
-  @Input() prodVenta!: Array<intProductoVenta>
+  @Input() prodCompra!: Array<intProductoCompra>
   @Input() total!: number;
   @Output() sumTotal = new EventEmitter<any>;
-  @Output() addCliente = new EventEmitter<intCliente>();
-  cliente!: intCliente | undefined;
+  @Output() addProveedor = new EventEmitter<intProveedor>;
+  proveedor!: intProveedor | undefined;
   producto!: intProducto | undefined;
   
 
@@ -38,10 +40,10 @@ export class PvEncabezadoComponent {
       precio: 0
     })
   }
-  selectCliente(evt:any){
+  selectProveedor(evt:any){
     let val = evt.target.value.trim().toLowerCase();
-    this.cliente = this.clientes.find(cliente => cliente.nombre.toLowerCase() == val);
-    this.cliente? this.addCliente.emit(this.cliente): null;
+    this.proveedor = this.proveedores.find(proveedor => proveedor.nombre.toLowerCase() == val);
+    this.proveedor? this.addProveedor.emit(this.proveedor): null;
   }
   selectProducto(evt: any){
     const val = evt.target.value.trim().toLowerCase();
@@ -61,9 +63,8 @@ export class PvEncabezadoComponent {
       const nombre = this.addProducto.value.producto as string;
       const cantidad  = this.addProducto.value.cantidad as number;
       const precio = this.addProducto.value.precio as number;
-      const prodVenta = new ProductoVenta(undefined, cantidad, prod as intProducto, undefined, cantidad * precio, precio, nombre)
-      // console.log(prodVenta as intProductoVenta)
-      this.prodVenta.push(prodVenta as intProductoVenta)
+      const prodVenta = new CompraProducto(undefined, cantidad, prod, undefined, cantidad * precio, precio, nombre)
+      this.prodCompra.push(prodVenta as intProductoCompra)
       this.sumTotal.emit(prodVenta.subTotal)
       this.addProducto.reset({
         cantidad: 1

@@ -13,6 +13,7 @@ import { PVentaComponent } from './main/menu/p-venta/p-venta.component';
 import { NotaVentaComponent } from './notas/nota-venta/nota-venta.component';
 import { PendientesComponent } from './main/menu/pendientes/pendientes.component';
 import { PvEntregaComponent } from './main/menu/pv-entrega/pv-entrega.component';
+import { PCompraComponent } from './main/menu/p-compra/p-compra.component';
 
 export const routes: Routes = [
   {path:"", redirectTo:"login", pathMatch:"full"},
@@ -48,6 +49,9 @@ export const routes: Routes = [
   },{
     path: 'pv-entrega',
     component: PvEntregaComponent
+  },{
+    path: 'p-compra',
+    component: PCompraComponent
   }]
 }
 ];

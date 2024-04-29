@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, input } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Toast } from '../../../../../assets/const';
@@ -15,6 +15,7 @@ export class VentaComponent {
   @Output() pago: EventEmitter<number> = new EventEmitter<number>();
   @Input() total: number = 0;
   @Input() opcion: boolean = true;
+  @Input() compra: boolean = false;
   efectivo!: number;
   cambio: number = 0;
   isPagado = false;
@@ -38,7 +39,11 @@ export class VentaComponent {
   }
   pagar(){
     if(this.efectivo >= this.total){
-      this.pago.emit(this.isPagado?2:1);
+      if(this.compra){
+        this.pago.emit(this.isPagado?1:0);
+      }else{
+        this.pago.emit(this.isPagado?2:1);
+      }
     }else{
       Toast.fire({
         icon: 'error',
