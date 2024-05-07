@@ -12,13 +12,13 @@ export class VentaService {
 
   constructor(private http: HttpClient) { }
 
-  agregarVenta(usuario: number, cliente: number, total: number, caja: number, estado: number):Observable<intVenta>{
+  agregarVenta(usuario: number, cliente: number, total: number, estado: number, isEfectivo: number):Observable<intVenta>{
     return this.http.post<intVenta>('http://localhost:8080/api/ventas/agregar', null, {params:{
       'usuario': usuario,
       'cliente': cliente,
       'total': total,
-      'caja': caja,
-      'estado': estado
+      'estado': estado,
+      'isEfectivo': isEfectivo
     }}).pipe(catchError(handleError))
   }
 
@@ -45,11 +45,23 @@ export class VentaService {
     return this.http.get<Array<intProductoVenta>>(`http://localhost:8080/api/ventas/mostrar-vp/${id}`).pipe(catchError(handleError))
   }
 
-  mostrarVentasPorCobrar():Observable<Array<intVenta>>{
-    return this.http.get<Array<intVenta>>('http://localhost:8080/api/ventas/por-pagar').pipe(catchError(handleError))
+  mostrarVentasPorCobrar():Observable<Array<any>>{
+    return this.http.get<Array<any>>('http://localhost:8080/api/ventas/por-pagar').pipe(catchError(handleError))
   }
 
-  pagarVenta(id: number):Observable<any>{
-    return this.http.get<any>(`http://localhost:8080/api/ventas/pagar/${id}`, {responseType: "json"}).pipe(catchError(handleError))
+  pagarVenta(id: number, tipo: number, isEfectivo: number):Observable<any>{
+    if (tipo === 1) {
+      return this.http.get<any>(`http://localhost:8080/api/ventas/pagar/${id}`, {params:{
+        isEfectivo: isEfectivo
+      }}).pipe(catchError(handleError))
+    }else{
+      return this.http.get<any>(`http://localhost:8080/api/nota-entrega/pagar/${id}`, {params:{
+        isEfectivo: isEfectivo
+      }}).pipe(catchError(handleError))
+    }
+  }
+
+  cancelarVenta(id: number):Observable<any>{
+    return this.http.post<any>(`http://localhost:8080/api/ventas/cancelar/${id}`, null).pipe(catchError(handleError))
   }
 }

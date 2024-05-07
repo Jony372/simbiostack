@@ -15,12 +15,12 @@ export class CompraService {
     return this.http.get<Array<intCompra>>('http://localhost:8080/api/compra/compras').pipe(catchError(handleError));
   }
 
-  addCompra(caja: number, total: number, proveedor: number, resta: number):Observable<intCompra>{
+  addCompra(caja: number, total: number, proveedor: number, isEfectivo: number):Observable<intCompra>{
     return this.http.post<intCompra>('http://localhost:8080/api/compra/agregar', null, {params:{
       caja: caja,
       total: total,
       proveedor: proveedor,
-      resta: resta
+      isEfectivo: isEfectivo
     }}).pipe(catchError(handleError));
   }
 

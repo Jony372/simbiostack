@@ -1,6 +1,6 @@
 <form [formGroup]="addProducto" class="grid grid-cols-10 gap-2">
   <div class="col-span-1">
-    <label for="nota" class="pl-3 block mb-2 text-sm font-medium text-gray-900 dark:text-white">Folio nota</label>
+    <label for="nota" class="pl-3 block mb-2 text-sm font-medium text-gray-900 dark:text-white">Folio</label>
     <input formControlName="nota" list="data-notas" autocomplete="off" type="text" name="cliente"  id="cliente" (input)="selectNota($event)" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="No. Folio..." >
   </div>
   <div class="col-span-5 md:col-span-6">
@@ -8,21 +8,21 @@
     <input formControlName="cliente"  autocomplete="off" type="text" name="cliente"  id="cliente" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Cliente...">
   </div>
   <div class="col-span-4 md:col-span-3 flex flex-col justify-end">
-    <button type="button" class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-3 text-center flex justify-center items-center me-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+    <button type="button" (click)="agregarDiagnosticos()" class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-3 text-center flex justify-center items-center me-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
       <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-      Agregar Cliente
+      Agregar diagnósticos
     </button>
   </div>
   <div class="col-span-2 lg:col-span-1">
     <label for="cantidad" class="pl-3 block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cantidad</label>
     <div class="relative flex items-center ">
-      <button (click)="cant(false)" type="button" id="decrement-button" data-input-counter-decrement="quantity-input" class="w-1/4 bg-gray-100 dark:bg-gray-600 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg h-11 flex justify-center flex-row items-center focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+      <button (click)="cant(false)" type="button" id="decrement-button" class="w-1/4 bg-gray-100 dark:bg-gray-600 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg h-11 flex justify-center flex-row items-center focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
           <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
           </svg>
       </button>
-      <input formControlName="cantidad" type="text" min="0" id="quantity-input" data-input-counter aria-describedby="helper-text-explanation" class="w-2/4 px-1 bg-gray-50 border-x-0 border-gray-300 h-11 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="01" required />
-      <button (click)="cant(true)" type="button" id="increment-button" data-input-counter-increment="quantity-input" class="flex justify-center flex-row items-center w-1/4 bg-gray-100 dark:bg-gray-600 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+      <input formControlName="cantidad" type="text" min="0" id="quantity-input" aria-describedby="helper-text-explanation" class="w-2/4 px-1 bg-gray-50 border-x-0 border-gray-300 h-11 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="01" required />
+      <button (click)="cant(true)" type="button" id="increment-button"  class="flex justify-center flex-row items-center w-1/4 bg-gray-100 dark:bg-gray-600 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
           <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
           </svg>
@@ -56,18 +56,14 @@
   </div>
 </form>
 
-<datalist id="data-clientes">
-  @for (cliente of clientes; track $index) {
-    <option value="{{cliente.nombre}}"></option>
-  }
-</datalist>
 <datalist id="data-productos">
-  @for (producto of productos; track $index) {
-    <option value="{{producto.nombre}}"></option>
+  @for (ps of prodServ; track $index) {
+    <option value="{{ps[2]}}"></option>
   }
 </datalist>
+
 <datalist id="data-notas">
-  @for (nota of notas; track $index) {
-    <option value="{{nota.id}}"></option>
+  @for (nota of pendientes; track $index) {
+    <option value="{{nota}}"></option>
   }
 </datalist>

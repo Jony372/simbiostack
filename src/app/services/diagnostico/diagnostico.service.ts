@@ -11,16 +11,10 @@ export class DiagnosticoService {
 
   constructor(private http: HttpClient) { }
 
-  agregarDiagnostico(diagnostico: intDiagnostico):Observable<intDiagnostico>{
+  agregarDiagnostico(diagnostico: intDiagnostico, equipo: number):Observable<intDiagnostico>{
     return this.http.post<intDiagnostico>("http://localhost:8080/api/diagnostico/agregar", null, {params:{
-      diagnostico: diagnostico.diagnostico,
-      equipo: diagnostico.equipo as number,
-      pantalla: diagnostico.pantalla,
-      cargador: diagnostico.cargador,
-      enciende: diagnostico.enciende,
-      bisagras: diagnostico.bisagras,
-      ram: diagnostico.ram,
-      almacenamiento: diagnostico.almacenamiento
+      ...diagnostico,
+      equipo: equipo
     }}).pipe(catchError(handleError))
   }
 

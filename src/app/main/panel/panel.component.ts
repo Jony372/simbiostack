@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { ThemeServiceService } from '../../services/theme-service.service';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { Toast } from '../../../assets/const';
 
 @Component({
   selector: 'app-panel',
@@ -10,11 +11,19 @@ import { Router } from '@angular/router';
   styleUrl: './panel.component.css'
 })
 export class PanelComponent {
+  // cookieService = inject(CookieService);
   
-  constructor(private router: Router){}
+  constructor(private router: Router, private cookieService: CookieService){}
   
   navigate = (ruta: string) => this.router.navigateByUrl(`/${ruta}`);
 
-
+  cerrarSesion(){
+    this.cookieService.delete("user", "http://localhost:4200");
+    this.router.navigateByUrl('/login');
+    Toast.fire({
+      icon: 'success',
+      title: 'Sesión cerrada'
+    })
+  }
 
 }

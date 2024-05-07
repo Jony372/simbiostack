@@ -1,4 +1,7 @@
 import Swal from "sweetalert2";
+import { userInt } from "../app/services/login/userInterface";
+
+let usuario!: userInt;
 
 export const Toast = Swal.mixin({
   toast: true,
@@ -16,4 +19,12 @@ export function format(n: number): string {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   });
+}
+
+export function setUser(user: userInt){
+  usuario = user;
+}
+
+export function getUser(): userInt{
+  return usuario;
 }

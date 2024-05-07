@@ -14,6 +14,8 @@ export interface intProductoVenta{
     productoNombre: string
 }
 
+
+
 export class ProductoVenta implements intProductoVenta{
     id: number | undefined;
     cantidad: number;
@@ -41,5 +43,6 @@ export interface intVenta{
     fecha: string,
     caja: intCaja,
     estado: intEstado,
-    productos: Array<intProductoVenta>
+    productos: Array<intProductoVenta>,
+    cancelado: number
 }

@@ -7,6 +7,7 @@ import { intPrioridad } from '../../../../services/prioridad/interfazPrioridad';
 import { PrioridadService } from '../../../../services/prioridad/prioridad.service';
 import { NotasService } from '../../../../services/notas/notas.service';
 import { Toast } from '../../../../../assets/const';
+import { ModalInterface } from 'flowbite';
 
 @Component({
   selector: 'app-nota-modal',
@@ -18,6 +19,7 @@ import { Toast } from '../../../../../assets/const';
 export class NotaModalComponent {
   @Output() save = new EventEmitter<any>;
   @Input() nota!: intGetNotaEquipos;
+  @Input() modal!: ModalInterface;
   estados!: Array<intEstado>
   prioridades!: Array<intPrioridad>
   estado!: number;
@@ -42,10 +44,9 @@ export class NotaModalComponent {
   }
 
   ngOnChanges(){
-    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
-    //Add '${implements OnChanges}' to the class.
     this.estado = this.nota.estado.id;
     this.prioridad = this.nota.prioridad.id;
+    this.cambio();
   }
 
   select(sel: Array<number>){
@@ -78,5 +79,6 @@ export class NotaModalComponent {
         }
       })
     }
+    this.modal.hide()
   }
 }

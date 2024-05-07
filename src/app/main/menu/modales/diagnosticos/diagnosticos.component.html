@@ -1,0 +1,78 @@
+<div id="add-diagnosticos" tabindex="-1" aria-hidden="false" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-full">
+  <div class="relative p-4 w-full max-w-lg h-full">
+      <!-- Modal content -->
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 h-full">
+          <!-- Modal header -->
+        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                Agregar diagnósticos
+            </h3>
+            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="add-diagnosticos">
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                </svg>
+                <span class="sr-only">Cerrar</span>
+            </button>
+        </div>
+        <!-- Modal body -->
+        <div class="divide-y divide-gray-200 w-full px-4 h-3/4 overflow-auto">
+          @for (equipo of equipos; track $index) {
+            <div class="py-3">
+              <h3 class="text-base font-semibold text-gray-900 dark:text-white">
+                {{equipo?.tipo+" "+equipo?.marca+" "+equipo?.color}}
+              </h3> 
+              <form [formGroup]="forms[$index]">
+                <div class="grid gap-4 mb-4 grid-cols-3"> 
+                  <div class="col-span-3">
+                    <label for="diagnostico" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Diagnostico</label>
+                    <textarea formControlName="diagnostico" name="diagnostico" rows="4" id="diagnostico" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Diagnostico..." ></textarea>
+                  </div>
+                </div>
+                <div class="flex flex-col mb-4">
+                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Extras</label>
+                  <div class="grid grid-cols-2 grid-flow-row row-span-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <div class="flex items-center mb-4">
+                      <input id="cargador" formControlName="pantallaRota" type="checkbox"  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                      <label for="cargador" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300 overflow-hidden">¿Pantalla rota?</label>
+                    </div>
+                
+                    <div class="flex items-center mb-4">
+                      <input id="funda" formControlName="cargador" type="checkbox"  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                      <label for="funda" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">¿Cargador funciona?</label>
+                    </div>
+                    
+                    <div class="flex items-center">
+                      <input id="usb" formControlName="enciende" type="checkbox"  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                      <label for="usb" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">¿Enciende?</label>
+                    </div>
+                    
+                    <div class="flex items-center">
+                      <input id="cables" formControlName="bisagras" type="checkbox"  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                      <label for="cables" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300 overflow-hidden">¿Bisagras rotas?</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid gap-4 mb-4 grid-cols-4"> 
+                  <div class="col-span-2">
+                    <label for="ram" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">RAM (GB)</label>
+                    <input formControlName="ram" type="number" name="ram" id="ram" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="8" >
+                  </div>
+                  <div class="col-span-2">
+                    <label for="almacenamiento" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Almacenamiento</label>
+                    <input type="text" formControlName="almacenamiento" name="almacenamiento" id="almacenamiento" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="500 gb" >
+                  </div>
+                </div>
+                <div class="flex justify-end">
+                  <button type="submit" (click)="guardarDiagnositco($index, equipo.id)" class=" text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Guardar</button>
+                </div>
+              </form>
+            </div>
+          }
+        </div>
+
+        <div class="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+          <button data-modal-hide="add-diagnosticos" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Cerrar</button>
+        </div>
+      </div>
+  </div>
+</div>

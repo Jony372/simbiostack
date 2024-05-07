@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Modal, ModalInterface } from 'flowbite';
+import { CookieService } from 'ngx-cookie-service';
 import { format } from '../../../../assets/const';
 import { intGetNotaEquipos } from '../../../services/notas/interfazNota';
 import { NotasService } from '../../../services/notas/notas.service';
@@ -12,18 +13,23 @@ import { intVenta } from '../../../services/venta/ventaInterface';
 import { NotaModalComponent } from '../modales/nota-modal/nota-modal.component';
 import { PendientesModalComponent } from '../modales/pendientes-modal/pendientes-modal.component';
 import { VentaComponent } from '../modales/venta/venta.component';
+import { intCategoria } from '../../../services/categorias/categoriaInterfaz';
+import { mostrarCategoria } from '../../../services/categorias/mostrarCategoria.service';
 
 @Component({
   selector: 'app-inicio',
   standalone: true,
   imports: [VentaComponent, PendientesModalComponent, NotaModalComponent],
+  providers: [CookieService],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.css'
 })
 export class InicioComponent {
+
   pendientes: Array<any> = [];
-  productos: Array<intProducto>=[];
-  porPagar: Array<intVenta>=[];
+  gdl: Array<any> = [];
+  categorias: Array<intCategoria>=[];
+  porPagar: Array<any>=[];
   pendiente!: intPendiente;
   nota!: intGetNotaEquipos;
   venta!: number;
@@ -31,17 +37,31 @@ export class InicioComponent {
   modal!: ModalInterface;
   pendienteModal!: ModalInterface;
   notaModal!: ModalInterface;
+  tipo!: number;
 
   format = format;
 
-  constructor(private notaServicio: NotasService ,private pendServ: PendientesService, private productoServicio: ProductosService, private ventaServicio:VentaService) {}
+  constructor(private notaServicio: NotasService ,private pendServ: PendientesService, private categoriaServicio: mostrarCategoria, private ventaServicio:VentaService) {}
 
   ngOnInit(){
+    this.actualizarDatos()
+  }
+  ngOnChanges(): void {
+    this.actualizarDatos()
+  }
+
+  actualizarDatos(){
+    
+    this.pendientes = [];
+    this.gdl = [];
     this.pendServ.pendientes().subscribe({
       next:(data)=>{
         // console.log(data);
-        this.pendientes = data
-        // this.pendientes  = data;
+        data.forEach(pend => {
+          pend[5] === 3? this.gdl.push(pend) : this.pendientes.push(pend);
+        })
+        // this.pendientes = data;
+        // this.pendientes = data;
       },
       error: (errorMessage)=> {
         alert("ERROR")
@@ -49,13 +69,13 @@ export class InicioComponent {
       }
     });
 
-    this.productoServicio.bajoStock().subscribe({
+    this.categoriaServicio.bajoStock().subscribe({
       next: data => {
-        this.productos = data
+        this.categorias = data
       },
       error: (errorMessage)=> {
         alert("ERROR")
-        console.error(errorMessage);
+        console.error("Error al mostrar el bajo stock: "+errorMessage);
       }
     })
     
@@ -72,17 +92,17 @@ export class InicioComponent {
     this.notaModal = new Modal(document.getElementById('nota-modal'));
   }
 
-  pago(evt: number){
-    console.log(this.venta)
-    this.ventaServicio.pagarVenta(this.venta).subscribe({
+  pago(evt: number[]){
+    this.ventaServicio.pagarVenta(this.venta, this.tipo, evt[1]).subscribe({
       error: (err) => console.error("Error al pagar: ", err),
-      complete: () => {window.location.reload()}
+      complete: () => {this.actualizarDatos()}
     })
   }
 
-  pagar(venta:intVenta){
-    this.total = venta.total;
-    this.venta = venta.id;
+  pagar(venta:any){
+    this.total = venta[3];
+    this.venta = venta[1];
+    this.tipo = venta[0];
     this.modal.show();
   }
 
@@ -102,17 +122,4 @@ export class InicioComponent {
     }
   }
 
-  actualizar(){
-    this.pendServ.pendientes().subscribe({
-      next:(data)=>{
-        // console.log(data);
-        this.pendientes = data
-        // this.pendientes  = data;
-      },
-      error: (errorMessage)=> {
-        alert("ERROR")
-        console.error(errorMessage);
-      }
-    });
-  }
 }

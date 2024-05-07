@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Modal, ModalInterface } from 'flowbite';
 import { Toast } from '../../../../assets/const';
 import { ClienteService } from '../../../services/clientes/cliente.service';
@@ -10,6 +10,8 @@ import { intProductoVenta } from '../../../services/venta/ventaInterface';
 import { VentaComponent } from '../modales/venta/venta.component';
 import { PvEncabezadoComponent } from './pv-encabezado/pv-encabezado.component';
 import { PvTablaComponent } from './pv-tabla/pv-tabla.component';
+import { CookieService } from 'ngx-cookie-service';
+import { userInt } from '../../../services/login/userInterface';
 
 
 @Component({
@@ -20,6 +22,8 @@ import { PvTablaComponent } from './pv-tabla/pv-tabla.component';
   styleUrl: './p-venta.component.css'
 })
 export class PVentaComponent {
+  cookieService = inject(CookieService);
+
   clientes!: Array<intCliente>;
   productos!: Array<intProducto>;
   producto!: intProducto;
@@ -117,10 +121,10 @@ export class PVentaComponent {
     }
   }
 
-  pago(evt: number){
+  pago(evt: number[]){
     const estado = evt;
-    console.log(estado)
-    this.ventaServicio.agregarVenta(1, this.cliente.id, this.total, 4, estado).subscribe({
+    const usuario = JSON.parse(this.cookieService.get('user')) as userInt;
+    this.ventaServicio.agregarVenta(usuario.id, this.cliente.id, this.total, estado[0], estado[1]).subscribe({
       next: data => {
         console.log(data)
         this.prodVenta.forEach((prod, i) => {

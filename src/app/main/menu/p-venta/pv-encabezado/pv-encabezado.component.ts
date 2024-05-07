@@ -3,6 +3,8 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { intCliente } from '../../../../services/clientes/clienteInterfaz';
 import { intProducto } from '../../../../services/productos/productoInterface';
 import { ProductoVenta, intProductoVenta } from '../../../../services/venta/ventaInterface';
+import Swal from 'sweetalert2';
+import { Toast } from '../../../../../assets/const';
 
 @Component({
   selector: 'app-pv-encabezado',
@@ -25,7 +27,7 @@ export class PvEncabezadoComponent {
   addProducto = this.formBuilder.group({
     cantidad: [1, [Validators.required, Validators.min(1)]],
     producto: ['', [Validators.required]],
-    precio: [0, [Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$'), Validators.required]]
+    precio: [0, [Validators.pattern('^-?[0-9]+(\.[0-9]{1,2})?$'), Validators.required]]
   })
 
   constructor(private formBuilder: FormBuilder){}
@@ -34,20 +36,19 @@ export class PvEncabezadoComponent {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.addProducto.reset({
-      cantidad: 1,
-      precio: 0
+      cantidad: 1
     })
   }
   selectCliente(evt:any){
     let val = evt.target.value.trim().toLowerCase();
     this.cliente = this.clientes.find(cliente => cliente.nombre.toLowerCase() == val);
-    this.cliente? this.addCliente.emit(this.cliente): null;
+    this.addCliente.emit(this.cliente);
   }
   selectProducto(evt: any){
     const val = evt.target.value.trim().toLowerCase();
     const form = this.addProducto;
     this.producto = this.productos.find(prd => prd.nombre.toLowerCase() === val || prd.codigobarra.toLowerCase() === val);
-    form.patchValue({precio: this.producto?.precio})
+    this.producto?form.patchValue({precio: this.producto?.precio}):undefined;
   }
 
   cant(evt: boolean){
@@ -69,7 +70,10 @@ export class PvEncabezadoComponent {
         cantidad: 1
       })
     }else{
-      alert("Faltan datos por llenar")
+      Toast.fire({
+        title: "Agregue los datos necesarios del producto",
+        icon: 'warning'
+      });
       this.addProducto.markAllAsTouched();
     }
   }

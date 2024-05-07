@@ -14,6 +14,11 @@ import { NotaVentaComponent } from './notas/nota-venta/nota-venta.component';
 import { PendientesComponent } from './main/menu/pendientes/pendientes.component';
 import { PvEntregaComponent } from './main/menu/pv-entrega/pv-entrega.component';
 import { PCompraComponent } from './main/menu/p-compra/p-compra.component';
+import { ServiciosComponent } from './main/menu/servicios/servicios.component';
+import { CategoriaComponent } from './main/menu/categoria/categoria.component';
+import { NotaEntregaComponent } from './notas/nota-entrega/nota-entrega.component';
+import { VentasComponent } from './main/menu/ventas/ventas.component';
+import { ComprasComponent } from './main/menu/compras/compras.component';
 
 export const routes: Routes = [
   {path:"", redirectTo:"login", pathMatch:"full"},
@@ -21,6 +26,9 @@ export const routes: Routes = [
   component: NotaEquipoComponent},
   {path: "nota-venta",
   component: NotaVentaComponent},
+  {path: "nota-entrega",
+    component: NotaEntregaComponent
+  },
   {path: "login",
   component: LoginComponent},
   {path: "inicio",
@@ -52,6 +60,18 @@ export const routes: Routes = [
   },{
     path: 'p-compra',
     component: PCompraComponent
+  },{
+    path: 'servicios',
+    component: ServiciosComponent
+  },{
+    path: 'categorias',
+    component: CategoriaComponent
+  },{
+    path: 'ventas',
+    component: VentasComponent
+  },{
+    path: 'compras',
+    component: ComprasComponent
   }]
 }
 ];

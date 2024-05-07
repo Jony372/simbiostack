@@ -12,8 +12,8 @@ export class NotasService {
 
   constructor(private http:HttpClient) { }
 
-  obtenerNotas():Observable<Array<intNotaEquipo>>{
-    return this.http.get<Array<intNotaEquipo>>("http://localhost:8080/api/notas/mostrar").pipe(catchError(handleError))
+  obtenerNotas():Observable<Array<intGetNotaEquipos>>{
+    return this.http.get<Array<intGetNotaEquipos>>("http://localhost:8080/api/notas/mostrar").pipe(catchError(handleError))
   }
 
   agregar(prioridad: number, cliente: number, usuario: number):Observable<intNotaEquipo>{
@@ -43,5 +43,9 @@ export class NotasService {
       estado: estado,
       prioridad: prioridad
     }}).pipe(catchError(handleError))
+  }
+
+  notasTrabajando():Observable<Array<number>>{
+    return this.http.get<Array<number>>("http://localhost:8080/api/notas/notas-trabajando").pipe(catchError(handleError));
   }
 }

@@ -44,16 +44,50 @@
   <div class=" font-bold p-1 border-gray-200 rounded-lg shadow-lg dark:bg-gray-800">
     <h2 class="text-xl text-center font-bold pt-2 pb-3 text-gray-800 dark:text-white">Inventario bajo</h2>
     <ul class="h-4/5 overflow-auto text-sm font-medium divide-y divide-gray-200 dark:divide-gray-700 mx-auto">
-      @for (producto of productos; track producto.id) {
+      @for (categoria of categorias; track $index) {
         <li class="flex flex-row justify-between my-2 mx-5 overflow-y-scroll">
-          <p>{{producto.nombre}}</p>
-          <p>{{producto.cantidad}}</p>
+          <p>{{categoria.nombre}}</p>
+          <p>{{categoria.existencias}}</p>
         </li>
       }
     </ul>
   </div>
   <div class=" font-bold p-1 border-gray-200 rounded-lg shadow-lg dark:bg-gray-800">
     <h2 class="text-xl text-center font-bold pt-2 pb-3 text-gray-800 dark:text-white">Equipos en Guadalajara</h2>
+    <div class="pt-2 overflow-y-auto h-4/5 px-2">
+      @if (gdl.length > 0) {
+        <ul class="max-w-md divide-y divide-gray-200 dark:divide-gray-700 mx-auto">
+          @for (pendiente of gdl; track $index) {
+            <li (click)="seleccionarPendiente(pendiente[0], pendiente[4])" class="py-1.5 sm:py-2 px-2 rounded hover:bg-gray-300 dark:hover:bg-gray-600 cursor-pointer" >
+              <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                <div class="flex-shrink-0" >
+                  <p class="text-sm font-medium  truncate">
+                    {{pendiente[0]}}
+                  </p>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium  truncate ">
+                    {{pendiente[1]}}
+                  </p>
+                </div>
+                <div class="flex w-14 justify-center  text-gray-100 dark:text-white items-center text-base font-semibold px-2  {{pendiente[3] == 1?'bg-green-400':pendiente[3] == 2? 'bg-orange-400':'bg-red-600'}}">
+                  <p>
+                    {{pendiente[2]}}
+                  </p>
+                </div>
+              </div>
+            </li>
+          }
+        </ul>
+      }@else{
+        <div class="h-full flex items-center justify-center flex-col">
+          <p class="pb-1">No hay equipos pendientes...</p>
+          <svg xmlns="http://www.w3.org/2000/svg" width="170" height="100">
+            <image href="../../../../assets/svg/undraw_logistics_x-4-dc.svg" width="170" height="100" />
+          </svg>
+        </div>
+      }
+    </div>
   </div>
   <div class=" lg:row-span-2 font-bold p-1 border-gray-200 rounded-lg shadow-lg dark:bg-gray-800">
     <h2 class="text-xl text-center font-bold pt-2 pb-3 text-gray-800 dark:text-white">Notas por cobrar</h2>
@@ -64,17 +98,17 @@
             <div class="flex items-center space-x-4 rtl:space-x-reverse">
               <div class="flex-shrink-0">
                 <p class="text-sm font-medium  truncate ">
-                  {{venta.id}}
+                  {{venta[1]}}
                 </p>
               </div>
               <div class="flex-shrink-0">
                 <p class="text-sm font-medium  truncate ">
-                  {{venta.cliente.nombre}}
+                  {{venta[2]}}
                 </p>
               </div>
               <div class="flex-1 min-w-0">
                 <p class="text-sm font-medium  truncate ">
-                  ${{format(venta.total)}}
+                  ${{format(venta[3])}}
                 </p>
               </div>
               <!-- <div class="flex-1 min-w-0">
@@ -99,7 +133,9 @@
 <app-venta
   (pago)="pago($event)"
   [total]="total"
-  [opcion]="false">
+  [opcion]="false"
+  [tipo]="tipo"
+  [modal]="modal">
 </app-venta>
 
 <app-pendientes-modal
@@ -107,6 +143,7 @@
 />
 
 <app-nota-modal
-  (save)="actualizar()"
+  (save)="actualizarDatos()"
   [nota]="nota"
+  [modal] = "notaModal"
   />
