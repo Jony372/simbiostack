@@ -38,4 +38,18 @@ export class CompraService {
       nombre: nombre
     }}).pipe(catchError(handleError));
   }
+
+  cancelarCompra(id: number):Observable<any>{
+    return this.http.post<any>(`http://localhost:8080/api/compra/cancelar/${id}`, null).pipe(catchError(handleError));
+  }
+
+  filtrarCompra(search: string):Observable<Array<intCompra>>{
+    return this.http.post<Array<intCompra>>("http://localhost:8080/api/compra/filtro", null, {params:{
+      search: search
+    }}).pipe(catchError(handleError))
+  }
+
+  getComprasProductos(id: number):Observable<Array<intProductoCompra>>{
+    return this.http.get<Array<intProductoCompra>>(`http://localhost:8080/api/compra/compra-productos/${id}`).pipe(catchError(handleError))
+  }
 }

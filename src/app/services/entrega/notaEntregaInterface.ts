@@ -15,7 +15,8 @@ export interface intNotaEntrega{
   estado: intEstado,
   fecha: string,
   isEfectivo: boolean,
-  nota: intNotaEquipo
+  nota: intNotaEquipo,
+  cancelado: boolean
 }
 
 export interface intEntregaServicio{

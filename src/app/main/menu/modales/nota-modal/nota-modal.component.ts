@@ -26,6 +26,7 @@ export class NotaModalComponent {
   prioridad!: number;
   guardar: boolean = false;
   boton: string = "Cerrar";
+  
 
   constructor(private estadoServicio: EstadoService, private prioridadServicio: PrioridadService, private notaServicio: NotasService) {}
 
@@ -44,8 +45,8 @@ export class NotaModalComponent {
   }
 
   ngOnChanges(){
-    this.estado = this.nota.estado.id;
-    this.prioridad = this.nota.prioridad.id;
+    this.estado = this.nota?.estado.id;
+    this.prioridad = this.nota?.prioridad.id;
     this.cambio();
   }
 
@@ -62,7 +63,7 @@ export class NotaModalComponent {
   }
 
   cambio(){
-    this.guardar = this.estado !== this.nota.estado.id || this.prioridad !== this.nota.prioridad.id;
+    this.guardar = this.estado !== this.nota?.estado.id || this.prioridad !== this.nota?.prioridad.id;
     this.boton = this.guardar ? "Guardar" : "Cerrar";
   }
 

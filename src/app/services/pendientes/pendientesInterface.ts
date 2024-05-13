@@ -7,12 +7,24 @@ import { intUsuario } from "../usuarios/usuraioInterface";
 export interface intPendiente {
   id: number; 
   nombre: string;
-  cliente: intCliente;
-  usuarios: intUsuario;
+  cliente: intCliente | null;
+  usuario: intUsuario;
   prioridad: intPrioridad;
   descripcion: string;
   fecha: string; // Formato: "YYYY-MM-DD"
-  fechaEstimada: string; // Formato: "YYYY-MM-DD"
+  fechaEstimada: string | null; // Formato: "YYYY-MM-DD"
   estado: intEstado;
-  tipo: intTipo
+  tipo: intTipo;
+  fechaInicio: string | null
+}
+
+export interface addPendiente{
+  nombre: string,
+  usuario: number,
+  prioridad: number,
+  descripcion: string,
+  estado: number,
+  tipo: number,
+  cliente?: number,
+  fechaEstimada?: number
 }

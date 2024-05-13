@@ -14,7 +14,7 @@
           <button type="submit"  class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Buscar</button>
         </div>
       </form>
-      <button (click)="agregar()"  data-modal-target="add-categoria" data-modal-toggle="add-categoria" type="button" class=" text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+      <button (click)="agregar()" type="button" class=" text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
         <svg class="w-4 h-4 mr-3" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 42 42">
           <path fill="currentColor" d="M39.5 22.5v-3c0-1.48-.43-2-2-2h-13v-13c0-1.48-.49-2-2-2h-3c-1.55 0-2 .52-2 2v13h-14c-1.48 0-2 .49-2 2v3c0 1.55.52 2 2 2h14v14c0 1.51.48 2 2 2h3c1.48 0 2-.43 2-2v-14h13c1.51 0 2-.48 2-2z"/>
         </svg>
@@ -56,10 +56,10 @@
               </td>
               <td class="px-6 py-4">
                 <div class="inline-flex rounded-md shadow-sm" role="group">
-                  <button (click)="editar(categoria)" data-modal-target="add-categoria" data-modal-toggle="add-categoria" type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-s-lg  hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500  focus:text-white dark:border-white dark:text-white dark:hover:text-white bg-yellow-400 hover:bg-yellow-500">
+                  <button (click)="editar(categoria)" type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-s-lg  hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500  focus:text-white dark:border-white dark:text-white dark:hover:text-white bg-yellow-400 hover:bg-yellow-500">
                     Editar
                   </button>
-                  <button type="button" (click)="eliminar(categoria.id)" class="px-4 py-2 text-sm font-medium text-gray-900 border border-gray-900 rounded-e-lg  hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:text-white dark:border-white dark:text-white bg-red-700 hover:bg-red-800">
+                  <button type="button" (click)="selectCategoria(categoria)" class="px-4 py-2 text-sm font-medium text-gray-900 border border-gray-900 rounded-e-lg  hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:text-white dark:border-white dark:text-white bg-red-700 hover:bg-red-800">
                     Eliminar
                   </button>
                 </div>
@@ -73,4 +73,10 @@
   </div>
 </div>
 
-<app-add-categoria [add]="add" [categoria]="categoria"></app-add-categoria>
+<app-add-categoria [add]="add" [categoria]="categoria" [modal]="modal" (listo)="actualizar()"></app-add-categoria>
+
+<app-confirmar
+  [modal]="modalConfirmar"
+  [texto]="'¿Desea eliminar la categoria ' + eCategoria?.nombre + '?'"
+  (confirmar)="eliminar()"
+></app-confirmar>

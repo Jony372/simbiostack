@@ -3,13 +3,16 @@ import { Injectable } from '@angular/core';
 import { loginInt } from './loginInterface';
 import { Observable, catchError, throwError } from 'rxjs';
 import { userInt } from './userInterface';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
+import { Toast } from '../../../assets/const';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) { }
 
   login(info:loginInt):Observable<userInt>{
     return this.http.get<userInt>("http://localhost:8080/api/usuarios/login", {params:{
@@ -24,5 +27,28 @@ export class LoginService {
     }else{
       console.error("El servidor mando el código de error ", error.status, error.error);
     }
-    return throwError(()=> new Error("Algo salio mal, por favor vuelve a intentarlo"))}
+    return throwError(()=> new Error("Algo salio mal, por favor vuelve a intentarlo: "+error.error))
+  }
+
+  cerrarSesion(){
+    // this.cookieService.delete('user');
+    this.cookieService.delete('user', '/');
+    this.router.navigateByUrl('/login')
+    Toast.fire({
+      icon: 'success',
+      title: 'Sesión cerrada'
+    })
+  }
+
+  guardarSesion(usuario: userInt){
+    this.cookieService.set('user', JSON.stringify(usuario), undefined, '/')
+  }
+
+  checkSesion():boolean{
+    return this.cookieService.check('user')
+  }
+
+  getUsuario():userInt{
+    return JSON.parse(this.cookieService.get('user'))
+  }
 }

@@ -50,4 +50,18 @@ export class EntregaService {
   getEntregaServicio(id: number):Observable<Array<intEntregaServicio>>{
     return this.http.get<Array<intEntregaServicio>>(`http://localhost:8080/api/entregaservicio/mostrar-es/${id}`).pipe(catchError(handleError));
   }
+
+  getNotasEntrega():Observable<Array<intNotaEntrega>>{
+    return this.http.get<Array<intNotaEntrega>>("http://localhost:8080/api/nota-entrega/notas").pipe(catchError(handleError));
+  }
+
+  cancelarNota(id:number):Observable<any>{
+    return this.http.post<any>(`http://localhost:8080/api/nota-entrega/cancelar/${id}`, null).pipe(catchError(handleError));
+  }
+
+  filtrar(search:string):Observable<Array<intNotaEntrega>>{
+    return this.http.post<Array<intNotaEntrega>>(`http://localhost:8080/api/nota-entrega/filtrar`, null, {params:{
+      search: search
+    }}).pipe(catchError(handleError));
+  }
 }

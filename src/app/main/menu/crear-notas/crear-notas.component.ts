@@ -10,6 +10,7 @@ import { formEquipo, intEquipo } from '../../../services/equipos/equipoInterfaz'
 import { EquiposService } from '../../../services/equipos/equipos.service';
 import { NotasService } from '../../../services/notas/notas.service';
 import { intNotaEquipo } from '../../../services/notas/interfazNota';
+import { Toast } from '../../../../assets/const';
 
 @Component({
   selector: 'app-crear-notas',
@@ -88,8 +89,12 @@ export class CrearNotasComponent {
         this.agregarCliente();
       }
     }else{
+      const alerta = this.cliUser.invalid ? "Faltan datos por llenar" : "Agregue al menos un equipo";
+      Toast.fire({
+        icon: 'warning',
+        title: alerta
+      })
       this.cliUser.markAllAsTouched();
-      alert('Faltan campos por llenar');
     }
     // console.log(this.equiposNuevos)
     // console.log(this.addEquipos)

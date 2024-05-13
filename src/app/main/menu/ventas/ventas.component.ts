@@ -1,63 +1,51 @@
 import { Component } from '@angular/core';
-import { intPendiente } from '../../../services/pendientes/pendientesInterface';
-import { PendientesService } from '../../../services/pendientes/pendientes.service';
-import { intVenta } from '../../../services/venta/ventaInterface';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Modal, ModalInterface } from 'flowbite';
+import { Toast, format } from '../../../../assets/const';
 import { VentaService } from '../../../services/venta/venta.service';
-import { Router } from '@angular/router';
-import { format } from '../../../../assets/const';
-import { intCliente } from '../../../services/clientes/clienteInterfaz';
-import { ClienteService } from '../../../services/clientes/cliente.service';
+import { intVenta } from '../../../services/venta/ventaInterface';
 import { ConfirmarComponent } from '../modales/confirmar/confirmar.component';
-import { Toast } from '../../../../assets/const';
+import { VentaComponent } from '../modales/venta/venta.component';
 
 @Component({
   selector: 'app-pendientes',
   standalone: true,
-  imports: [ConfirmarComponent],
+  imports: [ConfirmarComponent, ReactiveFormsModule, FormsModule, VentaComponent],
   templateUrl: './ventas.component.html',
   styleUrl: './ventas.component.css'
 })
 export class VentasComponent {
   ventas: Array<intVenta> = []
-  clientes!: Array<intCliente>
-  filtroVentas!: Array<intVenta>;
-  cliente!: intCliente;
   canVenta!: number;
   texto!: string;
-  fechaInicio!: string;
-  fechaFin!: string;
+  modal!: ModalInterface;
+  modalAceptar!: ModalInterface;
+  venta!: intVenta;
   format = format
 
-  constructor(private ventaServicio: VentaService, private clienteServicio: ClienteService){}
+  constructor(private ventaServicio: VentaService){}
 
   ngOnInit(){
     this.actualizarDatos();
   }
-
+  
+  
   actualizarDatos(){
+    this.modal = new Modal(document.getElementById('venta-modal'));
+    this.modalAceptar = new Modal(document.getElementById('confirmar-modal'))
+
     this.ventaServicio.mostrarVentas().subscribe({
       next: (data) => {
         this.ventas = data.sort((a, b) => b.id - a.id);
-        this.filtroVentas = this.ventas;
       },
       error: (error) => console.error("Error al mostrar los pendientes: "+error)
     })
 
-    this.clienteServicio.mostrar().subscribe({
-      next: data => {
-        this.clientes = data;
-      },
-      error: error => console.error("Error al mostrar los clientes: "+error)
-    })
-
   }
 
-  selectCliente(evt: any){
-    const val = evt.target.value;
-    this.cliente = this.clientes.find(c => c.nombre === val)!;
-    if (this.cliente) {
-      this.filtroVentas = this.ventas.filter(v => v.cliente.id === this.cliente.id);
-    }
+  confirmar(venta: intVenta){
+    this.canVenta = venta.id;
+    this.modalAceptar.show()
   }
 
   cancelar(){
@@ -74,23 +62,38 @@ export class VentasComponent {
     })
   }
 
+  search(){
+    if(this.texto){
+      this.ventaServicio.filtrarVentas(this.texto).subscribe({
+        next: data => this.ventas = data.reverse(),
+        error: err => console.error("Error al filtrar las ventas: "+err)
+      })
+    }else{
+      this.actualizarDatos();
+    }
+  }
+
   abrir(id: number){
     window.open(`nota-venta?folio=${id}`)
   }
 
-  fecha(fecha: any, inicio: boolean){
-    if (inicio) {
-      this.fechaInicio = fecha.target.value
-      this.filtroVentas = this.ventas.filter(v => v.fecha.split(" ")[0] >= this.fechaInicio);
-      console.log('si')
-    }else{
-      this.fechaFin = fecha.target.value
-      this.filtroVentas = this.ventas.filter(v => v.fecha.split(" ")[0] <= this.fechaFin);
-      console.log('si')
-    }
-    if (this.fechaInicio && this.fechaFin) {
-      this.filtroVentas = this.ventas.filter(v => v.fecha.split(" ")[0] >= this.fechaInicio && v.fecha.split(" ")[0] <= this.fechaFin);
-      console.log('si')
+  pago(evt: number[]){
+    this.ventaServicio.pagarVenta(this.venta.id, 1, evt[1]).subscribe({
+      error: (err) => console.error("Error al pagar: ", err),
+      complete: () => {
+        this.actualizarDatos()
+        Toast.fire({
+          icon: 'success',
+          title: 'Venta pagada'
+        })
+      }
+    })
+  }
+
+  selectVenta(can: boolean, venta: intVenta){
+    if (can) {
+      this.venta = venta;
+      this.modal.show();
     }
   }
   

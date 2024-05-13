@@ -64,4 +64,10 @@ export class VentaService {
   cancelarVenta(id: number):Observable<any>{
     return this.http.post<any>(`http://localhost:8080/api/ventas/cancelar/${id}`, null).pipe(catchError(handleError))
   }
+
+  filtrarVentas(search: string):Observable<Array<intVenta>>{
+    return this.http.get<Array<intVenta>>(`http://localhost:8080/api/ventas/filtro`, {params:{
+      'search': search
+    }}).pipe(catchError(handleError))
+  }
 }

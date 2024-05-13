@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError } from 'rxjs';
 import { intUsuario } from './usuraioInterface';
 import { handleError } from '../functions';
+import { intCliente } from '../clientes/clienteInterfaz';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,8 @@ export class UsuariosService {
 
   constructor(private http:HttpClient) { }
 
-  agregar(nombre: string, tel: string, user: string, pass: string, isAdmin: number):Observable<any>{
-    
-    return this.http.post<any>("http://localhost:8080/api/usuarios/addUsuario",null, {params:{
+  agregar(nombre: string, tel: string, user: string, pass: string, isAdmin: number):Observable<intUsuario>{
+    return this.http.post<intUsuario>("http://localhost:8080/api/usuarios/addUsuario",null, {params:{
       'nombre': nombre,
       'tel': tel,
       'user': user,

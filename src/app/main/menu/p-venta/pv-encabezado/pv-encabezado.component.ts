@@ -1,15 +1,16 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Toast } from '../../../../../assets/const';
 import { intCliente } from '../../../../services/clientes/clienteInterfaz';
 import { intProducto } from '../../../../services/productos/productoInterface';
 import { ProductoVenta, intProductoVenta } from '../../../../services/venta/ventaInterface';
-import Swal from 'sweetalert2';
-import { Toast } from '../../../../../assets/const';
+import { AddClientesComponent } from '../../modales/add-clientes/add-clientes.component';
+import { Modal, ModalInterface } from 'flowbite';
 
 @Component({
   selector: 'app-pv-encabezado',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, FormsModule, AddClientesComponent],
   templateUrl: './pv-encabezado.component.html',
   styleUrl: './pv-encabezado.component.css'
 })
@@ -20,11 +21,14 @@ export class PvEncabezadoComponent {
   @Input() total!: number;
   @Output() sumTotal = new EventEmitter<any>;
   @Output() addCliente = new EventEmitter<intCliente>();
+  @Output() add = new EventEmitter<null>;
   cliente!: intCliente | undefined;
   producto!: intProducto | undefined;
+  modal!: ModalInterface;
   
 
   addProducto = this.formBuilder.group({
+    cliente: [''],
     cantidad: [1, [Validators.required, Validators.min(1)]],
     producto: ['', [Validators.required]],
     precio: [0, [Validators.pattern('^-?[0-9]+(\.[0-9]{1,2})?$'), Validators.required]]
@@ -35,9 +39,10 @@ export class PvEncabezadoComponent {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    this.addProducto.reset({
-      cantidad: 1
+    this.addProducto.patchValue({
+      cantidad: 1,
     })
+    this.modal = new Modal(document.getElementById('add-cliente'));
   }
   selectCliente(evt:any){
     let val = evt.target.value.trim().toLowerCase();
@@ -49,6 +54,15 @@ export class PvEncabezadoComponent {
     const form = this.addProducto;
     this.producto = this.productos.find(prd => prd.nombre.toLowerCase() === val || prd.codigobarra.toLowerCase() === val);
     this.producto?form.patchValue({precio: this.producto?.precio}):undefined;
+  }
+
+  nuevoCliente(cl: intCliente){
+    this.cliente = cl;
+    this.addProducto.patchValue({
+      cliente: cl.nombre
+    })
+    this.add.emit();
+    this.addCliente.emit(cl)
   }
 
   cant(evt: boolean){
@@ -66,9 +80,12 @@ export class PvEncabezadoComponent {
       // console.log(prodVenta as intProductoVenta)
       this.prodVenta.push(prodVenta as intProductoVenta)
       this.sumTotal.emit(prodVenta.subTotal)
-      this.addProducto.reset({
-        cantidad: 1
+      this.addProducto.patchValue({
+        cantidad: 1,
+        producto: null,
+        precio: null
       })
+      this.addProducto.markAsUntouched()
     }else{
       Toast.fire({
         title: "Agregue los datos necesarios del producto",

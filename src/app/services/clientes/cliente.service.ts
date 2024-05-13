@@ -20,8 +20,8 @@ export class ClienteService {
     }}).pipe(catchError(handleError));
   }
 
-  editar(id: number, nombre: string, tel:string, direccion:string, observacion:string):Observable<any>{
-    return this.http.post<any>("http://localhost:8080/api/cliente/editar", null, {params:{
+  editar(id: number, nombre: string, tel:string, direccion:string, observacion:string):Observable<intCliente>{
+    return this.http.post<intCliente>("http://localhost:8080/api/cliente/editar", null, {params:{
       id:id,
       nombre: nombre,
       tel: tel,
@@ -31,7 +31,7 @@ export class ClienteService {
   }
 
   eliminar(id:number):Observable<any>{
-    return this.http.get<any>(`http://localhost:8080/api/cliente/eliminar/${id}`).pipe(catchError(handleError));
+    return this.http.get<any>(`http://localhost:8080/api/cliente/eliminar/${id}`).pipe(catchError(error => handleError(error)));
   }
 
   mostrar():Observable<Array<intCliente>>{

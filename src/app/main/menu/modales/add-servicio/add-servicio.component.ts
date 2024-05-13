@@ -1,7 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { intServicios } from '../../../../services/servicios/interfazServicios';
 import { ServiciosService } from '../../../../services/servicios/servicios.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ModalInterface } from 'flowbite';
+import { Toast } from '../../../../../assets/const';
 
 @Component({
   selector: 'app-add-servicio',
@@ -13,6 +15,8 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 export class AddServicioComponent {
   @Input() add!: boolean;
   @Input() servicio!: intServicios|undefined;
+  @Input() modal!: ModalInterface;
+  @Output() listo = new EventEmitter<null>
 
   constructor(private servicioServicio:ServiciosService ,private formbuilder: FormBuilder){
     // this.producto = new Object as intProducto
@@ -52,13 +56,33 @@ export class AddServicioComponent {
         productos.precio as number,
         productos.descripcion as string
         ).subscribe({
-        error: err => alert("Error al agregar el servicio: "+err),
-        complete: () => window.location.reload()
+          next: data => {
+            Toast.fire({
+              icon: 'success',
+              title: 'Se agrego el servicio ' + data.nombre
+            })
+          },
+          error: err => {
+            Toast.fire({
+              icon: 'error',
+              title: 'Error al agregar el servicio: ' + err
+            })
+          },
+          complete: () => {
+            this.listo.emit();
+            this.modal.hide();
+          }
       });
+    }else{
+      Toast.fire({
+        icon: 'warning',
+        title: 'Revise los datos e inténtelo de nuevo por favor'
+      });
+      this.addServicio.markAllAsTouched();
     }
   }
   
-  editar(servicio:intServicios){
+  editar(){
     if(this.addServicio.valid && !this.add){
       const servicio=this.addServicio.value;
       this.servicioServicio.editarServicio(
@@ -67,18 +91,37 @@ export class AddServicioComponent {
         servicio.precio as number,
         servicio.descripcion as string
         ).subscribe({
-        error: error => alert("Error al editar el servicio: "+error),
-        complete: ()=>window.location.reload()
-      })
+          next: data => {
+            Toast.fire({
+              icon: 'success',
+              title: 'Se edito el servicio ' + data.nombre
+            })
+          },
+          error: err => {
+            Toast.fire({
+              icon: 'error',
+              title: 'Error al editar el servicio: ' + err
+            })
+          },
+          complete: () => {
+            this.listo.emit();
+            this.modal.hide();
+          }
+      });
+    }else{
+      Toast.fire({
+        icon: 'warning',
+        title: 'Revise los datos e inténtelo de nuevo por favor'
+      });
+      this.addServicio.markAllAsTouched();
     }
   }
 
   accion(){
     if (this.add) {
       this.agregar()
-    }
-    else{
-      this.editar(this.addServicio.value as intServicios)
+    }else{
+      this.editar()
     }
   }
 }

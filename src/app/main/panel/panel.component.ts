@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Toast } from '../../../assets/const';
+import { userInt } from '../../services/login/userInterface';
+import { LoginService } from '../../services/login/login.service';
 
 @Component({
   selector: 'app-panel',
@@ -12,18 +14,17 @@ import { Toast } from '../../../assets/const';
 })
 export class PanelComponent {
   // cookieService = inject(CookieService);
+  usuario!: userInt
   
-  constructor(private router: Router, private cookieService: CookieService){}
+  constructor(private router: Router, private loginService: LoginService){
+    this.usuario = loginService.getUsuario();
+  }
   
-  navigate = (ruta: string) => this.router.navigateByUrl(`/${ruta}`);
+  navigate = (ruta: string) => this.router.navigateByUrl(ruta);
 
   cerrarSesion(){
-    this.cookieService.delete("user", "http://localhost:4200");
-    this.router.navigateByUrl('/login');
-    Toast.fire({
-      icon: 'success',
-      title: 'Sesión cerrada'
-    })
+    // this.cookieService.delete("user", "http://localhost:4200");
+    this.loginService.cerrarSesion()
   }
 
 }

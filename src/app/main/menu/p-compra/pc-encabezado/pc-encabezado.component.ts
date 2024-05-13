@@ -5,11 +5,13 @@ import { intProducto } from '../../../../services/productos/productoInterface';
 import { ProductoVenta, intProductoVenta } from '../../../../services/venta/ventaInterface';
 import { intProveedor } from '../../../../services/proveedor/interfazProveedor';
 import { CompraProducto, intProductoCompra } from '../../../../services/compra/compraInterface';
+import { Modal, ModalInterface } from 'flowbite';
+import { AddProveedoresComponent } from '../../modales/add-proveedores/add-proveedores.component';
 
 @Component({
   selector: 'app-pc-encabezado',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, AddProveedoresComponent],
   templateUrl: './pc-encabezado.component.html',
   styleUrl: './pc-encabezado.component.css'
 })
@@ -20,11 +22,14 @@ export class PcEncabezadoComponent {
   @Input() total!: number;
   @Output() sumTotal = new EventEmitter<any>;
   @Output() addProveedor = new EventEmitter<intProveedor>;
+  @Output() actualizar = new EventEmitter<null>;
   proveedor!: intProveedor | undefined;
   producto!: intProducto | undefined;
+  modal!: ModalInterface;
   
 
   addProducto = this.formBuilder.group({
+    proveedor: [''],
     cantidad: [1, [Validators.required, Validators.min(1)]],
     producto: ['', [Validators.required]],
     precio: [0, [Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$'), Validators.required]]
@@ -33,12 +38,13 @@ export class PcEncabezadoComponent {
   constructor(private formBuilder: FormBuilder){}
   
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    this.addProducto.reset({
+    this.addProducto.patchValue({
       cantidad: 1,
-      precio: 0
+      precio: null,
+      producto: null
     })
+
+    this.modal = new Modal(document.getElementById('add-proveedor'));
   }
   selectProveedor(evt:any){
     let val = evt.target.value.trim().toLowerCase();
@@ -55,6 +61,15 @@ export class PcEncabezadoComponent {
   cant(evt: boolean){
     const cantidad = evt?this.addProducto.value.cantidad as number + 1: this.addProducto.value.cantidad as number - 1; 
     this.addProducto.patchValue({cantidad: cantidad})
+  }
+
+  nuevoProveedor(prov: intProveedor){
+    this.proveedor = prov;
+    this.addProveedor.emit(prov);
+    this.actualizar.emit()
+    this.addProducto.patchValue({
+      proveedor: prov.nombre
+    })
   }
 
   agregarProducto(){

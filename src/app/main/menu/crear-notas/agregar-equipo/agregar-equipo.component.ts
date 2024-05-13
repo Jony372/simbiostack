@@ -4,6 +4,7 @@ import { EquiposService } from '../../../../services/equipos/equipos.service';
 import { formEquipo, intEquipo } from '../../../../services/equipos/equipoInterfaz';
 import { intTipo } from '../../../../services/tipo/interfazTipo';
 import { TipoService } from '../../../../services/tipo/tipo.service';
+import { Toast } from '../../../../../assets/const';
 
 @Component({
   selector: 'app-agregar-equipo',
@@ -46,8 +47,11 @@ export class AgregarEquipoComponent {
         cables: false
       });
     }else{
+      Toast.fire({
+        icon: 'warning',
+        title: 'Llene los datos necesarios, por favor'
+      })
       form.markAllAsTouched();
-      alert("Revise los datos, por favor "+this.idCliente)
     }
   }
   crearNota(){

@@ -6,7 +6,8 @@ export interface intCompra{
   proveedor: intProveedor,
   total: number,
   fecha: string
-  productos: Array<intProducto>
+  productos: Array<intProducto>,
+  cancelado: boolean
 }
 
 export class CompraProducto implements intProductoCompra{

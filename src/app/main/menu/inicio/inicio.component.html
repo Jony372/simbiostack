@@ -92,37 +92,48 @@
   <div class=" lg:row-span-2 font-bold p-1 border-gray-200 rounded-lg shadow-lg dark:bg-gray-800">
     <h2 class="text-xl text-center font-bold pt-2 pb-3 text-gray-800 dark:text-white">Notas por cobrar</h2>
     <div class="pt-2 overflow-y-auto h-4/5 px-2">
-      <ul class="max-w-md divide-y divide-gray-200 dark:divide-gray-700 mx-auto ">
-        @for (venta of porPagar; track $index) {
-          <li class="py-1.5 sm:py-2" >
-            <div class="flex items-center space-x-4 rtl:space-x-reverse">
-              <div class="flex-shrink-0">
-                <p class="text-sm font-medium  truncate ">
-                  {{venta[1]}}
-                </p>
+      @if (porPagar.length > 0) {
+
+        <ul class="max-w-md divide-y divide-gray-200 dark:divide-gray-700 mx-auto ">
+        
+          @for (venta of porPagar; track $index) {
+            <li class="py-1.5 sm:py-2" >
+              <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                <div class="flex-shrink-0">
+                  <p class="text-sm font-medium  truncate ">
+                    {{venta[1]}}
+                  </p>
+                </div>
+                <div class="flex-shrink-0">
+                  <p class="text-sm font-medium  truncate ">
+                    {{venta[2]}}
+                  </p>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium  truncate ">
+                    ${{format(venta[3])}}
+                  </p>
+                </div>
+                <!-- <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium text-gray-800 truncate dark:text-white">
+                    {{pendiente.prioridad}}
+                  </p>
+                </div> -->
+                <button (click)="pagar(venta)" class="inline-flex rounded-md text-gray-100 dark:text-white items-center text-sm font-semibold px-2  bg-green-400">
+                  PAGAR
+                </button>
               </div>
-              <div class="flex-shrink-0">
-                <p class="text-sm font-medium  truncate ">
-                  {{venta[2]}}
-                </p>
-              </div>
-              <div class="flex-1 min-w-0">
-                <p class="text-sm font-medium  truncate ">
-                  ${{format(venta[3])}}
-                </p>
-              </div>
-              <!-- <div class="flex-1 min-w-0">
-                <p class="text-sm font-medium text-gray-800 truncate dark:text-white">
-                  {{pendiente.prioridad}}
-                </p>
-              </div> -->
-              <button (click)="pagar(venta)" class="inline-flex rounded-md text-gray-100 dark:text-white items-center text-sm font-semibold px-2  bg-green-400">
-                PAGAR
-              </button>
-            </div>
-          </li>
-        }
+            </li>
+          }
       </ul>
+    }@else{
+      <div class="h-full flex items-center justify-center flex-col">
+        <p class="pb-1">No hay notas por cobrar...</p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="170" height="100">
+          <image href="../../../../assets/svg/undraw_online_payments_re_y8f2.svg" width="170" height="100" />
+        </svg>
+      </div>
+    }
     </div>
   </div>
 </div>
@@ -140,10 +151,12 @@
 
 <app-pendientes-modal
   [pendiente]="pendiente"
+  [modal]="pendienteModal"
+  (save)="actualizarDatos()"
 />
 
 <app-nota-modal
   (save)="actualizarDatos()"
-  [nota]="nota"
+  [nota]="nota || undefined"
   [modal] = "notaModal"
   />

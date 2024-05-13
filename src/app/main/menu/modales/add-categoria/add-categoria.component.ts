@@ -1,10 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { mostrarCategoria } from '../../../../services/categorias/mostrarCategoria.service';  
 import { HttpClientModule } from '@angular/common/http';
 import { intCategoria } from '../../../../services/categorias/categoriaInterfaz';
 import { intProducto, intRegProducto } from '../../../../services/productos/productoInterface';
 import { ProductosService } from '../../../../services/productos/productos.service';
+import { ModalInterface } from 'flowbite';
+import { Toast } from '../../../../../assets/const';
 
 @Component({
   selector: 'app-add-categoria',
@@ -16,6 +18,8 @@ import { ProductosService } from '../../../../services/productos/productos.servi
 export class AddCategoriaComponent {
   @Input() add!: boolean;
   @Input() categoria!: intCategoria|undefined;
+  @Input() modal!: ModalInterface;
+  @Output() listo = new EventEmitter<null>;
 
   categorias: Array<intCategoria> = [];
 
@@ -58,9 +62,29 @@ export class AddCategoriaComponent {
         cat.nombre as string,
         cat.stock as number
         ).subscribe({
-        error: err => alert("Error al insertar el producto: "+err),
-        complete: () => window.location.reload()
+        next: data => {
+          Toast.fire({
+            icon: 'success',
+            title: 'Se agrego la categoria '+data.nombre
+          })
+        },
+        error: err => {
+          Toast.fire({
+            icon: 'error',
+            title: 'Hubo un error al agregar la categoria: '+err
+          })
+        },
+        complete: () => {
+          this.listo.emit();
+          this.modal.hide()
+        }
       });
+    }else{
+      Toast.fire({
+        icon: 'warning',
+        title: 'Revise los datos e inténtelo de nuevo, por favor'
+      });
+      this.addCategoria.markAllAsTouched();
     }
   }
   editar(){
@@ -71,9 +95,29 @@ export class AddCategoriaComponent {
           cat.nombre as string,
           cat.stock as number
         ).subscribe({
-        error: error => alert("Error al editar el producto: "+error),
-        complete: ()=>window.location.reload()
-      })
+        next: data => {
+          Toast.fire({
+            icon: 'success',
+            title: 'Se edito la categoria '+data.nombre
+          })
+        },
+        error: err => {
+          Toast.fire({
+            icon: 'error',
+            title: 'Hubo un error al editar la categoria: '+err
+          })
+        },
+        complete: () => {
+          this.listo.emit();
+          this.modal.hide()
+        }
+      });
+    }else{
+      Toast.fire({
+        icon: 'warning',
+        title: 'Revise los datos e inténtelo de nuevo, por favor'
+      });
+      this.addCategoria.markAllAsTouched();
     }
   }
 

@@ -19,21 +19,27 @@ export class ProveedorService {
     return this.http.get<intProveedor>(`http://localhost:8080/api/proveedor/getProveedor/${id}`).pipe(catchError(handleError))
   }
 
-  agregarProveedor(nombre: string, tel: string, pagina: string): Observable<intProveedor>{
-    return this.http.post<intProveedor>('http://localhost:8080/api/proveedor/agregar', null, {params:{
-      nombre: nombre,
-      tel: tel,
-      pagina: pagina
-    }}).pipe(catchError(handleError))
+  agregarProveedor(nombre: string, tel: string | undefined | null, pagina: string | undefined | null): Observable<intProveedor>{
+    let params = {
+      nombre: nombre
+    } as intProveedor;
+
+    tel? params = {...params, tel: tel}: undefined;
+    pagina? params = {...params, pagina: pagina}: undefined;
+
+    return this.http.post<intProveedor>('http://localhost:8080/api/proveedor/agregar', null, {params:{...params}}).pipe(catchError((err) => handleError(err)))
   }
 
-  editarProveedor(id: number, nombre: string, tel: string, pagina: string): Observable<intProveedor>{
-    return this.http.put<intProveedor>('http://localhost:8080/api/proveedor/editar', null, {params:{
+  editarProveedor(id: number, nombre: string, tel: string | undefined | null, pagina: string | undefined | null): Observable<intProveedor>{
+    let params = {
       id: id,
-      nombre: nombre,
-      tel: tel,
-      pagina: pagina
-    }}).pipe(catchError(handleError))
+      nombre: nombre
+    } as intProveedor;
+
+    tel? params = {...params, tel: tel}: undefined;
+    pagina? params = {...params, pagina: pagina}: undefined;
+
+    return this.http.post<intProveedor>('http://localhost:8080/api/proveedor/editar', null, {params:{...params}}).pipe(catchError(handleError))
   }
 
   eliminarProveedor(id: number): Observable<any>{

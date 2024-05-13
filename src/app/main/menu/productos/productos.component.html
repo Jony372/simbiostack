@@ -15,7 +15,7 @@
             <button type="submit" (click)="buscar()" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Buscar</button>
           </div>
         </form>
-        <button (click)="agregar()" data-modal-target="crud-modal" data-modal-toggle="crud-modal" type="button" class=" text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+        <button (click)="agregar()" type="button" class=" text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
           <svg class="w-4 h-4 mr-3" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 42 42">
             <path fill="currentColor" d="M39.5 22.5v-3c0-1.48-.43-2-2-2h-13v-13c0-1.48-.49-2-2-2h-3c-1.55 0-2 .52-2 2v13h-14c-1.48 0-2 .49-2 2v3c0 1.55.52 2 2 2h14v14c0 1.51.48 2 2 2h3c1.48 0 2-.43 2-2v-14h13c1.51 0 2-.48 2-2z"/>
           </svg>
@@ -73,10 +73,10 @@
                 </td>
                 <td class="px-6 py-4">
                   <div class="inline-flex rounded-md shadow-sm" role="group">
-                    <button (click)="editar(producto)" data-modal-target="crud-modal" data-modal-toggle="crud-modal" type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-s-lg  hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500  focus:text-white dark:border-white dark:text-white dark:hover:text-white bg-yellow-400 hover:bg-yellow-500">
+                    <button (click)="editar(producto)" type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-s-lg  hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500  focus:text-white dark:border-white dark:text-white dark:hover:text-white bg-yellow-400 hover:bg-yellow-500">
                       Editar
                     </button>
-                    <button (click)="eliminar(producto.id)" type="button" class="px-4 py-2 text-sm font-medium text-gray-900 border border-gray-900 rounded-e-lg  hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:text-white dark:border-white dark:text-white bg-red-700 hover:bg-red-800">
+                    <button (click)="selectCancelar(producto)" type="button" class="px-4 py-2 text-sm font-medium text-gray-900 border border-gray-900 rounded-e-lg  hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:text-white dark:border-white dark:text-white bg-red-700 hover:bg-red-800">
                       Eliminar
                     </button>
                   </div>
@@ -89,12 +89,29 @@
 
     </div>
 
-    <div class="p-6 w-full lg:w-2/6 flex justify-center bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-      <app-grafica></app-grafica>
+    <div class="p-6 w-full lg:w-2/6 flex justify-center flex-col bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <app-grafica [opcion]="opcion"></app-grafica>
+      <div class="max-w-sm mx-auto mt-2">
+        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
+        <select id="countries" [(ngModel)]="opcion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option value="1">1 día</option>
+          <option value="2">1 Semana</option>
+          <option selected value="3">1 Mes</option>
+          <option value="4">3 Meses</option>
+          <option value="5">6 Meses</option>
+          <option value="6">1 Año</option>
+          <option value="7">Todo el tiempo</option>
+        </select>
+      </div>
     </div>
   </div>
-
-  <!-- <app-add-producto [add]="add" [id]="id"></app-add-producto> -->
-  <app-add-producto [add]="add" [prod]="prod"></app-add-producto>
-  
 </div>
+
+<!-- <app-add-producto [add]="add" [id]="id"></app-add-producto> -->
+<app-add-producto [add]="add" [prod]="prod" [modal]="modal" (actualizar)="actualizar()"></app-add-producto>
+
+<app-confirmar
+  [modal]="modalConfirmar"
+  [texto]="'¿Desea eliminar el producto '+ eliminarProducto?.nombre + '?'"
+  (confirmar)="eliminar()"
+></app-confirmar>

@@ -23,8 +23,8 @@ export class ProductosService {
     }}).pipe(catchError(handleError))
   }
 
-  editarProducto(id: number, precio: number, cantidad: number, codigoBarra:string, nombre: string, categoria: number, costo: number, utilidad: number):Observable<string>{
-    return this.http.post<string>("http://localhost:8080/api/productos/editar",null, {params:{
+  editarProducto(id: number, precio: number, cantidad: number, codigoBarra:string, nombre: string, categoria: number, costo: number, utilidad: number):Observable<intProducto>{
+    return this.http.post<intProducto>("http://localhost:8080/api/productos/editar",null, {params:{
       id: id,
       precio: precio,
       cantidad: cantidad,
@@ -44,11 +44,17 @@ export class ProductosService {
     return this.http.get<intProducto>(`http://localhost:8080/api/productos/get/${id}`).pipe(catchError(handleError))
   }
 
-  eliminarProducto(id: number):Observable<string>{
-    return this.http.get<string>(`http://localhost:8080/api/productos/delete/${id}`).pipe(catchError(handleError))
+  eliminarProducto(id: number):Observable<any>{
+    return this.http.get<any>(`http://localhost:8080/api/productos/delete/${id}`).pipe(catchError(handleError))
   }
 
   bajoStock():Observable<Array<intProducto>>{
     return this.http.get<Array<intProducto>>("http://localhost:8080/api/productos/bajoStock").pipe(catchError(handleError))
+  }
+
+  masVendidos(periodo: number):Observable<Array<any>>{
+    return this.http.get<Array<any>>("http://localhost:8080/api/productos/mas-vendidos", {params:{
+      periodo: periodo
+    }}).pipe(catchError(handleError))
   }
 }

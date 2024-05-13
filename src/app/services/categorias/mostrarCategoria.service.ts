@@ -16,7 +16,7 @@ export class mostrarCategoria {
   }
 
   editarCategoria(id: number, nombre: string, stock: number):Observable<intCategoria>{
-    return this.http.post<intCategoria>(`http://localhost:8080/api/categorias/editar/${id}}`, null, {params:{
+    return this.http.post<intCategoria>(`http://localhost:8080/api/categorias/editar/${id}`, null, {params:{
       nombre: nombre,
       stock: stock
     }}).pipe(catchError(handleError));

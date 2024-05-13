@@ -1,0 +1,94 @@
+<p class="text-center mb-3 text-xl font-black dark:text-white">PROVEEDORES</p>
+<div class="h-auto flex gap-2 max-h-full flex-col lg:max-h-9/10 lg:flex-row">
+  <div class="w-full flex flex-col p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div class="flex flex-row mb-2 justify-between items-center">
+      <form class="w-1/2" >
+        <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Buscar</label>
+        <div class="relative">
+          <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+              <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+              </svg>
+          </div>
+          <input  type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nombre..." required />
+          <button type="submit"  class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Buscar</button>
+        </div>
+      </form>
+      <button (click)="agregar()"  data-modal-target="add-cliente" data-modal-toggle="add-cliente" type="button" class=" text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+        <svg class="w-4 h-4 mr-3" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 42 42">
+          <path fill="currentColor" d="M39.5 22.5v-3c0-1.48-.43-2-2-2h-13v-13c0-1.48-.49-2-2-2h-3c-1.55 0-2 .52-2 2v13h-14c-1.48 0-2 .49-2 2v3c0 1.55.52 2 2 2h14v14c0 1.51.48 2 2 2h3c1.48 0 2-.43 2-2v-14h13c1.51 0 2-.48 2-2z"/>
+        </svg>
+        AGREGAR PROVEEDOR
+      </button>
+    </div>
+    
+
+    <div class="relative overflow-y-auto shadow-md sm:rounded-lg w-full">
+      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class=" text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr class="text-center">
+            <th scope="col" class="px-6 py-3">
+              Nombre
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Teléfono
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Página
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Acción
+            </th>
+          </tr>
+        </thead>
+        <tbody class="text-center">
+          @for (proveedor of proveedores; track $index) {
+
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                {{proveedor.nombre}}
+              </td>
+              <td class="px-6 py-4">
+                @if (proveedor.tel) {
+                  <a href="http://{{proveedor.pagina}}" target="_blank" class="text-emerald-500">
+                    {{proveedor.tel}}
+                  </a>
+                }@else {
+                  Sin número de teléfono
+                }
+              </td>
+              <td class="px-6 py-4 ">
+                @if (proveedor.pagina) {
+                  <a href="http://{{proveedor.pagina}}" target="_blank" class="text-cyan-500">
+                    {{proveedor.pagina}}
+                  </a>
+                }@else {
+                  Sin pagina web
+                }
+              </td>
+              <td class="px-6 py-4">
+                <div class="inline-flex rounded-md shadow-sm" role="group">
+                  <button (click)="editar(proveedor)" type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-s-lg  hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500  focus:text-white dark:border-white dark:text-white dark:hover:text-white bg-yellow-400 hover:bg-yellow-500">
+                    Editar
+                  </button>
+                  <button (click)="eliminarProveedor(proveedor)" class="px-4 py-2 text-sm font-medium text-gray-900 border border-gray-900 rounded-e-lg  hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:text-white dark:border-white dark:text-white bg-red-700 hover:bg-red-800">
+                    Eliminar
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<app-add-proveedores [add]="add" [proveedor]="proveedor" [modal]="modal" (listo)="actualizar()"></app-add-proveedores>
+
+<app-confirmar
+  [modal]="modalConfirmar"
+  [texto]="'¿Desea eliminar el proveedor '+eProvedor?.nombre+'?'"
+  (confirmar)="eliminar()"
+></app-confirmar>

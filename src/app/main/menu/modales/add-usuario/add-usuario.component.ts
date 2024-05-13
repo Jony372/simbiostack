@@ -1,7 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { intUsuario } from '../../../../services/usuarios/usuraioInterface';
 import { UsuariosService } from '../../../../services/usuarios/usuarios.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ModalInterface } from 'flowbite';
+import { Toast } from '../../../../../assets/const';
 
 @Component({
   selector: 'app-add-usuario',
@@ -13,16 +15,15 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class AddUsuarioComponent {
   @Input() add!: boolean;
   @Input() usuario!: intUsuario | undefined;
+  @Input() modal!: ModalInterface;
+  @Output() actualizar = new EventEmitter<null>;
 
   constructor(private usuarioServicio: UsuariosService, private formBuilder: FormBuilder){}
 
   ngOnChanges() {
-    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
-    //Add '${implements OnChanges}' to the class.
+    this.addUsuario.reset();
     if(this.usuario){
       this.addUsuario.patchValue(this.usuario)
-    }else{
-      this.addUsuario.reset()
     }
   }
 
@@ -44,18 +45,36 @@ export class AddUsuarioComponent {
         let user = form.value;
         delete user.pass2;
         this.usuarioServicio.agregar(user.nombre as string, user.tel as string, user.user as string, user.pass as string, user.isAdmin as number).subscribe({
-          error: err => console.error("Error al ingresar el usuario: "+ err),
+          next: data => {
+            Toast.fire({
+              icon: 'success',
+              title: 'Se agrego el usuario ' + data.nombre
+            })
+          },
+          error: err => {
+            Toast.fire({
+              icon: 'error',
+              title: 'Error al agregar el usuario: ' + err
+            })
+          },
           complete: () =>{
-            alert('Se agrego correctamente');
-            location.reload();
+            this.modal.hide();
+            this.actualizar.emit();
           }
         })
         
       }else{
-        alert('Las contraseñas no coinciden');
+        Toast.fire({
+          icon: 'warning',
+          title: 'Las contraseñas no coinciden'
+        })
       }
     }else{
-      alert("Verifique todos los campos")
+      Toast.fire({
+        icon: 'warning',
+        title: 'Revise todos los campos, por favor'
+      });
+      this.addUsuario.markAllAsTouched();
     }
   }
 
@@ -67,19 +86,36 @@ export class AddUsuarioComponent {
         let user = form.value;
         delete user.pass2;
         this.usuarioServicio.editar(user.id as number, user.nombre as string, user.tel as string, user.user as string, user.pass as string, user.isAdmin as number).subscribe({
-          next: data => console.log(data),
-          error: err => console.error("Error al editar el usuario: "+ err),
+          next: data => {
+            Toast.fire({
+              icon: 'success',
+              title: 'Se edito el usuario ' + data.nombre
+            })
+          },
+          error: err => {
+            Toast.fire({
+              icon: 'error',
+              title: 'Error al editar el usuario: ' + err
+            })
+          },
           complete: () =>{
-            alert('Se edito correctamente');
-            location.reload();
+            this.modal.hide();
+            this.actualizar.emit();
           }
         })
         
-      }else{
-        alert('Las contraseñas no coinciden');
+      }{
+        Toast.fire({
+          icon: 'warning',
+          title: 'Las contraseñas no coinciden'
+        })
       }
     }else{
-      alert("Verifique todos los campos")
+      Toast.fire({
+        icon: 'warning',
+        title: 'Revise todos los campos, por favor'
+      });
+      this.addUsuario.markAllAsTouched();
     }
   }
 

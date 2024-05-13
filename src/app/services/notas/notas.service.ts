@@ -21,8 +21,7 @@ export class NotasService {
     return this.http.post<intNotaEquipo>("http://localhost:8080/api/notas/agregar", null, {params:{
       prioridad: prioridad,
       cliente: cliente,
-      usuario: usuario,
-      estado: 1
+      usuario: usuario
     }}).pipe(catchError(handleError))
   }
 
@@ -47,5 +46,9 @@ export class NotasService {
 
   notasTrabajando():Observable<Array<number>>{
     return this.http.get<Array<number>>("http://localhost:8080/api/notas/notas-trabajando").pipe(catchError(handleError));
+  }
+
+  cambiarEstado(id: number, opcion: number):Observable<any>{
+    return this.http.post(`http://localhost:8080/api/notas/accion/${id}`, null, {params: {opcion: opcion}}).pipe(catchError(handleError))
   }
 }

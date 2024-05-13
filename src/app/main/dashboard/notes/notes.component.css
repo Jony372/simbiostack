@@ -24,10 +24,11 @@
 }
 
 textarea{ 
-  padding:20px 20px 30px;
+  padding:10px 10px 30px;
   /* margin:0 20px 20px 0; */
   width:150px;
   height:130px; 
+  font-size: small;
 }
 
 /* button{

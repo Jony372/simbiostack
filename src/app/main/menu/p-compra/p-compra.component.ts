@@ -40,9 +40,11 @@ export class PCompraComponent {
   constructor(private router: Router ,private proveedorServicio: ProveedorService, private productoServicio: ProductosService, private compraServicio: CompraService){
   }
 
-  ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
+  ngOnInit(){
+    this.actualizar()
+  }
+  
+  actualizar() {
     const modalHtml = document.getElementById('venta-modal');
     this.modal = new Modal(modalHtml);
     

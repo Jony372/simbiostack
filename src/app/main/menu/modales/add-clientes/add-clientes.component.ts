@@ -1,7 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ClienteService } from '../../../../services/clientes/cliente.service';
 import { intCliente } from '../../../../services/clientes/clienteInterfaz';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ModalInterface } from 'flowbite';
+import { Toast } from '../../../../../assets/const';
+import { emit } from 'process';
 
 @Component({
   selector: 'app-add-clientes',
@@ -13,6 +16,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class AddClientesComponent {
   @Input() add!: boolean;
   @Input() cliente!: intCliente|undefined;
+  @Input() modal!: ModalInterface;
+  @Output() listo = new EventEmitter<intCliente>;
   
   constructor(private clienteServicio:ClienteService, private formBuilder:FormBuilder) {}
 
@@ -36,7 +41,6 @@ export class AddClientesComponent {
 
   agregar(){
     if(this.addCliente.valid && this.add){
-      console.log(this.addCliente.value)
       const cliente = this.addCliente.value
       this.clienteServicio.agregar(
         cliente.nombre as string,
@@ -44,11 +48,30 @@ export class AddClientesComponent {
         cliente.direccion as string,
         cliente.observacion as string
       ).subscribe({
-        error:err=>alert("Ocurrió un error al intentar guardar el cliente"),
-        complete:()=>alert("Se agrego")
+        next: data => {
+          Toast.fire({
+            icon: 'success',
+            title: 'Se agrego el cliente ' + data.nombre
+          })
+          this.listo.emit(data);
+        },
+        error:err=>{
+          Toast.fire({
+            icon: 'error',
+            title: 'Error al agregar el cliente, inténtelo de nuevo'
+          })
+          console.error('Error ' + err)
+        },
+        complete:()=>{
+          this.modal.hide();
+        }
       })
     }else{
-      console.log(this.addCliente.get('telefono')?.errors)
+      Toast.fire({
+        icon: 'warning',
+        title: this.addCliente.get('tel')?.errors?'Revise el formato del teléfono (10 dígitos)':'Llene los datos necesarios'
+      });
+      this.addCliente.markAllAsTouched();
     }
   }
 
@@ -62,11 +85,30 @@ export class AddClientesComponent {
         cliente.direccion as string,
         cliente.observacion as string
       ).subscribe({
-        error: err=>console.error("Ocurrió un error al editar el cliente: "+err),
-        complete:()=>alert("Se edito el cliente")
+        next: data => {
+          Toast.fire({
+            icon: 'success',
+            title: 'Se edito el cliente ' + data.nombre
+          })
+        },
+        error:err=>{
+          Toast.fire({
+            icon: 'error',
+            title: 'Error al editar el cliente, inténtelo de nuevo'
+          })
+          console.error('Error ' + err)
+        },
+        complete:()=>{
+          this.modal.hide()
+          this.listo.emit();
+        }
       })
     }else{
-      alert("Revisa los campos")
+      Toast.fire({
+        icon: 'warning',
+        title: this.addCliente.get('tel')?.errors?'Revise el formato del teléfono (10 dígitos)':'Llene los datos necesarios'
+      });
+      this.addCliente.markAllAsTouched();
     }
   }
 }

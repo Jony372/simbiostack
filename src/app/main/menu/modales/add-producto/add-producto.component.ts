@@ -1,10 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { mostrarCategoria } from '../../../../services/categorias/mostrarCategoria.service';  
 import { HttpClientModule } from '@angular/common/http';
 import { intCategoria } from '../../../../services/categorias/categoriaInterfaz';
 import { intProducto, intRegProducto } from '../../../../services/productos/productoInterface';
 import { ProductosService } from '../../../../services/productos/productos.service';
+import { ModalInterface } from 'flowbite';
+import { Toast } from '../../../../../assets/const';
 
 @Component({
   selector: 'app-add-producto',
@@ -16,6 +18,8 @@ import { ProductosService } from '../../../../services/productos/productos.servi
 export class AddProductoComponent {
   @Input() add!: boolean;
   @Input() prod!: intProducto|undefined;
+  @Input() modal!: ModalInterface;
+  @Output() actualizar = new EventEmitter<null>
 
   categorias: Array<intCategoria> = [];
 
@@ -78,12 +82,32 @@ export class AddProductoComponent {
         productos.costo as number,
         productos.utilidad as number
         ).subscribe({
-        error: err => alert("Error al insertar el producto: "+err),
-        complete: () => window.location.reload()
+        next: data => {
+          Toast.fire({
+            icon: 'success',
+            title: 'Se agrego el producto ' + data.nombre
+          })
+        },
+        error: err => {
+          Toast.fire({
+            icon: 'error',
+            title: 'Error al agregar el producto: ' + err
+          })
+        },
+        complete: () => {
+          this.actualizar.emit();
+          this.modal.hide();
+        }
       });
+    }else{
+      Toast.fire({
+        icon: 'warning',
+        title: 'Revise que todos los datos sean correctos'
+      });
+      this.addProducto.markAllAsTouched();
     }
   }
-  editar(producto:intRegProducto){
+  editar(){
     if(this.addProducto.valid && !this.add){
       const productos=this.addProducto.value;
       this.productoServicio.editarProducto(
@@ -96,9 +120,29 @@ export class AddProductoComponent {
         productos.costo as number,
         productos.utilidad as number
         ).subscribe({
-        error: error => alert("Error al editar el producto: "+error),
-        complete: ()=>window.location.reload()
-      })
+        next: data => {
+          Toast.fire({
+            icon: 'success',
+            title: 'Se edito el producto ' + data.nombre
+          })
+        },
+        error: err => {
+          Toast.fire({
+            icon: 'error',
+            title: 'Error al editar el producto: ' + err
+          })
+        },
+        complete: () => {
+          this.actualizar.emit();
+          this.modal.hide();
+        }
+      });
+    }else{
+      Toast.fire({
+        icon: 'warning',
+        title: 'Revise que todos los datos sean correctos'
+      });
+      this.addProducto.markAllAsTouched();
     }
   }
 
@@ -106,7 +150,24 @@ export class AddProductoComponent {
     if (this.add) {
       this.agregar()
     }else{
-      this.editar(this.addProducto.value as intRegProducto)
+      this.editar()
+    }
+  }
+
+  calculadora(tipo: number){
+    const costo = this.addProducto.value.costo || 0;
+    const utilidad = this.addProducto.value.utilidad || 0;
+    const precio = this.addProducto.value.precio || 0;
+
+    if(tipo === 1){
+      this.addProducto.patchValue({
+        precio: parseFloat((costo * parseFloat(`1.${utilidad}`)).toFixed(2))
+      })
+    }else if(tipo === 2){
+      const pr = precio - costo;
+      this.addProducto.patchValue({
+        utilidad: pr*100/costo
+      })
     }
   }
 

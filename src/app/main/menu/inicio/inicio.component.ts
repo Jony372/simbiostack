@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Modal, ModalInterface } from 'flowbite';
 import { CookieService } from 'ngx-cookie-service';
-import { format } from '../../../../assets/const';
+import { Toast, format } from '../../../../assets/const';
 import { intGetNotaEquipos } from '../../../services/notas/interfazNota';
 import { NotasService } from '../../../services/notas/notas.service';
 import { PendientesService } from '../../../services/pendientes/pendientes.service';
@@ -46,11 +46,14 @@ export class InicioComponent {
   ngOnInit(){
     this.actualizarDatos()
   }
-  ngOnChanges(): void {
+  ngOnChanges() {
     this.actualizarDatos()
   }
 
   actualizarDatos(){
+    this.modal = new Modal(document.getElementById('venta-modal'));
+    this.pendienteModal = new Modal(document.getElementById('pendientes-modal'));
+    this.notaModal = new Modal(document.getElementById('nota-modal'));
     
     this.pendientes = [];
     this.gdl = [];
@@ -86,10 +89,6 @@ export class InicioComponent {
         console.error(errorMessage);
       }
     })
-
-    this.modal = new Modal(document.getElementById('venta-modal'));
-    this.pendienteModal = new Modal(document.getElementById('pendientes-modal'));
-    this.notaModal = new Modal(document.getElementById('nota-modal'));
   }
 
   pago(evt: number[]){
@@ -110,7 +109,12 @@ export class InicioComponent {
     if(tipo === 1){
       this.pendServ.getPendiente(id).subscribe({
         next: (data) => this.pendiente = data,
-        error: (err) => console.error("Error al seleccionar el pendiente: "+err),
+        error: (err) => {
+          Toast.fire({
+            icon: 'error',
+            title: 'Error al seleccionar el pendiente ' + err
+          })
+        },
         complete: () => this.pendienteModal.show()
       })
     }else{

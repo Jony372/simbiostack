@@ -26,8 +26,12 @@ export class LoginComponent {
   })
 
   constructor(private formbuilder:FormBuilder, private loginService:LoginService, private router: Router) {
-    if (this.cookieService.check('user')) {
+    if (this.loginService.checkSesion()) {
       this.router.navigateByUrl('/inicio');
+      console.log('hay sesion')
+    }else{
+      this.router.navigateByUrl('/login')
+      console.log('No hay sesion')
     }
   }
   login() {
@@ -37,8 +41,8 @@ export class LoginComponent {
       this.loginService.login(this.loginForm.value as loginInt).subscribe({
         next:(data)=>{
           //*Guardar los datos de usuario en el local storage
-          this.cookieService.set("user", JSON.stringify(data));
-          usuario = data;
+          this.loginService.guardarSesion(data as userInt)
+          usuario = this.loginService.getUsuario();
 
           // console.log(data);
         },

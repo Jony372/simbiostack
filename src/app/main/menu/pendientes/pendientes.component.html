@@ -14,7 +14,7 @@
           <button type="submit"  class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Buscar</button>
         </div>
       </form>
-      <button  data-modal-target="add-cliente" data-modal-toggle="add-cliente" type="button" class=" text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+      <button  (click)="modal.show()" type="button" class=" text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
         <svg class="w-4 h-4 mr-3" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 42 42">
           <path fill="currentColor" d="M39.5 22.5v-3c0-1.48-.43-2-2-2h-13v-13c0-1.48-.49-2-2-2h-3c-1.55 0-2 .52-2 2v13h-14c-1.48 0-2 .49-2 2v3c0 1.55.52 2 2 2h14v14c0 1.51.48 2 2 2h3c1.48 0 2-.43 2-2v-14h13c1.51 0 2-.48 2-2z"/>
         </svg>
@@ -50,25 +50,25 @@
           </tr>
         </thead>
         <tbody class="text-center">
-          @for (pendiente of pendientes; track $index) {
+          @for (p of pendientes; track $index) {
 
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
               <th class="px-1 py-4 w-min border-0 border-r-2 dark:border-r-gray-700">
-                @if(pendiente.estado.id == 6){
-                  <button type="button" class="text-white bg-cyan-400 hover:bg-cyan-500 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center ">
+                @if(p.estado.id == 6){
+                  <button type="button" title="Iniciar" (click)="accion(p.id, 1)" class="text-white bg-cyan-400 hover:bg-cyan-500 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center ">
                     <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 26 26">
                       <path fill="currentColor" d="M20.208 11.857L6.902 5.26a1.312 1.312 0 0 0-1.268.052a1.272 1.272 0 0 0-.619 1.09V19.6c0 .443.233.856.619 1.089a1.316 1.316 0 0 0 1.269.052l13.306-6.599c.438-.218.716-.658.716-1.143s-.279-.924-.717-1.142z"/>
                     </svg>
                   </button>                  
                 }
-                @else if(pendiente.estado.id == 5){
-                  <button type="button" disabled class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                @else if(p.estado.id == 5){
+                  <div title="Finalizado" class="text-white bg-green-700 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:bg-green-600">
                     <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 1024 1024">
                       <path fill="currentColor" d="M280.768 753.728L691.456 167.04a32 32 0 1 1 52.416 36.672L314.24 817.472a32 32 0 0 1-45.44 7.296l-230.4-172.8a32 32 0 0 1 38.4-51.2l203.968 152.96zM736 448a32 32 0 1 1 0-64h192a32 32 0 1 1 0 64H736zM608 640a32 32 0 0 1 0-64h319.936a32 32 0 1 1 0 64H608zM480 832a32 32 0 1 1 0-64h447.936a32 32 0 1 1 0 64H480z"/>
                   </svg>
-                  </button>    
+                </div>    
                 }@else {
-                  <button type="button"  class="text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center ">
+                  <button type="button" title="Finalizar" (click)="accion(p.id, 2)" class="text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center ">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 384 512">
                       <path fill="currentColor" d="M0 128c0-35.3 28.7-64 64-64h256c35.3 0 64 28.7 64 64v256c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128z"/>
                     </svg>
@@ -76,24 +76,22 @@
                 }
               </th>
               <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {{pendiente.nombre}}
-              </td>
-              <th class="px-6 py-4">
-                {{pendiente.cliente.nombre}}
-              </th>
-              <td class="px-6 py-4">
-                {{pendiente.fechaEstimada}}
+                {{p.nombre}}
               </td>
               <td class="px-6 py-4">
-                {{pendiente.prioridad.nombre}}
+                {{p.cliente?.nombre || 'Sin cliente especifico'}}
               </td>
               <td class="px-6 py-4">
-                {{pendiente.descripcion}}
+                {{p.fechaEstimada || 'Sin fecha estimada'}}
               </td>
               <td class="px-6 py-4">
-                <!-- <div class="flex rounded-md shadow-sm justify-center" role="group"> -->
-                <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">{{pendiente.estado.nombre}}</button>
-                <!-- </div> -->
+                {{p.prioridad.nombre}}
+              </td>
+              <td class="px-6 py-4">
+                {{p.descripcion}}
+              </td>
+              <td class="px-6 py-4">
+                {{p.estado.nombre}}
               </td>
             </tr>
           }
@@ -103,3 +101,5 @@
 
   </div>
 </div>
+
+<app-add-pendiente [add]="add" [pendiente]="pendiente" [modal]="modal" (listo)="actualizar()"></app-add-pendiente>

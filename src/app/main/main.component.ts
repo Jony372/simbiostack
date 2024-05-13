@@ -1,9 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { initFlowbite } from 'flowbite';
-import { getUser } from '../../assets/const';
-import { PanelComponent } from './panel/panel.component';
 import { CookieService } from 'ngx-cookie-service';
+import { LoginService } from '../services/login/login.service';
+import { PanelComponent } from './panel/panel.component';
 
 @Component({
   selector: 'app-main',
@@ -14,11 +14,10 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrl: './main.component.css'
 })
 export class MainComponent {
-  cookieService = inject(CookieService);
 
-  constructor(private router: Router){
-    if (!this.cookieService.check('user')) {
-      this.router.navigateByUrl('/login');
+  constructor(private loginServicio: LoginService){
+    if (!this.loginServicio.checkSesion()) {
+      window.location.href = "/login"
     }
   }
   ngOnInit() {

@@ -19,59 +19,82 @@ import { CategoriaComponent } from './main/menu/categoria/categoria.component';
 import { NotaEntregaComponent } from './notas/nota-entrega/nota-entrega.component';
 import { VentasComponent } from './main/menu/ventas/ventas.component';
 import { ComprasComponent } from './main/menu/compras/compras.component';
+import { NotaCompraComponent } from './notas/nota-compra/nota-compra.component';
+import { EntregasComponent } from './main/menu/entregas/entregas.component';
+import { ProveedoresComponent } from './main/menu/proveedores/proveedores.component';
+import { NotasEquiposComponent } from './main/menu/notas-equipos/notas-equipos.component';
 
 export const routes: Routes = [
-  {path:"", redirectTo:"login", pathMatch:"full"},
-  {path:"nota-equipo",
-  component: NotaEquipoComponent},
-  {path: "nota-venta",
-  component: NotaVentaComponent},
-  {path: "nota-entrega",
+  {
+    path:"",
+    redirectTo:"login",
+    pathMatch:"full"},
+  {
+    path:"nota-equipo",
+    component: NotaEquipoComponent},
+  {
+    path: "nota-venta",
+    component: NotaVentaComponent},
+  {
+    path: "nota-entrega",
     component: NotaEntregaComponent
-  },
-  {path: "login",
-  component: LoginComponent},
-  {path: "inicio",
-  component: MainComponent, 
-  children:[{
-    path:'',
-    component: DashboardComponent
   },{
-    path: 'productos',
-    component: ProductosComponent
+    path: 'nota-compra',
+    component: NotaCompraComponent
   },{
-    path: "clientes",
-    component: ClientesComponent
-  },{
-    path: "usuarios",
-    component: UsuariosComponent
-  },{
-    path:"crear-notas",
-    component: CrearNotasComponent
-  },{
-    path: 'p-venta',
-    component: PVentaComponent
-  },{
-    path: 'pendientes',
-    component: PendientesComponent
-  },{
-    path: 'pv-entrega',
-    component: PvEntregaComponent
-  },{
-    path: 'p-compra',
-    component: PCompraComponent
-  },{
-    path: 'servicios',
-    component: ServiciosComponent
-  },{
-    path: 'categorias',
-    component: CategoriaComponent
-  },{
-    path: 'ventas',
-    component: VentasComponent
-  },{
-    path: 'compras',
-    component: ComprasComponent
-  }]
-}
+    path: "login",
+    component: LoginComponent},
+  {
+    path: "inicio",
+    component: MainComponent, 
+    children:[{
+      path:'',
+      component: DashboardComponent
+    },{
+      path: 'productos',
+      component: ProductosComponent
+    },{
+      path: "clientes",
+      component: ClientesComponent
+    },{
+      path: "usuarios",
+      component: UsuariosComponent
+    },{
+      path:"crear-notas",
+      component: CrearNotasComponent
+    },{
+      path: 'p-venta',
+      component: PVentaComponent
+    },{
+      path: 'pendientes',
+      component: PendientesComponent
+    },{
+      path: 'pv-entrega',
+      component: PvEntregaComponent
+    },{
+      path: 'p-compra',
+      component: PCompraComponent
+    },{
+      path: 'servicios',
+      component: ServiciosComponent
+    },{
+      path: 'categorias',
+      component: CategoriaComponent
+    },{
+      path: 'ventas',
+      component: VentasComponent
+    },{
+      path: 'compras',
+      component: ComprasComponent
+    },{
+      path: 'entregas',
+      component: EntregasComponent
+    },{
+      path: 'proveedores',
+      component: ProveedoresComponent
+    },{
+      path: 'notas-equipos',
+      component: NotasEquiposComponent
+    }]
+  }
 ];

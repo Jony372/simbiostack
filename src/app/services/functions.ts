@@ -3,6 +3,7 @@ import { throwError } from "rxjs";
 
 // export class funciones{
   export function handleError(error:HttpErrorResponse){
+    console.log(error)
     if (error.status === 0 ) {
       console.error("Se ha producido un error ", error.error);
     }else{

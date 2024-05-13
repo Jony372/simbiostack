@@ -1,0 +1,139 @@
+<div class="bg-white h-full p-4 w-full text-xs">
+  <div class="border border-cyan-300 flex flex-col p-4 mb-2">
+    <div class="flex flex-row justify-around w-full">
+      <h2 class="text-lg font-medium text-gray-800">Nota de remisión</h2>
+      <img src="../../../assets/images/logo.png" alt="" class="h-10">
+    </div>
+    <div class="grid gap-3 mb-6 grid-cols-9 pt-2">
+      <div>
+        <label class="block mb-2  font-medium text-gray-800">Folio</label>
+        <div class="border border-cyan-300 text-gray-900  rounded-sm block w-full p-1.5 text-center">{{compra.id}}</div>
+      </div>
+      <div class="col-span-2">
+        <label class="block mb-2  font-medium text-gray-800">Nombre</label>
+        <div class="border border-cyan-300 text-gray-900  rounded-sm block w-full p-1.5 text-center">{{compra.proveedor.nombre}}</div>
+      </div>
+      <div class="col-span-2">
+        <label class="block mb-2  font-medium text-gray-800">Pagina</label>
+        <div class="border border-cyan-300 text-gray-900  rounded-sm block w-full p-1.5 text-center">
+          <a href="http://{{compra.proveedor.pagina}}">{{compra.proveedor.pagina}}</a>
+        </div>
+      </div>
+      <div class="col-span-2">
+        <label class="block mb-2  font-medium text-gray-800">Teléfono</label>
+        <div class="border border-cyan-300 text-gray-900  rounded-sm block w-full p-1.5 text-center">{{compra.proveedor.tel}}</div>
+      </div>
+      <div class="col-span-2">
+        <label class="block mb-2  font-medium text-gray-800">Fecha</label>
+        <div class="border border-cyan-300 text-gray-900  rounded-sm block w-full p-1.5 text-center">{{compra.fecha}}</div>
+      </div>
+    </div>
+    
+    <div class="w-full">
+      <table class="  text-left rtl:text-right text-gray-500 table-auto max-w-full w-full">
+        <thead class=" text-gray-600 uppercase text-center bg-gray-50 border border-cyan-300">
+          <tr>
+            <!-- <th scope="col" class="p-2">
+              <small>Código</small>
+            </th> -->
+            <th scope="col" class="p-2">
+              <small>Nombre</small>
+            </th>
+            <th scope="col" class="p-2">
+              <small>Precio</small>
+            </th>
+            <th scope="col" class="p-2">
+              <small>Cantidad</small>
+            </th>
+            <th scope="col" class="p-2">
+              <small>Importe</small>
+            </th>
+          </tr>
+        </thead>
+        <tbody class="border border-cyan-300 ">
+          <!-- <tr class="bg-white border-b border-cyan-300 ">
+            <td class="p-2"  >
+              <small>Apple MacBook Pro 17"</small>
+            </td>
+            <td class="p-2" >
+              Silver
+            </td>
+            <td class="p-2" >
+              Laptop
+            </td>
+            <td class="p-2" >
+              $2999
+            </td>
+          </tr> -->
+          @for (producto of productos; track $index) {
+            <tr class="bg-white border-b border-cyan-300 text-center">
+              <!-- <td class="p-2" >
+                <small>{{producto.producto?.codigobarra}}</small>
+              </td> -->
+              <td class="p-1.5" >
+                <small>{{producto.nombre}}</small>
+              </td>
+              <td class="p-1.5" >
+                <small>${{format(producto.precio)}}</small>
+              </td>
+              <td class="p-1.5" >
+                <small>{{producto.cantidad}}</small>
+              </td>
+              <td class="p-1.5" >
+                <small>${{format(producto.subTotal)}}</small>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <div class="flex gap-4 items-center mt-3 -mb-2 justify-end">
+      <label class="block text-base font-normal text-gray-800">Total</label>
+      <div class="border w-min border-cyan-300 text-gray-900 font-normal rounded-sm block py-1.5 px-2 text-center text-sm">${{format(compra.total)}}</div>
+    </div>
+
+    <!-- <div class="flex justify-between  border border-cyan-300 mt-5 p-2 text-gray-600">
+      <div class="leading-3 w-full">
+        <small><small>
+          <p class="text-center font-bold">ATENCIÓN</p>
+          <p>1.-NO NOS HACEMOS RESPONSABLES SI USTED ELIGIÓ MAL SU PRODUCTO O POR INCOMPATIBILIDAD CON SU EQUIPO. ES RESPONSABILIDAD DEL CLIENTE REVISAR LO QUE SE LE ENTREGA Y RECLAMAR EN SU MOMENTO. NO HAY DEVOLUCIONES NI CAMBIO DE PRODUCTOS. CUALQUIER DEVOLUCIÓN NO JUSTIFICADA GENERA 20% DE COMISIÓN.</p>
+        </small></small>
+      </div>
+    </div>
+    <div class="flex justify-between gap-5 border border-cyan-300 mt-2 p-2 text-gray-600">
+      <div class="flex">
+        <div class="leading-3 w-full">
+          <small><small>
+            <p class="text-center font-bold">PÓLIZA DE GARANTÍA DE PRODUCTOS</p>
+            <p>1.-ES 100% RESPONSABILIDAD DEL CLIENTE LA COMPATIBILIDAD DE LAS PIEZAS ADQUIRIDAS CON NUESTRA EMPRESA. SI EL PRODUCTO QUE COMPRA NO ES COMPATIBLE NO SE HACEN DEVOLUCIONES.</p>
+            <p>2.-EN LA FALLA DE DISCOS DUROS POR CUALQUIER CAUSA QUE PROCEDA LA GARANTÍA, SOLO SE REPONE EL PRODUCTO SIN INCLUIR INSTALACIÓN NI CONFIGURACIÓN DE NINGÚN TIPO..</p>
+            <p>3.-NO PROCEDE NINGUNA GARANTÍA EN LA CUAL EL PRODUCTO PRESENTE CUALQUIER TIPO DE DAÑO FÍSICO POR MÍNIMO QUE SEA (RAYADURAS, QUEBRADAS, PINTADAS, DOBLADOS, QUEMADOS, ETC.).</p>
+            <p>4.-TODO PRODUCTO A GARANTÍA DEBE ENTREGARSE COMPLETO (CABLES, MANUALES, DRIVERS, CD´S, EMPAQUES.ETC.).</p>
+            <p>5.-ES RESPONSABILIDAD DEL CLIENTE REVISAR EL ESTADO DE LOS COMPONENTES QUE ADQUIERE AL MOMENTO DE LA COMPRA, SOLO CUENTA CON 48 HORAS PARA CUALQUIER ACLARACIÓN RESPECTO AL ESTADO DEL PRODUCTO.</p>
+            <br>
+            <p class="text-center font-bold">PÓLIZA DE GARANTÍA EN REPARACIONES</p>
+            <p>1.-LA GARANTÍA DEL SISTEMA OPERATIVO ES VALIDA POR 30 DIAS.</p>
+            <p>2.-LA GARANTÍA SOLO APLICA A PIEZAS REPARADAS, NO NOS HACEMOS RESPONSABLES EN PIEZAS QUE NO SEAN CAMBIADAS O REPARADAS POR NOSOTROS.</p>
+            <p>3.-PARA CUALQUIER REVISIÓN DE EQUIPO SE LLEVA UN APROXIMADO DE 8 A 24 HORAS HÁBILES PARA DAR UN DIAGNOSTICO PRECISO.</p>
+            <p>4.-CUALQUIER TIPO DE REVISION DE EQUIPO TIENE UN COSTO DE $ 50.00 Pesos M.N.</p>
+            <p>5.-EN CASO DE NOTIFICARSE QUE PUEDE PASAR A RECOGER EL EQUIPO, NO NOS HACEMOS RESPONSABLE DEL EQUIPO SI PASA MAS DE 60 DIAS.  </p>
+          </small></small>
+        </div>
+
+        <div class="leading-3 text-center w-min pt-3">
+          <small><small>
+            <p class="text-center">RFC: GOJF881208916</p>
+            <p class="text-center">FRANCISCO I. MADERO. #205</p>
+            <p class="text-center">TEL:348-784-48-21</p>
+            <p class="text-center">WhatsApp TEL:348-148-95-08</p>
+            <p class="text-center">www.somosimbiosis.com</p>
+            <br><br><br><br><br>
+            <hr>
+            <p class=" text-center">GRACIAS POR SU PREFERENCIA</p>
+          </small></small>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>

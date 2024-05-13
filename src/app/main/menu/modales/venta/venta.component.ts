@@ -25,6 +25,7 @@ export class VentaComponent {
   
   ngOnChanges() {
     this.efectivo = this.total;
+    this.actualizarCambio();
   }
 
   format(n: number): string {

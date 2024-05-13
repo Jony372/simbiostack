@@ -14,7 +14,6 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  isLogged = false;
   
   ngOnInit() {
     initFlowbite();

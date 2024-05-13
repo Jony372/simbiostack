@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ChartType, Chart} from 'chart.js/auto';
+import { ProductosService } from '../../../../services/productos/productos.service';
 
 @Component({
   selector: 'app-grafica',
@@ -9,31 +10,71 @@ import { ChartType, Chart} from 'chart.js/auto';
   styleUrl: './grafica.component.css'
 })
 export class GraficaComponent {
-  public chart:any;
+  public chart!:any;
+  public valores!: Array<number>
+  private labels!: Array<string>
+  @Input() opcion: number = 3;
 
+  constructor(private productoServicio: ProductosService){
+
+  }
+  
   ngOnInit(){
-    const data = {
-      labels: [
-        'ENE',
-        'FEB',
-        'MAR'
-      ],
-      datasets: [{
-        label: 'Grafica ejemplo',
-        data:[123,1354,3455],
-        backgroundColor: [
-          'rgb(255,45,135)',
-          'rgb(0,98,76)',
-          'rgb(76,45,145)'
-        ]
-      }]
-    };
+    this.update()
+  }
 
-    // const ctx = this.chartCanvas.nativeElement.getContext('2d');
+  update(){
+    this.valores = []
+    this.labels = []
+    this.chart?this.chart.destroy():undefined;
+    
+    this.productoServicio.masVendidos(this.opcion).subscribe({
+      next: data => data.forEach(element => {
+        this.labels.push(element[0] as string)
+        this.valores.push(element[1] as number)
+      }),
+      error: err => console.error("Error al cargar datos: " + err),
+      complete: () => {
 
-    this.chart = new Chart('chart', {
-      type: "pie" as ChartType,
-      data: data
-    });
+        const data = {
+          labels: this.labels,
+          datasets: [{
+            label: 'Ventas',
+            data:this.valores,
+            backgroundColor: [
+              'rgb(255,45,135)',
+              'rgb(0,98,76)',
+              'rgb(76,45,145)',
+              'rgb(255,45,135)',
+              'rgb(0,98,76)',
+              'rgb(76,45,145)',
+              'rgb(255,45,135)',
+              'rgb(0,98,76)',
+              'rgb(76,45,145)',
+              'rgb(76,45,145)'
+            ]
+          }]
+        };
+        // console.log(data.datasets[0].data);
+
+    
+        // const ctx = this.chartCanvas.nativeElement.getContext('2d');
+    
+        this.chart = new Chart('chart', {
+          type: "pie" as ChartType,
+          data: data
+        });
+        console.log(this.chart.config)
+      }
+    })
+  }
+
+  ngOnChanges(): void {
+    this.update();
+  }
+
+  select(evt: any){
+    this.opcion = evt.target.value;
+    this.update()
   }
 }
