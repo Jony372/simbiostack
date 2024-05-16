@@ -29,10 +29,16 @@ export class GraficaComponent {
     this.chart?this.chart.destroy():undefined;
     
     this.productoServicio.masVendidos(this.opcion).subscribe({
-      next: data => data.forEach(element => {
-        this.labels.push(element[0] as string)
-        this.valores.push(element[1] as number)
-      }),
+      next: data => {
+        let val: Array<number> = []
+        let lab: Array<string> = []
+        data.forEach(element => {
+          lab.push(element[0] as string)
+          val.push(element[1] as number)
+        })
+        this.valores = val;
+        this.labels = lab;
+      },
       error: err => console.error("Error al cargar datos: " + err),
       complete: () => {
 

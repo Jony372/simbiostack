@@ -122,7 +122,7 @@ export class PCompraComponent {
   pago(evt: number[]){
     const estado = evt;
     console.log(estado)
-    this.compraServicio.addCompra(4, this.total, this.proveedor.id, evt[1]).subscribe({
+    this.compraServicio.addCompra(this.total, this.proveedor.id, evt[1]).subscribe({
       next: data => {
         console.log(data)
         this.prodCompra.forEach((prod, i) => {

@@ -51,4 +51,8 @@ export class LoginService {
   getUsuario():userInt{
     return JSON.parse(this.cookieService.get('user'))
   }
+
+  isAdmin():boolean{
+    return this.getUsuario().isAdmin === 1;
+  }
 }

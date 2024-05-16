@@ -5,6 +5,7 @@ import { AddUsuarioComponent } from '../modales/add-usuario/add-usuario.componen
 import { Modal, ModalInterface } from 'flowbite';
 import { ConfirmarComponent } from '../modales/confirmar/confirmar.component';
 import { Toast } from '../../../../assets/const';
+import { LoginService } from '../../../services/login/login.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -21,7 +22,11 @@ export class UsuariosComponent {
   modalConfirmar!: ModalInterface;
   eUsuario!: intUsuario;
 
-  constructor(private usuarioServicio: UsuariosService){}
+  constructor(private usuarioServicio: UsuariosService, private loginService: LoginService){
+    if (!this.loginService.isAdmin()) {
+      window.location.href = "/login"
+    }
+  }
 
   ngOnInit(){
     this.actualizar();

@@ -23,6 +23,7 @@ import { NotaCompraComponent } from './notas/nota-compra/nota-compra.component';
 import { EntregasComponent } from './main/menu/entregas/entregas.component';
 import { ProveedoresComponent } from './main/menu/proveedores/proveedores.component';
 import { NotasEquiposComponent } from './main/menu/notas-equipos/notas-equipos.component';
+import { CajaComponent } from './main/menu/caja/caja.component';
 
 export const routes: Routes = [
   {
@@ -95,6 +96,9 @@ export const routes: Routes = [
     },{
       path: 'notas-equipos',
       component: NotasEquiposComponent
+    },{
+      path: 'caja',
+      component: CajaComponent
     }]
   }
 ];
