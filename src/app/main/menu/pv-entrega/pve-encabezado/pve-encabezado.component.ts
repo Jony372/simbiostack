@@ -107,7 +107,10 @@ export class PveEncabezadoComponent {
         cantidad: 1
       })
     }else{
-      alert("Faltan datos por llenar")
+      Toast.fire({
+        icon: "warning",
+        title: "Complete los campos del producto"
+      });
       this.addProducto.markAllAsTouched();
     }
   }

@@ -6,6 +6,7 @@ import { intDiagnostico } from '../../../../services/diagnostico/diagnosticoInte
 import { Toast } from '../../../../../assets/const';
 import Swal from 'sweetalert2';
 import { animate } from '@angular/animations';
+import { ModalInterface } from 'flowbite';
 
 @Component({
   selector: 'app-diagnosticos',
@@ -16,6 +17,7 @@ import { animate } from '@angular/animations';
 })
 export class DiagnosticosComponent {
   @Input() equipos!: Array<intEquipo> | undefined;
+  @Input() modal!: ModalInterface;
   forms!: Array<FormGroup>
 
   constructor(private formBuilder: FormBuilder, private diagnosticoServicio: DiagnosticoService){}

@@ -114,7 +114,7 @@ export class PCompraComponent {
     }else{
       Toast.fire({
         icon: 'error',
-        title: 'Faltan datos por llenar'
+        title: this.proveedor?'Agregue algún producto a la compra':'Seleccione un proveedor'
       })
     }
   }
@@ -130,9 +130,8 @@ export class PCompraComponent {
             error: err => console.error("Error al agregar el producto: "+err),
             complete: () => {
               if (i == this.prodCompra.length - 1){
-                // window.open(`http://localhost:4200/inicio`)
-                // window.location.reload();
-                this.router.navigate(['/inicio'])
+                window.open(`http://localhost:4200/nota-compra?folio=${data.id}`)
+                window.location.reload();
               }
               console.log("Compra realizada")
             }
