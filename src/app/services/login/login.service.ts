@@ -5,7 +5,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { userInt } from './userInterface';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
-import { Toast } from '../../../assets/const';
+import { Toast, URL } from '../../../assets/const';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class LoginService {
   constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) { }
 
   login(info:loginInt):Observable<userInt>{
-    return this.http.get<userInt>("http://localhost:8080/api/usuarios/login", {params:{
+    return this.http.get<userInt>(`${URL}/api/usuarios/login`, {params:{
       user: info.user,
       pass: info.pass
     }}).pipe(catchError(this.handleError));

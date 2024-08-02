@@ -28,3 +28,5 @@ export function setUser(user: userInt){
 export function getUser(): userInt{
   return usuario;
 }
+
+export const URL = "http://3.141.47.34";

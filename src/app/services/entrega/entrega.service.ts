@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError } from 'rxjs';
 import { intEntregaServicio, intNotaEntrega } from './notaEntregaInterface';
 import { handleError } from '../functions';
+import { URL } from '../../../assets/const';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class EntregaService {
   constructor(private http: HttpClient) { }
 
   crearNotaEntrega(usuario: number, cliente: number, total: number, estado: number, isEfectivo: boolean, nota: number):Observable<intNotaEntrega>{
-    return this.http.post<intNotaEntrega>("http://localhost:8080/api/nota-entrega/agregar", null, {params:{
+    return this.http.post<intNotaEntrega>(`${URL}/api/nota-entrega/agregar`, null, {params:{
       usuario: usuario,
       cliente: cliente,
       total: total,
@@ -24,7 +25,7 @@ export class EntregaService {
 
   agregarEntregaServicio(tipo: number, notaEntrega: number, servicio: number | undefined, cantidad: number, producto: number | undefined, nombre: string, subTotal: number, precio: number):Observable<intEntregaServicio>{
     if (tipo === 1 && producto) {
-      return this.http.post<intEntregaServicio>("http://localhost:8080/api/entregaservicio/agregar-producto", null, {params: {
+      return this.http.post<intEntregaServicio>(`${URL}/api/entregaservicio/agregar-producto`, null, {params: {
         notaEntrega: notaEntrega,
         cantidad: cantidad,
         producto: producto,
@@ -33,7 +34,7 @@ export class EntregaService {
         precio: precio
       }}).pipe(catchError(handleError));
     }else{
-      return this.http.post<intEntregaServicio>("http://localhost:8080/api/entregaservicio/agregar-servicio", null, {params: {
+      return this.http.post<intEntregaServicio>(`${URL}/api/entregaservicio/agregar-servicio`, null, {params: {
         notaEntrega: notaEntrega,
         servicio: servicio as number,
         cantidad: cantidad,
@@ -44,23 +45,23 @@ export class EntregaService {
     }
   }
   obtenerNota(id: number):Observable<intNotaEntrega>{
-    return this.http.get<intNotaEntrega>(`http://localhost:8080/api/nota-entrega/get/${id}`).pipe(catchError(handleError))
+    return this.http.get<intNotaEntrega>(`${URL}/api/nota-entrega/get/${id}`).pipe(catchError(handleError))
   }
 
   getEntregaServicio(id: number):Observable<Array<intEntregaServicio>>{
-    return this.http.get<Array<intEntregaServicio>>(`http://localhost:8080/api/entregaservicio/mostrar-es/${id}`).pipe(catchError(handleError));
+    return this.http.get<Array<intEntregaServicio>>(`${URL}/api/entregaservicio/mostrar-es/${id}`).pipe(catchError(handleError));
   }
 
   getNotasEntrega():Observable<Array<intNotaEntrega>>{
-    return this.http.get<Array<intNotaEntrega>>("http://localhost:8080/api/nota-entrega/notas").pipe(catchError(handleError));
+    return this.http.get<Array<intNotaEntrega>>(`${URL}/api/nota-entrega/notas`).pipe(catchError(handleError));
   }
 
   cancelarNota(id:number):Observable<any>{
-    return this.http.post<any>(`http://localhost:8080/api/nota-entrega/cancelar/${id}`, null).pipe(catchError(handleError));
+    return this.http.post<any>(`${URL}/api/nota-entrega/cancelar/${id}`, null).pipe(catchError(handleError));
   }
 
   filtrar(search:string):Observable<Array<intNotaEntrega>>{
-    return this.http.post<Array<intNotaEntrega>>(`http://localhost:8080/api/nota-entrega/filtrar`, null, {params:{
+    return this.http.post<Array<intNotaEntrega>>(`${URL}/api/nota-entrega/filtrar`, null, {params:{
       search: search
     }}).pipe(catchError(handleError));
   }
