@@ -24,11 +24,6 @@ export class AddCategoriaComponent {
   categorias: Array<intCategoria> = [];
 
   constructor(private categoriaServicio:mostrarCategoria ,private formbuilder: FormBuilder){
-    // this.producto = new Object as intProducto
-    // this.getProd.obtenerProducto(this.id).subscribe({
-    //   next: prod => this.producto = prod,
-    //   error: err=> console.error("Error al obtener los datos: "+err)
-    // })
   }
 
   

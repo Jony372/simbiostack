@@ -53,8 +53,6 @@ export class CrearNotasComponent {
   constructor(private notaServicio: NotasService, private clienteServicio:ClienteService, private usuarioServicio: UsuariosService, private formBuilder: FormBuilder, private equipoServicio: EquiposService){}
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
     this.cliUser.reset({
       prioridad: 2,
       usuario: ""
@@ -66,13 +64,6 @@ export class CrearNotasComponent {
       usb: false,
       cables: false
     })
-    // this.clienteServicio.nextId().subscribe({
-    //   next: data => {
-    //     this.next = data
-    //     // this.addEquipo.patchValue({cliente: data})
-    //   },
-    //   error: err => console.error("Error al obtener el siguiente cliente: "+err) 
-    // });
   }
 
   elegirCliente(cliente: intCliente){

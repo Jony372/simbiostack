@@ -39,17 +39,6 @@ export class NotasEquiposComponent {
     })
   }
 
-  // eliminar(id:number){
-  //   this.pendienteServicio.(id).subscribe({
-  //     next:data=>console.log(data),
-  //     error: err=>console.error("No se elimino: "+err),
-  //     complete: ()=>{
-  //       alert("Se elimino el cliente")
-  //       this.clientes = this.clientes.filter(cli => cli.id != id);
-  //     }
-  //   })
-  // }
-
 
   accion(id: number, op: number){
     this.notaService.cambiarEstado(id, op).subscribe({

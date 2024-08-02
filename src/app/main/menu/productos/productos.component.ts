@@ -55,13 +55,6 @@ export class ProductosComponent {
     
   }
 
-  buscar(){
-    // let form = this.search
-    // let palabra:string = form.value.palabras || "";
-    // this.productos = this.productos.filter(prod => prod.codigobarra.includes(palabra) || prod.nombre.includes(palabra) || prod.categoria.nombre.includes(palabra))
-    
-  }
-
   eliminar(){
     this.productoServicio.eliminarProducto(this.eliminarProducto.id).subscribe({
       next:(data)=>{

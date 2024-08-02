@@ -22,13 +22,6 @@ export class DiagnosticosComponent {
 
   constructor(private formBuilder: FormBuilder, private diagnosticoServicio: DiagnosticoService){}
 
-  // guardar(i: number){
-  //   const form = this.forms[i];
-  //   alert(form.valid?"Valido":"Invalido")
-  //   console.log(this.forms[i].value)
-  //   // this.forms.forEach((form) => console.log(form.value))
-  // }
-
   ngOnChanges(): void {
     //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     //Add '${implements OnChanges}' to the class.

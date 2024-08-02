@@ -24,11 +24,6 @@ export class AddProductoComponent {
   categorias: Array<intCategoria> = [];
 
   constructor(private productoServicio:ProductosService ,private formbuilder: FormBuilder, private showCat:mostrarCategoria){
-    // this.producto = new Object as intProducto
-    // this.getProd.obtenerProducto(this.id).subscribe({
-    //   next: prod => this.producto = prod,
-    //   error: err=> console.error("Error al obtener los datos: "+err)
-    // })
   }
 
   
@@ -52,10 +47,7 @@ export class AddProductoComponent {
       })
     }else{
       this.addProducto.reset();
-    }
-    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
-    //Add '${implements OnChanges}' to the class.
-    
+    }    
   }
   
   addProducto = this.formbuilder.group({

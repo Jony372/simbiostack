@@ -6,9 +6,6 @@ import { intCliente } from '../../../../services/clientes/clienteInterfaz';
 import { entregaServicio, intEntregaServicio } from '../../../../services/entrega/notaEntregaInterface';
 import { intGetNotaEquipos } from '../../../../services/notas/interfazNota';
 import { NotasService } from '../../../../services/notas/notas.service';
-import { intProducto } from '../../../../services/productos/productoInterface';
-import { intServicios } from '../../../../services/servicios/interfazServicios';
-import { ProductoVenta, intProductoVenta } from '../../../../services/venta/ventaInterface';
 
 @Component({
   selector: 'app-pve-encabezado',

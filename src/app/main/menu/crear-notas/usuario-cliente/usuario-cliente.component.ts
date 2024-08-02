@@ -26,12 +26,6 @@ export class UsuarioClienteComponent {
 
   constructor(private prioridadServicio: PrioridadService, private clienteServicio: ClienteService, private usuarioServicio: UsuariosService){}
 
-  // cliUser = this.formBuilder.group({
-  //   cliente:["", [Validators.required]],
-  //   tel:['', [Validators.required]],
-  //   usuario: [0, [Validators.required]]
-  // })
-
   ngOnInit(){
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
