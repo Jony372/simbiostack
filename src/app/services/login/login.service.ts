@@ -12,7 +12,7 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   login(info:loginInt):Observable<userInt>{
-    return this.http.get<userInt>("http://3.141.47.34/api/usuarios/login", {params:{
+    return this.http.get<userInt>("https://3.141.47.34/api/usuarios/login", {params:{
       user: info.user,
       pass: info.pass
     }}).pipe(catchError(this.handleError));
